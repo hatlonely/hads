@@ -32,18 +32,18 @@
       </v-flex>
       <v-flex mb-5 xs12 md6>
         <h-card
-          title="Privacy & personalization"
-          description="See the data in your Google Account and choose what activity is saved to personalize your Google experience"
-          image="data_personalization.png"
-          linktext="Manage your data & personalization"
+          title="Account storage"
+          description="Your account storage is shared across Google services, like Gmail and Photos"
+          image="storage.png"
+          linktext="Manage storage"
         />
       </v-flex>
       <v-flex mb-5 xs12 md6>
         <h-card
-          title="Security issues found"
-          description="Protect your account now by resolving these issues"
-          image="security.png"
-          linktext="Secure account"
+          title="Take the Privacy Checkup"
+          description="This step-by-step guide helps you choose the privacy settings that are right for you"
+          image="privacy.png"
+          linktext="Get started"
         />
       </v-flex>
     </v-layout>

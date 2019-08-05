@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" width="400" flat outlined rounded="10">
+  <v-card class="mx-auto" width="95%" flat outlined rounded="10">
     <v-card height="150" flat>
       <v-flex xs12 row>
         <v-flex xs8 text-left ml-4>

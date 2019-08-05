@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer floating permanent color="rgb(0, 0, 0, 0)" app cliped>
+  <v-navigation-drawer floating color="rgb(0, 0, 0, 0)" app cliped>
     <v-flex xs12>
       <v-card height="100" color="rgb(0, 0, 0, 0)" flat></v-card>
     </v-flex>
