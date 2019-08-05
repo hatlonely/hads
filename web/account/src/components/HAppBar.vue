@@ -7,11 +7,12 @@
     <v-spacer></v-spacer>
     <v-text-field
       v-model="search"
-      prepend-inner-icon="mdi-magnify"
+      prepend-inner-icon="search"
       label="Search"
       single-line
       rounded
       clearable
+      clear-icon="clear"
       class="mt-9"
       filled
       full-width
