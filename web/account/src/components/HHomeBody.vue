@@ -8,10 +8,12 @@
       </v-flex>
 
       <v-flex mb-5 xs12 lg12>
-        <h1 class="display-1">Welcome, hatlonely hatlonely</h1>
+        <div class="display-1">Welcome, hatlonely hatlonely</div>
       </v-flex>
       <v-flex mb-5 xs12 lg12>
-        <p>Manage your info, privacy, and security to make Google work better for you</p>
+        <div
+          class="body-1"
+        >Manage your info, privacy, and security to make Google work better for you</div>
       </v-flex>
 
       <v-flex mb-5 xs12 md6>
@@ -45,6 +47,20 @@
           image="privacy.png"
           linktext="Get started"
         />
+      </v-flex>
+
+      <v-flex mb-5 xs12 lg12>
+        <div class="body-2">
+          Only you can see your settings. Google is committed to protecting
+          your privacy and security.
+          <a
+            href="#"
+          >Learn more</a>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <v-avatar size="40">
+            <img :src="require('../assets/policy.png')" alt="avatar" />
+          </v-avatar>
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
