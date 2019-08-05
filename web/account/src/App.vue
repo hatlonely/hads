@@ -7,7 +7,7 @@
           <h-sider />
         </v-flex>
         <v-flex xs8 px-12>
-          <h-body />
+          <h-home-body />
         </v-flex>
       </v-layout>
     </v-content>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import HBody from "./components/HBody";
+import HHomeBody from "./components/HHomeBody";
 import HAppBar from "./components/HAppBar";
 import HSider from "./components/HSider";
 
@@ -23,7 +23,7 @@ export default {
   name: "App",
   components: {
     HAppBar,
-    HBody,
+    HHomeBody,
     HSider
   }
 };

@@ -22,7 +22,22 @@
           linktext="Manage your data & personalization"
         />
       </v-flex>
-
+      <v-flex mb-5 xs12 md6>
+        <h-card
+          title="Security issues found"
+          description="Protect your account now by resolving these issues"
+          image="security.png"
+          linktext="Secure account"
+        />
+      </v-flex>
+      <v-flex mb-5 xs12 md6>
+        <h-card
+          title="Privacy & personalization"
+          description="See the data in your Google Account and choose what activity is saved to personalize your Google experience"
+          image="data_personalization.png"
+          linktext="Manage your data & personalization"
+        />
+      </v-flex>
       <v-flex mb-5 xs12 md6>
         <h-card
           title="Security issues found"
