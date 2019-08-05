@@ -9,7 +9,7 @@
                 <v-divider :key="item.title"></v-divider>
               </template>
               <template v-else>
-                <v-list-item link :key="i" focous>
+                <v-list-item href="#" :key="i">
                   <v-list-item-icon>
                     <v-icon filled>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
