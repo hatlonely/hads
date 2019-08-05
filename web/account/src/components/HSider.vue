@@ -1,5 +1,8 @@
 <template>
-  <v-navigation-drawer floating permanent color="rgb(0, 0, 0, 0)">
+  <v-navigation-drawer floating permanent color="rgb(0, 0, 0, 0)" app cliped>
+    <v-flex xs12>
+      <v-card height="100" color="rgb(0, 0, 0, 0)" flat></v-card>
+    </v-flex>
     <v-list dense rounded>
       <v-list-item-group v-model="idx" color="primary">
         <template v-for="(item, i) in items">

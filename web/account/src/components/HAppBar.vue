@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app flat>
+  <v-app-bar app clipped-left elevate-on-scroll class="pb-3">
     <v-toolbar-title class="headline">
       <span>HADS</span>&nbsp;
       <span class="font-weight">Account</span>

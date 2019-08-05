@@ -1,12 +1,11 @@
 <template>
   <v-app>
     <h-app-bar />
+    <h-sider />
+
     <v-content>
       <v-layout row>
-        <v-flex xs2>
-          <h-sider />
-        </v-flex>
-        <v-flex xs8 px-12>
+        <v-flex xs10 px-12>
           <h-home-body />
         </v-flex>
       </v-layout>
