@@ -32,7 +32,7 @@ export default {
       idx: 1,
       items: [
         { title: "Home", icon: "account_circle" },
-        { title: "Personal info", icon: "fa-id-card" },
+        { title: "Personal info", icon: "assignment_ind" },
         { title: "Data & personalization", icon: "toggle_on" },
         { title: "Security", icon: "lock" },
         { title: "People & sharing", icon: "people" },

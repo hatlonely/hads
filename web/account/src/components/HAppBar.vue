@@ -8,7 +8,7 @@
     <v-text-field
       v-model="search"
       prepend-inner-icon="search"
-      label="Search"
+      label="Search hads account"
       single-line
       rounded
       clearable
