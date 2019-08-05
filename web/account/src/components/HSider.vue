@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-12" flat color="rgb(0, 0, 0, 0)">
+  <v-card class="pt-12" flat color="rgb(0, 0, 0, 0)">
     <v-card flat color="rgb(0, 0, 0, 0)">
       <v-navigation-drawer floating permanent color="rgb(0, 0, 0, 0)">
         <v-list dense rounded>

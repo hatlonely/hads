@@ -8,7 +8,9 @@
       </v-flex>
 
       <v-flex mb-5 xs12 lg12>
-        <h1>Welcome, hatlonely hatlonely</h1>
+        <h1 class="display-1">Welcome, hatlonely hatlonely</h1>
+      </v-flex>
+      <v-flex mb-5 xs12 lg12>
         <p>Manage your info, privacy, and security to make Google work better for you</p>
       </v-flex>
 

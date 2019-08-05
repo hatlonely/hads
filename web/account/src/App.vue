@@ -3,7 +3,7 @@
     <h-app-bar />
     <v-content>
       <v-layout row>
-        <v-flex xs3>
+        <v-flex xs2>
           <h-sider />
         </v-flex>
         <v-flex xs8 px-12>

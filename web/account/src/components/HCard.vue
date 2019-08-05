@@ -1,17 +1,15 @@
 <template>
   <v-card class="mx-auto" width="400" flat outlined rounded="10">
-    <v-card height="230" flat>
+    <v-card height="150" flat>
       <v-flex xs12 row>
-        <v-flex xs8 text-left>
-          <v-card-text>
-            <v-card-title>
-              <div class="title black--text">{{title}}</div>
-            </v-card-title>
-            <v-card-text>{{description}}</v-card-text>
-          </v-card-text>
+        <v-flex xs8 text-left ml-4>
+          <v-card-title>
+            <div class="title">{{title}}</div>
+          </v-card-title>
+          <v-card-text>{{description}}</v-card-text>
         </v-flex>
-        <v-flex xs4>
-          <v-img class="mt-12 ml-4" :src="require('../assets/'+ image)" width="96"></v-img>
+        <v-flex xs3>
+          <v-img class="mt-6 ml-4" :src="require('../assets/'+ image)" width="96"></v-img>
         </v-flex>
       </v-flex>
     </v-card>
