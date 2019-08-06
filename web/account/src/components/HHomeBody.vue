@@ -7,7 +7,7 @@
     </v-flex>
 
     <v-flex mb-5 xs12 lg12>
-      <div class="display-1">Welcome, hatlonely hatlonely</div>
+      <div class="headline">Welcome, hatlonely hatlonely</div>
     </v-flex>
     <v-flex mb-5 xs12 lg12>
       <div class="body-1">Manage your info, privacy, and security to make Google work better for you</div>
