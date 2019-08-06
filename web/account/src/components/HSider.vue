@@ -10,7 +10,7 @@
             <v-divider :key="item.title"></v-divider>
           </template>
           <template v-else>
-            <v-list-item href="#" :key="i">
+            <v-list-item :href="item.href" :key="i">
               <v-list-item-icon>
                 <v-icon filled>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -31,15 +31,19 @@ export default {
     return {
       idx: 1,
       items: [
-        { title: "Home", icon: "account_circle" },
-        { title: "Personal info", icon: "assignment_ind" },
-        { title: "Data & personalization", icon: "toggle_on" },
-        { title: "Security", icon: "lock" },
-        { title: "People & sharing", icon: "people" },
-        { title: "Payments & subscriptions", icon: "payment" },
+        { title: "Home", icon: "account_circle", href: "/home" },
+        {
+          title: "Personal info",
+          icon: "assignment_ind",
+          href: "/person-info"
+        },
+        { title: "Data & personalization", icon: "toggle_on", href: "/" },
+        { title: "Security", icon: "lock", href: "/" },
+        { title: "People & sharing", icon: "people", href: "/" },
+        { title: "Payments & subscriptions", icon: "payment", href: "/" },
         { divider: true },
-        { title: "Help", icon: "help_outline" },
-        { title: "Send feedback", icon: "feedback" }
+        { title: "Help", icon: "help_outline", href: "/" },
+        { title: "Send feedback", icon: "feedback", href: "/" }
       ]
     };
   }
