@@ -9,6 +9,7 @@
 
     <v-flex xs0 lg1></v-flex>
     <v-flex mb-5 xs12 lg10>
+      <!-- profile -->
       <v-card flat outlined>
         <v-layout>
           <v-flex xs9>
@@ -61,6 +62,31 @@
                 <div class="overline">Password</div>
               </v-flex>
               <v-list-item-title>********</v-list-item-title>
+              <v-icon small>arrow_forward_ios</v-icon>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-card>
+
+      <!-- contact info -->
+      <v-card flat outlined class="mt-6">
+        <v-card-title>Contact Info</v-card-title>
+
+        <v-list class="text-lg-left">
+          <v-list-item-group>
+            <v-list-item>
+              <v-flex xs3>
+                <div class="overline">Email</div>
+              </v-flex>
+              <v-list-item-title>hatlonely@foxmail.com</v-list-item-title>
+              <v-icon small>arrow_forward_ios</v-icon>
+            </v-list-item>
+            <v-divider class="ml-4"></v-divider>
+            <v-list-item>
+              <v-flex xs3>
+                <div class="overline">Phone</div>
+              </v-flex>
+              <v-list-item-title>13812345678</v-list-item-title>
               <v-icon small>arrow_forward_ios</v-icon>
             </v-list-item>
           </v-list-item-group>
