@@ -2,7 +2,7 @@
   <v-app>
     <v-content>
       <v-layout align-center justify-center row fill-height text-center>
-        <v-flex xs12 md4>
+        <v-flex xs10 sm8 md4>
           <v-card class="mx-auto" flat outlined rounded="10">
             <v-flex mt-12 mb-5 xs12 lg12>
               <v-layout align-center justify-center>
@@ -18,14 +18,14 @@
             </v-flex>
             <v-flex my-12 mx-12>
               <v-text-field label="电子邮件或者电话号码" placeholder="account@gmail.com" outlined filled></v-text-field>
-              <div class="body-2 text-lg-left">
+              <div class="body-2 text-left">
                 <a>
                   <strong>忘记了电子邮件地址？</strong>
                 </a>
               </div>
             </v-flex>
             <v-flex my-12 mx-12>
-              <div class="body-2 text-lg-left">
+              <div class="body-2 text-left">
                 <p>不是您自己的计算机？请使用访客模式无痕登录。</p>
                 <p>
                   <a>
@@ -47,7 +47,7 @@
               </v-layout>
             </v-flex>
           </v-card>
-          <div class="caption text-lg-right login-footer mt-12">
+          <div class="caption text-right login-footer mt-12">
             <a href="#">帮助</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="#">隐私</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="#">条款</a>
