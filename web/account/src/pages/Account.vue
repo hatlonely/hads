@@ -15,12 +15,6 @@
   </v-app>
 </template>
 
-<style>
-a {
-  text-decoration: none;
-}
-</style>
-
 <script>
 import HAppBar from "../components/HAppBar";
 import HSider from "../components/HSider";

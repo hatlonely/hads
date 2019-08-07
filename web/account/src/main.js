@@ -1,12 +1,17 @@
 import Vue from 'vue';
-import Account from './pages/Account';
-import vuetify from './plugins/vuetify';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
-import 'font-awesome/css/font-awesome.min.css';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
+
+import vuetify from './plugins/vuetify';
+
+import App from './App'
+import Account from './pages/Account';
+import Login from './pages/Login';
 import HHomeBody from "./components/HHomeBody";
 import HPersonInfoBody from "./components/HPersonInfoBody";
+
+import 'material-design-icons-iconfont/dist/material-design-icons.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -16,14 +21,20 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', component: HHomeBody },
-    { path: '/home', component: HHomeBody },
-    { path: '/person-info', component: HPersonInfoBody }
+    {
+      path: '/', component: Account,
+      children: [
+        { path: '', component: HHomeBody },
+        { path: 'home', component: HHomeBody },
+        { path: 'person-info', component: HPersonInfoBody }
+      ]
+    },
+    { path: '/login', component: Login },
   ]
 });
 
 new Vue({
   vuetify,
   router,
-  render: h => h(Account)
+  render: h => h(App)
 }).$mount('#app')
