@@ -6,7 +6,10 @@ import vuetify from './plugins/vuetify';
 
 import App from './App'
 import Account from './pages/Account';
-import Login from './pages/Login';
+import SignIn from './pages/SignIn';
+import Username from './components/signin/Username';
+import Password from './components/signin/Password';
+import Sorry from './components/signin/Sorry';
 import HHomeBody from "./components/HHomeBody";
 import HPersonInfoBody from "./components/HPersonInfoBody";
 import HIntroduction from "./components/HIntroduction";
@@ -31,7 +34,13 @@ const router = new VueRouter({
         { path: 'person-info', component: HPersonInfoBody }
       ]
     },
-    { path: '/login', component: Login },
+    {
+      path: '/signin', component: SignIn, children: [
+        { path: '', component: Username },
+        { path: 'password', component: Password },
+        { path: 'sorry', component: Sorry },
+      ]
+    },
   ]
 });
 

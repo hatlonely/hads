@@ -1,0 +1,71 @@
+<template>
+  <v-card width="450" height="500" flat outlined>
+    <v-flex mt-8 mb-5 xs12 lg12>
+      <v-layout align-center justify-center>
+        <v-img :src="require('../../assets/logo.png')" max-width="70" inline></v-img>
+      </v-layout>
+    </v-flex>
+    <v-flex my-4 xs12 lg12>
+      <div class="headline">hatlonely hatlonely</div>
+    </v-flex>
+    <v-flex my-4 xs12 lg12>
+      <v-layout align-center justify-center>
+        <v-card class="h-round-card px-2 py-1" outlined flat>
+          <v-avatar size="20" class="mr-2" tile>
+            <img :src="require('../../assets/hatlonely.png')" alt="avatar" />
+          </v-avatar>
+          <span class="body-1">hatlonely@gmail.com</span>
+        </v-card>
+      </v-layout>
+    </v-flex>
+    <v-flex my-10 mx-12>
+      <v-text-field
+        label="输入您的密码"
+        :append-icon="show ? 'visibility' : 'visibility_off'"
+        :type="show ? 'text' : 'password'"
+        @click:append="show = !show"
+        :rules="[rules.required, rules.min]"
+        outlined
+        filled
+      ></v-text-field>
+    </v-flex>
+
+    <v-flex my-12 mx-12>
+      <v-layout align-left justify-center row fill-height text-left>
+        <v-flex xs3>
+          <v-btn text color="primary" pl-0>
+            <strong>忘记密码？</strong>
+          </v-btn>
+        </v-flex>
+        <v-flex xs6></v-flex>
+        <v-flex xs3>
+          <v-btn color="primary" depressed>下一步</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-flex>
+  </v-card>
+</template>
+
+<style>
+.h-round-card.v-card {
+  border-radius: 9999px;
+}
+.h-round-card.v-card img {
+  border-radius: 50%;
+}
+</style>
+
+
+<script>
+export default {
+  data() {
+    return {
+      show: false,
+      rules: {
+        required: value => !!value || "Required.",
+        min: v => v.length >= 8 || "至少8个字符"
+      }
+    };
+  }
+};
+</script>
