@@ -17,7 +17,7 @@
               <div class="body-1">使用您的 hads 账号</div>
             </v-flex>
             <v-flex my-12 mx-12>
-              <v-text-field label="电子邮件或者电话号码" placeholder="account@gmail.com" outlined filled></v-text-field>
+              <v-text-field label="电子邮件或者电话号码" outlined filled></v-text-field>
               <div class="body-2 text-left">
                 <a>
                   <strong>忘记了电子邮件地址？</strong>
@@ -42,7 +42,7 @@
                 </v-flex>
                 <v-flex xs6></v-flex>
                 <v-flex xs3>
-                  <v-btn color="primary" dark>下一步</v-btn>
+                  <v-btn color="primary" depressed>下一步</v-btn>
                 </v-flex>
               </v-layout>
             </v-flex>
@@ -67,4 +67,3 @@
 <script>
 export default {};
 </script>
-
