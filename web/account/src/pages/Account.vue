@@ -19,10 +19,6 @@
 a {
   text-decoration: none;
 }
-
-.v-input__control {
-  min-height: 30px !important;
-}
 </style>
 
 <script>
