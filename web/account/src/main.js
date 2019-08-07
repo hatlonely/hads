@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from './App';
+import Account from './pages/Account';
 import vuetify from './plugins/vuetify';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -7,7 +7,6 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import HHomeBody from "./components/HHomeBody";
 import HPersonInfoBody from "./components/HPersonInfoBody";
-
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -26,5 +25,5 @@ const router = new VueRouter({
 new Vue({
   vuetify,
   router,
-  render: h => h(App)
+  render: h => h(Account)
 }).$mount('#app')

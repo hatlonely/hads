@@ -26,12 +26,12 @@ a {
 </style>
 
 <script>
-import HAppBar from "./components/HAppBar";
-import HSider from "./components/HSider";
-import HFooter from "./components/HFooter";
+import HAppBar from "../components/HAppBar";
+import HSider from "../components/HSider";
+import HFooter from "../components/HFooter";
 
 export default {
-  name: "App",
+  name: "Account",
   components: {
     HAppBar,
     HSider,
