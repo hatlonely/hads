@@ -16,7 +16,7 @@
       <v-layout align-left justify-center row fill-height text-left>
         <v-flex xs9></v-flex>
         <v-flex xs3>
-          <v-btn color="primary" depressed href="/signin/password">下一步</v-btn>
+          <v-btn color="primary" depressed to="/signin/password">下一步</v-btn>
         </v-flex>
       </v-layout>
     </v-flex>

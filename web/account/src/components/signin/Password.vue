@@ -39,7 +39,7 @@
         </v-flex>
         <v-flex xs6></v-flex>
         <v-flex xs3>
-          <v-btn color="primary" depressed>下一步</v-btn>
+          <v-btn color="primary" depressed to="/signin">下一步</v-btn>
         </v-flex>
       </v-layout>
     </v-flex>
