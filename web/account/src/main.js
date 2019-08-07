@@ -9,6 +9,7 @@ import Account from './pages/Account';
 import Login from './pages/Login';
 import HHomeBody from "./components/HHomeBody";
 import HPersonInfoBody from "./components/HPersonInfoBody";
+import HIntroduction from "./components/HIntroduction";
 
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -25,6 +26,7 @@ const router = new VueRouter({
       path: '/', component: Account,
       children: [
         { path: '', component: HHomeBody },
+        { path: 'introduction', component: HIntroduction },
         { path: 'home', component: HHomeBody },
         { path: 'person-info', component: HPersonInfoBody }
       ]

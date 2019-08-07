@@ -7,7 +7,7 @@
       <v-list-item-group v-model="idx" color="primary">
         <template v-for="(item, i) in items">
           <template v-if="item.divider">
-            <v-divider :key="item.title"></v-divider>
+            <v-divider :key="i"></v-divider>
           </template>
           <template v-else>
             <v-list-item :href="item.href" :key="i">
@@ -15,13 +15,25 @@
                 <v-icon filled>{{ item.icon }}</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title>
+                  <h3 class="body-1">{{ item.title }}</h3>
+                </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </template>
         </template>
       </v-list-item-group>
     </v-list>
+
+    <v-footer absolute color="rgba(0, 0, 0, 0)">
+      <v-flex text-center xs12>
+        <div class="caption">
+          <a href="#">隐私</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="#">条款</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="#">帮助</a>
+        </div>
+      </v-flex>
+    </v-footer>
   </v-navigation-drawer>
 </template>
 
@@ -31,19 +43,19 @@ export default {
     return {
       idx: 1,
       items: [
-        { title: "Home", icon: "account_circle", href: "/home" },
+        { title: "首页", icon: "account_circle", href: "/home" },
         {
-          title: "Personal info",
+          title: "个人信息",
           icon: "assignment_ind",
           href: "/person-info"
         },
-        { title: "Data & personalization", icon: "toggle_on", href: "/" },
-        { title: "Security", icon: "lock", href: "/" },
-        { title: "People & sharing", icon: "people", href: "/" },
-        { title: "Payments & subscriptions", icon: "payment", href: "/" },
+        { title: "数据和个性化", icon: "toggle_on", href: "/" },
+        { title: "安全性", icon: "lock", href: "/" },
+        { title: "用户和分享", icon: "people", href: "/" },
+        { title: "付费和订阅", icon: "payment", href: "/" },
         { divider: true },
-        { title: "Help", icon: "help_outline", href: "/" },
-        { title: "Send feedback", icon: "feedback", href: "/" }
+        { title: "帮助", icon: "help_outline", href: "/" },
+        { title: "发送反馈", icon: "feedback", href: "/" }
       ]
     };
   }

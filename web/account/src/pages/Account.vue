@@ -10,8 +10,6 @@
         </v-flex>
       </v-layout>
     </v-content>
-
-    <h-footer />
   </v-app>
 </template>
 
