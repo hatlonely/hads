@@ -10,7 +10,7 @@
             <v-divider :key="i"></v-divider>
           </template>
           <template v-else>
-            <v-list-item :href="item.href" :key="i">
+            <v-list-item :to="item.to" :key="i">
               <v-list-item-icon>
                 <v-icon filled>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -43,19 +43,19 @@ export default {
     return {
       idx: 1,
       items: [
-        { title: "首页", icon: "account_circle", href: "/home" },
+        { title: "首页", icon: "account_circle", to: "/home" },
         {
           title: "个人信息",
           icon: "assignment_ind",
-          href: "/person-info"
+          to: "/person-info"
         },
-        { title: "数据和个性化", icon: "toggle_on", href: "/" },
-        { title: "安全性", icon: "lock", href: "/" },
-        { title: "用户和分享", icon: "people", href: "/" },
-        { title: "付费和订阅", icon: "payment", href: "/" },
+        { title: "数据和个性化", icon: "toggle_on", to: "/" },
+        { title: "安全性", icon: "lock", to: "/" },
+        { title: "用户和分享", icon: "people", to: "/" },
+        { title: "付费和订阅", icon: "payment", to: "/" },
         { divider: true },
-        { title: "帮助", icon: "help_outline", href: "/" },
-        { title: "发送反馈", icon: "feedback", href: "/" }
+        { title: "帮助", icon: "help_outline", to: "/" },
+        { title: "发送反馈", icon: "feedback", to: "/" }
       ]
     };
   }
