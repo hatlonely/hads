@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <router-view></router-view>
+    <transition name="slide-x-transition" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </v-app>
 </template>
 
@@ -15,4 +17,3 @@ export default {
   name: "App"
 };
 </script>
-

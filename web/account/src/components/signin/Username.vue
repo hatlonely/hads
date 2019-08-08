@@ -33,7 +33,7 @@
     <v-flex my-12 mx-12>
       <v-layout align-left justify-center row fill-height text-left>
         <v-flex xs3>
-          <v-btn text color="primary" pl-0>创建账号</v-btn>
+          <v-btn text color="primary" pl-0 to="/signup">创建账号</v-btn>
         </v-flex>
         <v-flex xs6></v-flex>
         <v-flex xs3>
