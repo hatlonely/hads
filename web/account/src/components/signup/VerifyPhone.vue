@@ -19,14 +19,14 @@
           </p>
           <v-layout mx-0 row wrap>
             <v-flex xs12>
-              <v-text-field label="电话号码" :rules="[rules.phone]" outlined filled></v-text-field>
+              <v-text-field label="电话号码" :rules="[rules.required, rules.phone]" outlined filled></v-text-field>
             </v-flex>
           </v-layout>
         </v-flex>
         <v-flex mt-0 mx-0>
           <v-layout align-left justify-center row fill-height text-left>
             <v-flex xs3>
-              <v-btn text color="primary" pl-0>上一步</v-btn>
+              <v-btn text color="primary" to="/signup" pl-0>上一步</v-btn>
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
