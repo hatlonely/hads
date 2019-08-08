@@ -4,7 +4,7 @@
       <v-flex xs8 pr-8>
         <v-flex mt-8 mb-5 xs12 lg12>
           <v-layout>
-            <v-img :src="require('../../assets/logo.png')" max-width="70" inline></v-img>
+            <v-img :src="require('../../assets/img/logo.png')" max-width="70" inline></v-img>
           </v-layout>
         </v-flex>
         <v-flex my-4 xs12 lg12>
@@ -52,7 +52,7 @@
         <v-layout align-center justify-center row fill-height mx-0 class="text-center">
           <v-flex xs12>
             <v-flex xs12>
-              <v-img :src="require('../../assets/create_account.svg')" max-width="244" inline></v-img>
+              <v-img :src="require('../../assets/img/create_account.svg')" max-width="244" inline></v-img>
             </v-flex>
             <v-flex xs12 px-4>
               <p class="body-1">只需要一个账号，您就可以使用 hads 的所有产品和服务</p>

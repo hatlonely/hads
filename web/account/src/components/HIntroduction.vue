@@ -2,7 +2,7 @@
   <v-layout mt-5 align-center justify-center row fill-height text-center wrap>
     <v-flex xs8 mt-12>
       <v-layout align-center justify-center>
-        <v-img :src="require('../assets/introduction.png')" max-width="400" inline></v-img>
+        <v-img :src="require('../assets/img/introduction.png')" max-width="400" inline></v-img>
       </v-layout>
       <v-flex my-3 xs12>
         <p>登录自己的 Google 帐号后，您可以查看和管理自己的信息、活动、安全选项和隐私偏好设置，从而让 Google 更好地为您服务。</p>

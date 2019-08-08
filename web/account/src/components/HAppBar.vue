@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app clipped-left elevate-on-scroll class="pb-3" color="#fafafa">
-    <v-img :src="require('../assets/logo.png')" max-width="70" tile></v-img>
+    <v-img :src="require('../assets/img/logo.png')" max-width="70" tile></v-img>
     <v-toolbar-title>
       &nbsp;
       <span class="body-2">账户</span>
@@ -22,7 +22,7 @@
     <v-btn text icon>
       <v-icon>apps</v-icon>
     </v-btn>
-    <v-btn href="/login" color="primary" depressed>登录</v-btn>
+    <v-btn href="/signin" color="primary" depressed>登录</v-btn>
   </v-app-bar>
 </template>
 

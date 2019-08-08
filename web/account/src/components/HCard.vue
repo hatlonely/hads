@@ -9,7 +9,7 @@
           <v-card-text>{{description}}</v-card-text>
         </v-flex>
         <v-flex xs3>
-          <v-img class="mt-6 ml-4" :src="require('../assets/'+ image)" width="96"></v-img>
+          <v-img class="mt-6 ml-4" :src="require('../assets/img/'+ image)" width="96"></v-img>
         </v-flex>
       </v-flex>
     </v-card>

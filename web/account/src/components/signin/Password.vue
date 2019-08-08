@@ -2,7 +2,7 @@
   <v-card width="450" height="500" flat outlined>
     <v-flex mt-8 mb-5 xs12 lg12>
       <v-layout align-center justify-center>
-        <v-img :src="require('../../assets/logo.png')" max-width="70" inline></v-img>
+        <v-img :src="require('../../assets/img/logo.png')" max-width="70" inline></v-img>
       </v-layout>
     </v-flex>
     <v-flex my-4 xs12 lg12>
@@ -12,7 +12,7 @@
       <v-layout align-center justify-center>
         <v-card class="h-round-card px-2 py-1" outlined flat>
           <v-avatar size="20" class="mr-2" tile>
-            <img :src="require('../../assets/hatlonely.png')" alt="avatar" />
+            <img :src="require('../../assets/img/hatlonely.png')" alt="avatar" />
           </v-avatar>
           <span class="body-1">hatlonely@gmail.com</span>
         </v-card>
