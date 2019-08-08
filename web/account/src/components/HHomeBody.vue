@@ -13,46 +13,38 @@
       <p>管理自己的信息、隐私权和安全，从而让 hads 更好地为您服务</p>
     </v-flex>
 
-    <v-flex mb-5 xs12 md6>
+    <v-flex mb-5 xs12 sm12 md6 px-5>
       <h-card
-        title="Privacy & personalization"
-        description="See the data in your Google Account and choose what activity is saved to personalize your Google experience"
+        title="隐私权和个性化"
+        description="查看您 Google 帐号中的数据，并选择保存哪些活动以用于个性化您的 Google 体验"
         image="data_personalization.png"
-        linktext="Manage your data & personalization"
+        linktext="管理您的数据和个性设置"
       />
     </v-flex>
-    <v-flex mb-5 xs12 md6>
-      <h-card
-        title="Security issues found"
-        description="Protect your account now by resolving these issues"
-        image="security.png"
-        linktext="Secure account"
-      />
+    <v-flex mb-5 xs12 sm12 md6 px-5>
+      <h-card title="发现安全性问题" description="立即解决这些问题，保护您的账户" image="security.png" linktext="确保账户安全" />
     </v-flex>
-    <v-flex mb-5 xs12 md6>
+    <v-flex mb-5 xs12 md6 px-5>
       <h-card
-        title="Account storage"
-        description="Your account storage is shared across Google services, like Gmail and Photos"
+        title="帐号存储空间"
+        description="您的帐号存储空间由各项 Google 服务（例如 Gmail 和照片）共用"
         image="storage.png"
-        linktext="Manage storage"
+        linktext="管理存储空间"
       />
     </v-flex>
-    <v-flex mb-5 xs12 md6>
+    <v-flex mb-5 xs12 md6 px-5>
       <h-card
-        title="Take the Privacy Checkup"
-        description="This step-by-step guide helps you choose the privacy settings that are right for you"
+        title="进行隐私设置检查"
+        description="此分步指南可帮助您选择适合自己的隐私设置"
         image="privacy.png"
-        linktext="Get started"
+        linktext="开始使用"
       />
     </v-flex>
 
     <v-flex mb-5 xs12 lg12>
       <div class="body-2">
-        Only you can see your settings. Google is committed to protecting
-        your privacy and security.
-        <a
-          href="#"
-        >Learn more</a>
+        只有您本人可以查看您的设置。Google 致力于保护您的隐私和安全。
+        <a href="#">了解详情</a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <v-avatar size="40">
           <img :src="require('../assets/img/policy.png')" alt="avatar" />

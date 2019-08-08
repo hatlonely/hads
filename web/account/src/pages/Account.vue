@@ -4,11 +4,13 @@
     <h-sider />
 
     <v-content>
-      <v-layout row>
-        <v-flex xs10 px-12>
-          <router-view class="view"></router-view>
-        </v-flex>
-      </v-layout>
+      <v-flex xs12 sm12 md12 lg12 px-12>
+        <v-layout align-center justify-center text-center row wrap>
+          <v-card flat max-width="900" color="#fafafa">
+            <router-view class="view"></router-view>
+          </v-card>
+        </v-layout>
+      </v-flex>
     </v-content>
   </v-app>
 </template>
