@@ -15,7 +15,7 @@
           <v-layout align-center justify-left>
             <v-card class="h-round-card px-2 py-1" outlined flat>
               <v-icon class="mr-2">account_circle</v-icon>
-              <span class="body-1">hatlonely@gmail.com</span>
+              <span class="body-1">{{this.$store.state.email}}</span>
             </v-card>
           </v-layout>
         </v-flex>

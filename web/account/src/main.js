@@ -23,9 +23,19 @@ import HIntroduction from "./components/account/HIntroduction";
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import 'font-awesome/css/font-awesome.min.css';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(Vuex);
+
+const store = new Vuex.Store({
+  state: {
+    firstName: "",
+    secondName: "",
+    email: "",
+    password: "",
+    telephone: "",
+  },
+});
 
 const router = new VueRouter({
   mode: 'history',
@@ -60,7 +70,9 @@ const router = new VueRouter({
 });
 
 new Vue({
+  el: "#app",
   vuetify,
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

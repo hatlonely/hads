@@ -19,7 +19,13 @@
           </p>
           <v-layout mx-0 row wrap>
             <v-flex xs12>
-              <v-text-field label="电话号码" :rules="[rules.required, rules.phone]" outlined filled></v-text-field>
+              <v-text-field
+                v-model="telephone"
+                label="电话号码"
+                :rules="[rules.required, rules.phone]"
+                outlined
+                filled
+              ></v-text-field>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -53,14 +59,26 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
+  computed: {
+    telephone: {
+      get() {
+        return this.$store.state.telephone;
+      },
+      set(telephone) {
+        this.$store.state.telephone = telephone;
+      }
+    }
+  },
   data() {
     return {
-      show: false,
       rules: {
         required: v => !!v || "必要字段",
         min: v => (!!v && v.length >= 8) || "至少8个字符",
-        phone: v => v.match(/^1[345789][0-9]{9}$/) || "请输入正确的电话号码哦"
+        phone: v =>
+          (!!v && !!v.match(/^1[345789][0-9]{9}$/)) || "请输入正确的电话号码哦"
       }
     };
   }

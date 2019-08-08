@@ -13,16 +13,23 @@
         <v-flex mt-10 mb-4>
           <v-layout mx-0 row wrap>
             <v-flex xs6 pr-4>
-              <v-text-field label="姓氏" :rules="[rules.required]" outlined filled></v-text-field>
+              <v-text-field
+                v-model="firstName"
+                label="姓氏"
+                :rules="[rules.required]"
+                outlined
+                filled
+              ></v-text-field>
             </v-flex>
             <v-flex xs6 pl-4>
-              <v-text-field label="名字" :rules="[rules.required]" outlined filled></v-text-field>
+              <v-text-field v-model="lastName" label="名字" :rules="[rules.required]" outlined filled></v-text-field>
             </v-flex>
             <v-flex xs12>
-              <v-text-field label="邮箱" :rules="[rules.required]" outlined filled></v-text-field>
+              <v-text-field v-model="email" label="邮箱" :rules="[rules.required]" outlined filled></v-text-field>
             </v-flex>
             <v-flex xs12>
               <v-text-field
+                v-model="password"
                 label="输入您的密码"
                 :append-icon="show ? 'visibility' : 'visibility_off'"
                 :type="show ? 'text' : 'password'"
@@ -66,6 +73,40 @@
 
 <script>
 export default {
+  computed: {
+    email: {
+      get() {
+        return this.$store.state.email;
+      },
+      set(email) {
+        this.$store.state.email = email;
+      }
+    },
+    firstName: {
+      get() {
+        return this.$store.state.firstName;
+      },
+      set(firstName) {
+        this.$store.state.firstName = firstName;
+      }
+    },
+    lastName: {
+      get() {
+        return this.$store.state.lastName;
+      },
+      set(lastName) {
+        this.$store.state.lastName = lastName;
+      }
+    },
+    password: {
+      get() {
+        return this.$store.state.password;
+      },
+      set(password) {
+        this.$store.state.password = password;
+      }
+    }
+  },
   data() {
     return {
       show: false,

@@ -18,7 +18,7 @@
             <i>需要按标准费率支付费用</i>
           </p>
           <p class="body-2">
-            <strong>138 1024 5740</strong>
+            <strong>{{this.$store.state.telephone}}</strong>
           </p>
           <v-layout mx-0 row wrap>
             <v-flex xs12>
