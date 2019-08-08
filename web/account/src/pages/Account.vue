@@ -18,16 +18,14 @@
 </template>
 
 <script>
-import HAppBar from "../components/HAppBar";
-import HSider from "../components/HSider";
-import HFooter from "../components/HFooter";
+import HAppBar from "../components/account/HAppBar";
+import HSider from "../components/account/HSider";
 
 export default {
   name: "Account",
   components: {
     HAppBar,
-    HSider,
-    HFooter
+    HSider
   }
 };
 </script>

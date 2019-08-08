@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app clipped-left elevate-on-scroll class="pb-3" color="#fafafa">
-    <v-img :src="require('../assets/img/logo.png')" max-width="70" tile></v-img>
+    <v-img :src="require('../../assets/img/logo.png')" max-width="70" tile></v-img>
     <v-toolbar-title>
       &nbsp;
       <span class="body-2">账户</span>
