@@ -7,10 +7,10 @@
     </v-flex>
 
     <v-flex mb-5 xs12 lg12>
-      <h2>Welcome, hatlonely hatlonely</h2>
+      <h2>欢迎使用, hatlonely hatlonely</h2>
     </v-flex>
     <v-flex mb-5 xs12 lg12>
-      <div class="body-1">Manage your info, privacy, and security to make Google work better for you</div>
+      <p>管理自己的信息、隐私权和安全，从而让 hads 更好地为您服务</p>
     </v-flex>
 
     <v-flex mb-5 xs12 md6>
