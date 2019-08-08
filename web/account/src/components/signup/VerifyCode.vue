@@ -38,7 +38,7 @@
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
-              <v-btn color="primary" depressed to="/signup/verifyphone">验证</v-btn>
+              <v-btn color="primary" depressed to="/signup/personaldetail">验证</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>
