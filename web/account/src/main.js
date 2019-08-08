@@ -7,9 +7,11 @@ import vuetify from './plugins/vuetify';
 import App from './App'
 import Account from './pages/Account';
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 import Username from './components/signin/Username';
 import Password from './components/signin/Password';
 import Sorry from './components/signin/Sorry';
+import CreateAccount from './components/signup/CreateAccount';
 import HHomeBody from "./components/HHomeBody";
 import HPersonInfoBody from "./components/HPersonInfoBody";
 import HIntroduction from "./components/HIntroduction";
@@ -39,6 +41,11 @@ const router = new VueRouter({
         { path: '', component: Username },
         { path: 'password', component: Password },
         { path: 'sorry', component: Sorry },
+      ]
+    },
+    {
+      path: '/signup', component: SignUp, children: [
+        { path: '', component: CreateAccount },
       ]
     },
   ]
