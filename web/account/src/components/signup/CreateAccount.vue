@@ -1,7 +1,7 @@
 <template>
   <v-card width="748" height="511" flat outlined>
     <v-layout row wrap mx-0 text-left px-8>
-      <v-flex xs8 pr-4>
+      <v-flex xs8 pr-8>
         <v-flex mt-8 mb-5 xs12 lg12>
           <v-layout>
             <v-img :src="require('../../assets/logo.png')" max-width="70" inline></v-img>
@@ -10,7 +10,7 @@
         <v-flex my-4 xs12 lg12>
           <div class="headline">创建您的 hads 账号</div>
         </v-flex>
-        <v-flex my-10>
+        <v-flex mt-10 mb-4>
           <v-layout mx-0 row wrap>
             <v-flex xs6 pr-4>
               <v-text-field label="姓氏" outlined filled></v-text-field>
@@ -35,7 +35,7 @@
             </v-flex>
           </v-layout>
         </v-flex>
-        <v-flex my-12 mx-12>
+        <v-flex mt-0 mx-0>
           <v-layout align-left justify-center row fill-height text-left>
             <v-flex xs3>
               <v-btn text color="primary" pl-0>登录现有账号</v-btn>
