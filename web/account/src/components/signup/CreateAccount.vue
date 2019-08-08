@@ -11,36 +11,44 @@
           <h2>创建您的 hads 账号</h2>
         </v-flex>
         <v-flex mt-10 mb-4>
-          <v-layout mx-0 row wrap>
-            <v-flex xs6 pr-4>
-              <v-text-field
-                v-model="firstName"
-                label="姓氏"
-                :rules="[rules.required]"
-                outlined
-                filled
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs6 pl-4>
-              <v-text-field v-model="lastName" label="名字" :rules="[rules.required]" outlined filled></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field v-model="email" label="邮箱" :rules="[rules.required]" outlined filled></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                v-model="password"
-                label="输入您的密码"
-                :append-icon="show ? 'visibility' : 'visibility_off'"
-                :type="show ? 'text' : 'password'"
-                @click:append="show = !show"
-                :rules="[rules.required, rules.min]"
-                hint="使用8个或更多字符(字母、数字和符号的组合)"
-                outlined
-                filled
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
+          <v-form ref="createAcountForm" v-model="valid" lazy-validation>
+            <v-layout mx-0 row wrap>
+              <v-flex xs6 pr-4>
+                <v-text-field
+                  v-model="firstName"
+                  label="姓氏"
+                  :rules="[rules.required]"
+                  outlined
+                  filled
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs6 pl-4>
+                <v-text-field
+                  v-model="lastName"
+                  label="名字"
+                  :rules="[rules.required]"
+                  outlined
+                  filled
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field v-model="email" label="邮箱" :rules="[rules.required]" outlined filled></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="password"
+                  label="输入您的密码"
+                  :append-icon="show ? 'visibility' : 'visibility_off'"
+                  :type="show ? 'text' : 'password'"
+                  @click:append="show = !show"
+                  :rules="[rules.required, rules.min]"
+                  hint="使用8个或更多字符(字母、数字和符号的组合)"
+                  outlined
+                  filled
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-form>
         </v-flex>
         <v-flex mt-0 mx-0>
           <v-layout align-left justify-center row fill-height text-left>
@@ -49,7 +57,7 @@
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
-              <v-btn color="primary" depressed to="/signup/verifyphone">下一步</v-btn>
+              <v-btn :disabled="!valid" color="primary" depressed @click="validate">下一步</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -73,6 +81,13 @@
 
 <script>
 export default {
+  methods: {
+    validate() {
+      if (this.$refs.createAcountForm.validate()) {
+        this.$router.push("/signup/verifyphone");
+      }
+    }
+  },
   computed: {
     email: {
       get() {
@@ -109,6 +124,7 @@ export default {
   },
   data() {
     return {
+      valid: true,
       show: false,
       rules: {
         required: v => !!v || "必要字段",
