@@ -8,7 +8,7 @@
           </v-layout>
         </v-flex>
         <v-flex my-4 xs12 lg12>
-          <div class="headline">创建您的 hads 账号</div>
+          <h2>创建您的 hads 账号</h2>
         </v-flex>
         <v-flex mt-10 mb-4>
           <v-layout mx-0 row wrap>

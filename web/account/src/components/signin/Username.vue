@@ -6,7 +6,7 @@
       </v-layout>
     </v-flex>
     <v-flex my-4 xs12 lg12>
-      <div class="headline">登陆</div>
+      <h2>登陆</h2>
     </v-flex>
     <v-flex my-4 xs12 lg12>
       <div class="body-1">使用您的 hads 账号</div>

@@ -6,7 +6,7 @@
       </v-layout>
     </v-flex>
     <v-flex my-4 xs12 lg12>
-      <div class="headline">出了点问题</div>
+      <h2>出了点问题</h2>
     </v-flex>
     <v-flex my-4 xs12 lg12>
       <div class="body-1">抱歉，出了点问题，请重试</div>

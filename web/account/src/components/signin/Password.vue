@@ -6,7 +6,7 @@
       </v-layout>
     </v-flex>
     <v-flex my-4 xs12 lg12>
-      <div class="headline">hatlonely hatlonely</div>
+      <h2>hatlonely hatlonely</h2>
     </v-flex>
     <v-flex my-4 xs12 lg12>
       <v-layout align-center justify-center>

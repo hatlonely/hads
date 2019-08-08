@@ -8,7 +8,7 @@
           </v-layout>
         </v-flex>
         <v-flex my-4 xs12 lg12>
-          <div class="headline">欢迎使用 hads</div>
+          <h2>欢迎使用 hads</h2>
         </v-flex>
         <v-flex my-4 xs12 lg12>
           <!-- <v-icon>account_circle</v-icon>&nbsp;&nbsp; hatlonely1992@gmail.com -->
