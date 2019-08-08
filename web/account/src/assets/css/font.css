@@ -7,3 +7,23 @@
     font-family: "Liu Jian Mao Cao";
     src: url("../font/LiuJianMaoCao-Regular.ttf");
 }
+
+@font-face {
+    font-family: "ZCool XiaoWei";
+    src: url("../font/ZCOOLXiaoWei-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Red Hat Text";
+    src: url("../font/Red_Hat_Text/RedHatText-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("../font/Montserrat/Montserrat-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Noto Sans SC";
+    src: url("../font/Noto_Sans_SC/NotoSansSC-Regular.otf");
+}

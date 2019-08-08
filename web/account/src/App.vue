@@ -8,7 +8,8 @@
 
 <style>
 @import "./assets/css/font.css";
-@import url("https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Noto+Sans+SC|Noto+Serif+SC|ZCOOL+XiaoWei&display=swap");
+/* @import url("https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Noto+Sans+SC|Noto+Serif+SC|ZCOOL+XiaoWei&display=swap"); */
+
 *,
 .display-4,
 .display-3,
@@ -22,7 +23,7 @@
 .body-2,
 .caption,
 .overline {
-  font-family: "Montserrat", "ZCool XiaoWei", sans-serif;
+  font-family: "Red Hat Text", "ZCool XiaoWei", sans-serif;
   /* font-family: "Montserrat", "Yahei", sans-serif; */
 }
 
