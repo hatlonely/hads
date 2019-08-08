@@ -17,20 +17,28 @@
           <p class="body-2">
             <i>需要按标准费率支付费用</i>
           </p>
+          <p class="body-2">
+            <strong>138 1024 5740</strong>
+          </p>
           <v-layout mx-0 row wrap>
             <v-flex xs12>
-              <v-text-field label="电话号码" :rules="[rules.required, rules.phone]" outlined filled></v-text-field>
+              <v-text-field
+                label="输入验证码"
+                :rules="[rules.required, rules.verifycode]"
+                outlined
+                filled
+              ></v-text-field>
             </v-flex>
           </v-layout>
         </v-flex>
         <v-flex mt-0 mx-0>
           <v-layout align-left justify-center row fill-height text-left>
             <v-flex xs3>
-              <v-btn text color="primary" to="/signup" pl-0>上一步</v-btn>
+              <v-btn text color="primary" to="/signup/verifyphone" pl-0>上一步</v-btn>
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
-              <v-btn color="primary" depressed to="/signup/verifycode">下一步</v-btn>
+              <v-btn color="primary" depressed to="/signup/verifyphone">验证</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -60,6 +68,7 @@ export default {
       rules: {
         required: v => !!v || "必要字段",
         min: v => (!!v && v.length >= 8) || "至少8个字符",
+        verifycode: v => (!!v && v.match(/^[0-9]{6}$/)) || "请输入正确的验证码",
         phone: v => v.match(/^1[345789][0-9]{9}$/) || "请输入正确的电话号码哦"
       }
     };
