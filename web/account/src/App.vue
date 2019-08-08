@@ -21,7 +21,7 @@
 .body-2,
 .caption,
 .overline {
-  font-family: "Montserrat", sans-serif, "Noto Sans SC", sans-serif;
+  font-family: "Montserrat", sans-serif, "ZCool XiaoWei", sans-serif;
 }
 
 a {
