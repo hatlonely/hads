@@ -70,8 +70,8 @@ export default {
     return {
       show: false,
       rules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "至少8个字符"
+        required: v => !!v || "必要字段",
+        min: v => (!!v && v.length >= 8) || "至少8个字符"
       }
     };
   }
