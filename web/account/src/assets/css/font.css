@@ -27,3 +27,8 @@
     font-family: "Noto Sans SC";
     src: url("../font/Noto_Sans_SC/NotoSansSC-Regular.otf");
 }
+
+@font-face {
+    font-family: "Source Han Sans SC";
+    src: url("../font/SourceHanSansSC-Regular.otf");
+}
