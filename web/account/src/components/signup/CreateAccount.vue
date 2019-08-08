@@ -49,7 +49,7 @@
       </v-flex>
 
       <v-flex xs4>
-        <v-layout align-center justify-center row fill-height mx-0>
+        <v-layout align-center justify-center row fill-height mx-0 class="text-center">
           <v-flex xs12>
             <v-flex xs12>
               <v-img :src="require('../../assets/create_account.svg')" max-width="244" inline></v-img>

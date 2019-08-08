@@ -37,13 +37,13 @@
       </v-flex>
 
       <v-flex xs4>
-        <v-layout align-center justify-center row fill-height mx-0>
+        <v-layout align-center justify-center row fill-height mx-0 class="text-center">
           <v-flex xs12>
             <v-flex xs12>
               <v-img :src="require('../../assets/signup_phone.svg')" max-width="244" inline></v-img>
             </v-flex>
             <v-flex xs12 px-4>
-              <p class="body-1">只需要一个账号，您就可以使用 hads 的所有产品和服务</p>
+              <p class="body-1">您的个人信息不会对外公开，并且绝对安全</p>
             </v-flex>
           </v-flex>
         </v-layout>
