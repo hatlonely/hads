@@ -29,6 +29,10 @@
 a {
   text-decoration: none;
 }
+
+footer.v-footer a {
+  color: rgba(0, 0, 0, 0.54);
+}
 </style>
 
 <script>

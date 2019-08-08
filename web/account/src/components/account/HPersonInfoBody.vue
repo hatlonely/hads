@@ -25,7 +25,7 @@
           </v-flex>
           <v-flex xs3 mt-6>
             <v-avatar size="50">
-              <img :src="require('../assets/img/hatlonely.png')" alt="avatar" />
+              <img :src="require('../../assets/img/hatlonely.png')" alt="avatar" />
             </v-avatar>
           </v-flex>
         </v-layout>

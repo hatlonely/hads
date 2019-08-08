@@ -2,7 +2,7 @@
   <v-layout mt-5 text-center wrap>
     <v-flex mb-5 xs12 lg12>
       <v-avatar size="100">
-        <img :src="require('../assets/img/hatlonely.png')" alt="avatar" />
+        <img :src="require('../../assets/img/hatlonely.png')" alt="avatar" />
       </v-avatar>
     </v-flex>
 
@@ -47,7 +47,7 @@
         <a href="#">了解详情</a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <v-avatar size="40">
-          <img :src="require('../assets/img/policy.png')" alt="avatar" />
+          <img :src="require('../../assets/img/policy.png')" alt="avatar" />
         </v-avatar>
       </div>
     </v-flex>

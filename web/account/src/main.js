@@ -16,9 +16,9 @@ import VerifyPhone from './components/signup/VerifyPhone';
 import VerifyCode from './components/signup/VerifyCode';
 import PersonalDetail from './components/signup/PersonalDetail';
 import Privacy from "./components/signup/Privacy";
-import HHomeBody from "./components/HHomeBody";
-import HPersonInfoBody from "./components/HPersonInfoBody";
-import HIntroduction from "./components/HIntroduction";
+import HHomeBody from "./components/account/HHomeBody";
+import HPersonInfoBody from "./components/account/HPersonInfoBody";
+import HIntroduction from "./components/account/HIntroduction";
 
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import 'font-awesome/css/font-awesome.min.css';
