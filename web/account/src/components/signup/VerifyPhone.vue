@@ -8,37 +8,25 @@
           </v-layout>
         </v-flex>
         <v-flex my-4 xs12 lg12>
-          <div class="headline">创建您的 hads 账号</div>
+          <div class="headline">验证您的手机号码</div>
+        </v-flex>
+        <v-flex my-10>
+          <p class="body-2">为了安全起见，Google 希望确定是您本人在登录。Google 将通过短信向您发送一个 6 位数的验证码</p>
         </v-flex>
         <v-flex mt-10 mb-4>
+          <p class="body-2">
+            <i>需要按标准费率支付费用</i>
+          </p>
           <v-layout mx-0 row wrap>
-            <v-flex xs6 pr-4>
-              <v-text-field label="姓氏" :rules="[rules.required]" outlined filled></v-text-field>
-            </v-flex>
-            <v-flex xs6 pl-4>
-              <v-text-field label="名字" :rules="[rules.required]" outlined filled></v-text-field>
-            </v-flex>
             <v-flex xs12>
-              <v-text-field label="邮箱" :rules="[rules.required]" outlined filled></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field
-                label="输入您的密码"
-                :append-icon="show ? 'visibility' : 'visibility_off'"
-                :type="show ? 'text' : 'password'"
-                @click:append="show = !show"
-                :rules="[rules.required, rules.min]"
-                hint="使用8个或更多字符(字母、数字和符号的组合)"
-                outlined
-                filled
-              ></v-text-field>
+              <v-text-field label="电话号码" :rules="[rules.phone]" outlined filled></v-text-field>
             </v-flex>
           </v-layout>
         </v-flex>
         <v-flex mt-0 mx-0>
           <v-layout align-left justify-center row fill-height text-left>
             <v-flex xs3>
-              <v-btn text color="primary" pl-0>登录现有账号</v-btn>
+              <v-btn text color="primary" pl-0>上一步</v-btn>
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
@@ -52,7 +40,7 @@
         <v-layout align-center justify-center row fill-height mx-0>
           <v-flex xs12>
             <v-flex xs12>
-              <v-img :src="require('../../assets/create_account.svg')" max-width="244" inline></v-img>
+              <v-img :src="require('../../assets/signup_phone.svg')" max-width="244" inline></v-img>
             </v-flex>
             <v-flex xs12 px-4>
               <p class="body-1">只需要一个账号，您就可以使用 hads 的所有产品和服务</p>
@@ -71,7 +59,9 @@ export default {
       show: false,
       rules: {
         required: v => !!v || "必要字段",
-        min: v => (!!v && v.length >= 8) || "至少8个字符"
+        min: v => (!!v && v.length >= 8) || "至少8个字符",
+        phone: v =>
+          v.match(/^1[345789][0-9]{9}$/) || "请输入一个正确的电话号码哦"
       }
     };
   }

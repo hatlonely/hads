@@ -12,6 +12,7 @@ import Username from './components/signin/Username';
 import Password from './components/signin/Password';
 import Sorry from './components/signin/Sorry';
 import CreateAccount from './components/signup/CreateAccount';
+import VerifyPhone from './components/signup/VerifyPhone';
 import HHomeBody from "./components/HHomeBody";
 import HPersonInfoBody from "./components/HPersonInfoBody";
 import HIntroduction from "./components/HIntroduction";
@@ -46,6 +47,7 @@ const router = new VueRouter({
     {
       path: '/signup', component: SignUp, children: [
         { path: '', component: CreateAccount },
+        { path: 'verifyphone', component: VerifyPhone },
       ]
     },
   ]
