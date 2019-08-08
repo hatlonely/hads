@@ -16,7 +16,7 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>
-                  <h3 class="body-1">{{ item.title }}</h3>
+                  <span>{{ item.title }}</span>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
