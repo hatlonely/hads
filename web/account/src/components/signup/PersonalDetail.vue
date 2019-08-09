@@ -59,7 +59,6 @@
                 </v-menu>
               </v-flex>
               <v-flex xs12>
-                <!-- <v-text-field label="性别" outlined filled :rules="[rules.required]"></v-text-field> -->
                 <v-select :items="genderChoice" label="性别" outlined filled></v-select>
               </v-flex>
             </v-layout>

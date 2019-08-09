@@ -34,6 +34,9 @@ const store = new Vuex.Store({
     email: "",
     password: "",
     telephone: "",
+    code: "",
+    birthday: "",
+    gender: "",
   },
 });
 

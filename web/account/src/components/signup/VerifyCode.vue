@@ -24,6 +24,7 @@
             <v-layout mx-0 row wrap>
               <v-flex xs12>
                 <v-text-field
+                  v-model="code"
                   label="输入验证码"
                   :rules="[rules.required, rules.validcode]"
                   outlined
@@ -71,6 +72,16 @@ export default {
     validate() {
       if (this.$refs.form.validate()) {
         this.$router.push("/signup/personaldetail");
+      }
+    }
+  },
+  computed: {
+    code: {
+      get() {
+        return this.$store.state.code;
+      },
+      set(code) {
+        this.$store.state.code = code;
       }
     }
   },
