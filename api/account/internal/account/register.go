@@ -3,17 +3,23 @@ package account
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/hatlonely/account/internal/mysqldb"
+	"github.com/hatlonely/account/internal/rule"
 	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 type RegisterReqBody struct {
-	Username  string `json:"username,omitempty"`
-	Telephone string `json:"telephone,omitempty"`
-	Email     string `json:"email,omitempty"`
-	Password  string `json:"password,omitempty"`
+	Username   string `json:"username,omitempty"`
+	FirstName  string `json:"firstName,omitempty"`
+	SecondName string `json:"secondName,omitempty"`
+	Phone      string `json:"phone,omitempty"`
+	Email      string `json:"email,omitempty"`
+	Password   string `json:"password,omitempty"`
+	Birthday   string `json:"birthday,omitempty"`
+	Gender     string `json:"gender,omitempty"`
 }
 
 type RegisterResBody struct {
@@ -80,17 +86,15 @@ func (s *Service) Register(c *gin.Context) {
 }
 
 func (s *Service) checkRegisterReqBody(req *RegisterReqBody) error {
-	if req.Username == "" {
-		return fmt.Errorf("username should not be empty")
+	if err := rule.Check(req.Username, []rule.Rule{rule.Required, rule.AtMost64Characters}); err != nil {
+		return fmt.Errorf("username[%v] %v", req.Username, err)
 	}
-	if len(req.Username) >= 64 {
-		return fmt.Errorf("username length [%v] should less than 64", len(req.Username))
+
+	if req.Phone == "" && req.Email == "" {
+		return fmt.Errorf("email and phone should not be empty together")
 	}
-	if req.Telephone == "" && req.Email == "" {
-		return fmt.Errorf("email and telephone should not be empty together")
-	}
-	if req.Telephone != "" && !ValidateTelephone(req.Telephone) {
-		return fmt.Errorf("invalid telephone [%v]", req.Telephone)
+	if req.Phone != "" && !ValidatePhone(req.Phone) {
+		return fmt.Errorf("invalid phone [%v]", req.Phone)
 	}
 	if req.Email != "" && !ValidateEmail(req.Email) {
 		return fmt.Errorf("invalid email [%v]", req.Email)
@@ -100,10 +104,10 @@ func (s *Service) checkRegisterReqBody(req *RegisterReqBody) error {
 
 func (s *Service) register(req *RegisterReqBody) (*RegisterResBody, error) {
 	ok, err := s.db.InsertAccount(&mysqldb.Account{
-		Username:  req.Username,
-		Telephone: req.Telephone,
-		Email:     req.Email,
-		Password:  req.Password,
+		Username: req.Username,
+		Phone:    req.Phone,
+		Email:    req.Email,
+		Password: req.Password,
 	})
 
 	return &RegisterResBody{Success: ok}, err

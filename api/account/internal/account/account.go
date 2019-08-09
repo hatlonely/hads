@@ -2,11 +2,12 @@ package account
 
 import (
 	"encoding/hex"
+	"regexp"
+
 	"github.com/hatlonely/account/internal/mysqldb"
 	"github.com/hatlonely/account/internal/rediscache"
 	uuid "github.com/satori/go.uuid"
 	"github.com/sirupsen/logrus"
-	"regexp"
 )
 
 var InfoLog *logrus.Logger
@@ -43,7 +44,7 @@ func NewToken() string {
 	return string(buf)
 }
 
-func ValidateTelephone(telephone string) bool {
+func ValidatePhone(telephone string) bool {
 	return TelephoneRegex.MatchString(telephone)
 }
 

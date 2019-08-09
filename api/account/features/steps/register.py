@@ -6,15 +6,15 @@ import requests
 import json
 
 
-@when('请求 /register, username: "{username:str}", telephone: "{telephone:str}", email: "{email:str}", password: "{password:str}"')
-def step_impl(context, username, telephone, email, password):
+@when('请求 /register, username: "{username:str}", phone: "{phone:str}", email: "{email:str}", password: "{password:str}"')
+def step_impl(context, username, phone, email, password):
     context.username = username
-    context.telephone = telephone
+    context.phone = phone
     context.email = email
     context.password = password
     res = requests.post("{}/register".format(context.config["url"]), json={
         "username": username,
-        "telephone": telephone,
+        "phone": phone,
         "email": email,
         "password": password,
     })

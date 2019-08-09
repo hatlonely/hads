@@ -3,9 +3,10 @@ package account
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 type LoginReqBody struct {
@@ -88,7 +89,7 @@ func (s *Service) checkLoginReqBody(req *LoginReqBody) error {
 }
 
 func (s *Service) login(req *LoginReqBody) (*LoginResBody, error) {
-	account, err := s.db.SelectAccountByUsernameOrTelephoneOrEmail(req.Username)
+	account, err := s.db.SelectAccountByUsernameOrPhoneOrEmail(req.Username)
 	if err != nil {
 		return nil, err
 	}

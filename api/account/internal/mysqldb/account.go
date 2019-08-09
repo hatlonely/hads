@@ -2,25 +2,26 @@ package mysqldb
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"strings"
+
+	"github.com/jinzhu/gorm"
 )
 
 type Account struct {
-	ID        int    `gorm:"type:bigint(20) auto_increment;primary_key" json:"id"`
-	Username  string `gorm:"type:varchar(64);not null;unique_index:username_idx" json:"username"`
-	Telephone string `gorm:"type:varchar(64) default '';not null;index:telephone_idx" json:"telephone"`
-	Email     string `gorm:"type:varchar(64) default '';not null;index:email_idx" json:"email"`
-	Password  string `gorm:"type:varchar(32) default '';not null" json:"password"`
-	Role      int    `gorm:"type:bigint(20) default 0;not null" json:"role"`
+	ID       int    `gorm:"type:bigint(20) auto_increment;primary_key" json:"id"`
+	Username string `gorm:"type:varchar(64);not null;unique_index:username_idx" json:"username"`
+	Phone    string `gorm:"type:varchar(64) default '';not null;index:phone_idx" json:"phone"`
+	Email    string `gorm:"type:varchar(64) default '';not null;index:email_idx" json:"email"`
+	Password string `gorm:"type:varchar(32) default '';not null" json:"password"`
+	Role     int    `gorm:"type:bigint(20) default 0;not null" json:"role"`
 }
 
-func (m *MysqlDB) SelectAccountByUsernameOrTelephoneOrEmail(key string) (*Account, error) {
+func (m *MysqlDB) SelectAccountByUsernameOrPhoneOrEmail(key string) (*Account, error) {
 	account := &Account{}
 	if key == "" {
 		return nil, fmt.Errorf("account key is null")
 	}
-	if err := m.db.Where("username=?", key).Or("telephone=?", key).Or("email=?", key).First(account).Error; err != nil {
+	if err := m.db.Where("username=?", key).Or("phone=?", key).Or("email=?", key).First(account).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, nil
 		}
@@ -34,8 +35,8 @@ func (m *MysqlDB) InsertAccount(account *Account) (bool, error) {
 	if account.Username == "" {
 		return false, fmt.Errorf("username is null, account [%#v]", account)
 	}
-	if account.Email == "" && account.Telephone == "" {
-		return false, fmt.Errorf("email and telephone are both null, account [%#v]", account)
+	if account.Email == "" && account.Phone == "" {
+		return false, fmt.Errorf("email and phone are both null, account [%#v]", account)
 	}
 
 	accountDB := &Account{}
@@ -46,8 +47,8 @@ func (m *MysqlDB) InsertAccount(account *Account) (bool, error) {
 	if account.Username != "" {
 		conditions = append(conditions, fmt.Sprintf("username='%v'", account.Username))
 	}
-	if account.Telephone != "" {
-		conditions = append(conditions, fmt.Sprintf("telephone='%v'", account.Telephone))
+	if account.Phone != "" {
+		conditions = append(conditions, fmt.Sprintf("phone='%v'", account.Phone))
 	}
 	if account.Email != "" {
 		conditions = append(conditions, fmt.Sprintf("email='%v'", account.Email))
@@ -65,8 +66,8 @@ func (m *MysqlDB) InsertAccount(account *Account) (bool, error) {
 
 			return false, fmt.Errorf("username [%v] is already exists", accountDB.Username)
 		}
-		if accountDB.Telephone == account.Telephone {
-			return false, fmt.Errorf("telephone [%v] is already exists", accountDB.Telephone)
+		if accountDB.Phone == account.Phone {
+			return false, fmt.Errorf("phone [%v] is already exists", accountDB.Phone)
 		}
 		if accountDB.Email == account.Email {
 			return false, fmt.Errorf("email [%v] is already exists", accountDB.Email)
