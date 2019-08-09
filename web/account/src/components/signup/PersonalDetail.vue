@@ -59,7 +59,7 @@
                 </v-menu>
               </v-flex>
               <v-flex xs12>
-                <v-select :items="genderChoice" label="性别" outlined filled></v-select>
+                <v-select v-model="gender" :items="genderChoice" label="性别" outlined filled></v-select>
               </v-flex>
             </v-layout>
           </v-form>
@@ -119,9 +119,27 @@ export default {
       this.$refs.birthdayMenu.save(date);
     }
   },
+  // computed: {
+  //   computedDateFormatted() {
+  //     return this.formatDate(this.date);
+  //   }
+  // },
   computed: {
-    computedDateFormatted() {
-      return this.formatDate(this.date);
+    birthday: {
+      get() {
+        return this.$store.state.birthday;
+      },
+      set(birthday) {
+        this.$store.state.birthday = birthday;
+      }
+    },
+    gender: {
+      get() {
+        return this.$store.state.gender;
+      },
+      set(gender) {
+        this.$store.state.gender = gender;
+      }
     }
   },
 
@@ -137,8 +155,6 @@ export default {
     return {
       valid: true,
       date: "1992-01-01",
-      // date: new Date().toISOString().substr(0, 10) ,
-      // dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
       dateFormatted: null,
       birthdayMenu: false,
       genderChoice: ["男", "女", "保密"],
