@@ -18,7 +18,7 @@ register_type(bool=lambda x: True if x == "true" else False)
 
 config = {
     "port": 6061,
-    "prefix": "build/account",
+    "prefix": "output/account",
     "mysqldb": {
         "host": "127.0.0.1",
         "port": 3306,
