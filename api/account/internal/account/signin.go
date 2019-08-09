@@ -9,20 +9,20 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type LoginReqBody struct {
+type SignInReqBody struct {
 	Username string `json:"username,omitempty"`
 	Password string `json:"password,omitempty"`
 }
 
-type LoginResBody struct {
+type SignInResBody struct {
 	Valid bool   `json:"valid"`
 	Token string `json:"token"`
 }
 
 func (s *Service) Login(c *gin.Context) {
 	rid := c.DefaultQuery("rid", NewToken())
-	req := &LoginReqBody{}
-	var res *LoginResBody
+	req := &SignInReqBody{}
+	var res *SignInResBody
 	var err error
 	var buf []byte
 	status := http.StatusOK
@@ -81,25 +81,25 @@ func (s *Service) Login(c *gin.Context) {
 	c.JSON(status, res)
 }
 
-func (s *Service) checkLoginReqBody(req *LoginReqBody) error {
+func (s *Service) checkLoginReqBody(req *SignInReqBody) error {
 	if req.Username == "" || req.Password == "" {
 		return fmt.Errorf("username or password is null")
 	}
 	return nil
 }
 
-func (s *Service) login(req *LoginReqBody) (*LoginResBody, error) {
+func (s *Service) login(req *SignInReqBody) (*SignInResBody, error) {
 	account, err := s.db.SelectAccountByUsernameOrPhoneOrEmail(req.Username)
 	if err != nil {
 		return nil, err
 	}
 
 	if account == nil {
-		return &LoginResBody{Valid: false}, nil
+		return &SignInResBody{Valid: false}, nil
 	}
 
 	if account.Password != req.Password {
-		return &LoginResBody{Valid: false}, nil
+		return &SignInResBody{Valid: false}, nil
 	}
 
 	token := NewToken()
@@ -107,5 +107,5 @@ func (s *Service) login(req *LoginReqBody) (*LoginResBody, error) {
 		return nil, err
 	}
 
-	return &LoginResBody{Valid: true, Token: token}, nil
+	return &SignInResBody{Valid: true, Token: token}, nil
 }
