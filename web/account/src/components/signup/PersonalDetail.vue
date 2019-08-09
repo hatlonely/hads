@@ -42,6 +42,7 @@
                       v-on="on"
                       outlined
                       filled
+                      readonly
                     ></v-text-field>
                   </template>
                   <v-date-picker
