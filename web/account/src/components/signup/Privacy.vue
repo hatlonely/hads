@@ -42,7 +42,7 @@
         <v-flex mt-0 mx-0>
           <v-layout align-left justify-center row fill-height text-left>
             <v-flex xs3>
-              <v-btn text color="primary" to="/signup" pl-0>取消</v-btn>
+              <v-btn text color="primary" @click="$router.go(-1)" pl-0>取消</v-btn>
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
