@@ -23,8 +23,8 @@
 .body-2,
 .caption,
 .overline {
-  /* font-family: "Red Hat Text", "ZCool XiaoWei", sans-serif; */
-  font-family: "Montserrat", "Source Han Sans SC", sans-serif;
+  font-family: "Red Hat Text", "ZCool XiaoWei", sans-serif;
+  /* font-family: "Montserrat", "Source Han Sans SC", sans-serif; */
   /* font-family: "Montserrat", "Yahei", sans-serif; */
   /* font-family: sans-serif; */
 }
