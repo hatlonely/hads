@@ -23,9 +23,10 @@
                 <v-text-field
                   v-model="telephone"
                   label="电话号码"
-                  :rules="[rules.required, rules.phone]"
+                  :rules="[rules.required, rules.validphone]"
                   outlined
                   filled
+                  validate-on-blur
                 ></v-text-field>
               </v-flex>
             </v-layout>

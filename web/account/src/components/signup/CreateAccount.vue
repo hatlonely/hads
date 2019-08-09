@@ -20,6 +20,7 @@
                   :rules="[rules.required]"
                   outlined
                   filled
+                  validate-on-blur
                 ></v-text-field>
               </v-flex>
               <v-flex xs6 pl-4>
@@ -29,15 +30,17 @@
                   :rules="[rules.required]"
                   outlined
                   filled
+                  validate-on-blur
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-text-field
                   v-model="email"
                   label="邮箱"
-                  :rules="[rules.required, rules.email]"
+                  :rules="[rules.required, rules.validemail]"
                   outlined
                   filled
+                  validate-on-blur
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -47,10 +50,11 @@
                   :append-icon="show ? 'visibility' : 'visibility_off'"
                   :type="show ? 'text' : 'password'"
                   @click:append="show = !show"
-                  :rules="[rules.required, rules.min]"
+                  :rules="[rules.required, rules.atleast8characters]"
                   hint="使用8个或更多字符(字母、数字和符号的组合)"
                   outlined
                   filled
+                  validate-on-blur
                 ></v-text-field>
               </v-flex>
             </v-layout>

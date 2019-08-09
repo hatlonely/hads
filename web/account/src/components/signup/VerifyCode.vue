@@ -20,25 +20,28 @@
           <p class="body-2">
             <strong>{{this.$store.state.telephone}}</strong>
           </p>
-          <v-layout mx-0 row wrap>
-            <v-flex xs12>
-              <v-text-field
-                label="输入验证码"
-                :rules="[rules.required, rules.verifycode]"
-                outlined
-                filled
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-layout mx-0 row wrap>
+              <v-flex xs12>
+                <v-text-field
+                  label="输入验证码"
+                  :rules="[rules.required, rules.validcode]"
+                  outlined
+                  filled
+                  validate-on-blur
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-form>
         </v-flex>
         <v-flex mt-0 mx-0>
           <v-layout align-left justify-center row fill-height text-left>
             <v-flex xs3>
-              <v-btn text color="primary" to="/signup/verifyphone" pl-0>上一步</v-btn>
+              <v-btn text color="primary" to="/signup/verifyphone" pl-0>后退</v-btn>
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
-              <v-btn color="primary" depressed to="/signup/personaldetail">验证</v-btn>
+              <v-btn color="primary" depressed @click="validate" :disabled="!valid">验证</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -64,9 +67,17 @@
 import rules from "../../assets/js/rules";
 
 export default {
+  methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.$router.push("/signup/personaldetail");
+      }
+    }
+  },
   data() {
     return {
       show: false,
+      valid: true,
       rules
     };
   }
