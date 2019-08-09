@@ -11,7 +11,7 @@
           <h2>创建您的 hads 账号</h2>
         </v-flex>
         <v-flex mt-10 mb-4>
-          <v-form ref="createAcountForm" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid" lazy-validation>
             <v-layout mx-0 row wrap>
               <v-flex xs6 pr-4>
                 <v-text-field
@@ -83,7 +83,7 @@
 export default {
   methods: {
     validate() {
-      if (this.$refs.createAcountForm.validate()) {
+      if (this.$refs.form.validate()) {
         this.$router.push("/signup/verifyphone");
       }
     }
