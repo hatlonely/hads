@@ -11,7 +11,6 @@
           <h2>欢迎使用 hads</h2>
         </v-flex>
         <v-flex my-4 xs12 lg12>
-          <!-- <v-icon>account_circle</v-icon>&nbsp;&nbsp; hatlonely1992@gmail.com -->
           <v-layout align-center justify-left>
             <v-card class="h-round-card px-2 py-1" outlined flat>
               <v-icon class="mr-2">account_circle</v-icon>
@@ -21,23 +20,58 @@
         </v-flex>
 
         <v-flex mt-10 mb-4>
-          <v-layout mx-0 row wrap>
-            <v-flex xs12>
-              <v-text-field label="生日" outlined filled></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field label="性别" outlined filled></v-text-field>
-            </v-flex>
-          </v-layout>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-layout mx-0 row wrap>
+              <v-flex xs12>
+                <v-menu
+                  ref="birthdayMenu"
+                  v-model="birthdayMenu"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  full-width
+                  max-width="290px"
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="dateFormatted"
+                      label="生日"
+                      :rules="[rules.required]"
+                      @blur="date = parseDate(dateFormatted)"
+                      v-on="on"
+                      outlined
+                      filled
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    v-model="date"
+                    no-title
+                    ref="picker"
+                    locale="zh-cn"
+                    :max="new Date().toISOString().substr(0, 10)"
+                    min="1950-01-01"
+                    @change="save"
+                    color="primary"
+                    :day-format="date => date.split('-')[2]"
+                  ></v-date-picker>
+                </v-menu>
+              </v-flex>
+              <v-flex xs12>
+                <!-- <v-text-field label="性别" outlined filled :rules="[rules.required]"></v-text-field> -->
+                <v-select :items="genderChoice" label="性别" outlined filled></v-select>
+              </v-flex>
+            </v-layout>
+          </v-form>
         </v-flex>
         <v-flex mt-0 mx-0>
           <v-layout align-left justify-center row fill-height text-left>
             <v-flex xs3>
-              <v-btn text color="primary" to="/signup/verifyphone" pl-0>上一步</v-btn>
+              <v-btn text color="primary" to="/signup/verifyphone" pl-0>后退</v-btn>
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
-              <v-btn color="primary" depressed to="/signup/privacy">下一步</v-btn>
+              <v-btn color="primary" depressed @click="validate" :disabled="!valid">下一步</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -60,16 +94,55 @@
 </template>
 
 <script>
+import rules from "../../assets/js/rules";
+
 export default {
-  data() {
-    return {
-      show: false,
-      rules: {
-        required: v => !!v || "必要字段",
-        min: v => (!!v && v.length >= 8) || "至少8个字符",
-        verifycode: v => (!!v && v.match(/^[0-9]{6}$/)) || "请输入正确的验证码",
-        phone: v => v.match(/^1[345789][0-9]{9}$/) || "请输入正确的电话号码哦"
+  methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.$router.push("/signup/privacy");
       }
+    },
+    formatDate(date) {
+      if (!date) return null;
+
+      const [year, month, day] = date.split("-");
+      return `${month}/${day}/${year}`;
+    },
+    parseDate(date) {
+      if (!date) return null;
+
+      const [month, day, year] = date.split("/");
+      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    },
+    save(date) {
+      this.$refs.birthdayMenu.save(date);
+    }
+  },
+  computed: {
+    computedDateFormatted() {
+      return this.formatDate(this.date);
+    }
+  },
+
+  watch: {
+    date(val) {
+      this.dateFormatted = this.formatDate(this.date);
+    },
+    birthdayMenu(val) {
+      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
+    }
+  },
+  data(vm) {
+    return {
+      valid: true,
+      date: "1992-01-01",
+      // date: new Date().toISOString().substr(0, 10) ,
+      // dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
+      dateFormatted: null,
+      birthdayMenu: false,
+      genderChoice: ["男", "女", "保密"],
+      rules
     };
   }
 };
