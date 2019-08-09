@@ -93,7 +93,9 @@ def before_all(context):
         charset="utf8",
         cursorclass=pymysql.cursors.DictCursor
     )
-    context.redis_client = redis.Redis(host="localhost", port=6379, db=0)
+    context.redis_client = redis.Redis(
+        config["redis"]["host"], port=6379, db=0
+    )
     deploy()
     start()
     context.config = config
