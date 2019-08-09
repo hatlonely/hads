@@ -11,7 +11,9 @@
           <h2>验证您的手机号码</h2>
         </v-flex>
         <v-flex my-10>
-          <p class="body-2">为了安全起见，hads 希望确定是您本人在登录。hads 将通过短信向您发送一个 6 位数的验证码</p>
+          <p
+            class="body-2"
+          >为了安全起见，{{this.$config.org}} 希望确定是您本人在登录。{{this.$config.org}} 将通过短信向您发送一个 6 位数的验证码</p>
         </v-flex>
         <v-flex mt-10 mb-4>
           <p class="body-2">

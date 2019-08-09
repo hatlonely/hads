@@ -8,7 +8,7 @@
           </v-layout>
         </v-flex>
         <v-flex my-4 xs12 lg12>
-          <h2>创建您的 hads 账号</h2>
+          <h2>创建您的 {{this.$config.org}} 账号</h2>
         </v-flex>
         <v-flex mt-10 mb-4>
           <v-form ref="form" v-model="valid" lazy-validation>
@@ -80,7 +80,7 @@
               <v-img :src="require('../../assets/img/create_account.svg')" max-width="244" inline></v-img>
             </v-flex>
             <v-flex xs12 px-4>
-              <p class="body-1">只需要一个账号，您就可以使用 hads 的所有产品和服务</p>
+              <p class="body-1">只需要一个账号，您就可以使用 {{this.$config.org}} 的所有产品和服务</p>
             </v-flex>
           </v-flex>
         </v-layout>

@@ -8,7 +8,7 @@
           </v-layout>
         </v-flex>
         <v-flex my-4 xs12 lg12>
-          <h2>欢迎使用 hads</h2>
+          <h2>欢迎使用 {{this.$config.org}}</h2>
         </v-flex>
         <v-flex my-4 xs12 lg12>
           <v-layout align-center justify-left>
