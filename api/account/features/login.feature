@@ -1,8 +1,8 @@
-Feature: login 登陆测试
+Feature: signin 登陆测试
 
     Scenario Outline: 登陆成功
         Given mysqldb.accounts 创建用户 username: "hatlonely1", phone: "13145678901", email: "hatlonely1@foxmail.com", password: "e010597fcf126d58fdfa36e636f8fc9e"
-        When 请求 /login, username: "<username>", password: "<password>"
+        When 请求 /signin, username: "<username>", password: "<password>"
         Then 检查状态码 res.status_code: <status>
         Then 检查登陆返回 cookie
         Then 检查登陆返回包体 res.body, valid: <valid>, tokenlen: <tokenlen>
@@ -15,7 +15,7 @@ Feature: login 登陆测试
 
     Scenario Outline: 登陆失败
         Given mysqldb.accounts 创建用户 username: "hatlonely1", phone: "13145678901", email: "hatlonely1@foxmail.com", password: "e010597fcf126d58fdfa36e636f8fc9e"
-        When 请求 /login, username: "<username>", password: "<password>"
+        When 请求 /signin, username: "<username>", password: "<password>"
         Then 检查状态码 res.status_code: <status>
         Then 检查登陆返回包体 res.body, valid: <valid>, tokenlen: <tokenlen>
         Examples:
@@ -25,7 +25,7 @@ Feature: login 登陆测试
 
     Scenario Outline: 异常登陆
         Given mysqldb.accounts 创建用户 username: "hatlonely1", phone: "13145678901", email: "hatlonely1@foxmail.com", password: "e010597fcf126d58fdfa36e636f8fc9e"
-        When 请求 /login, username: "<username>", password: "<password>"
+        When 请求 /signin, username: "<username>", password: "<password>"
         Then 检查状态码 res.status_code: <status>
         Then 检查返回包体 res.body，包含字符串 "<body>"
         Examples:

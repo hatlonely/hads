@@ -1,8 +1,8 @@
-Feature: register 注册测试
+Feature: signup 注册测试
 
     Scenario Outline: 注册成功
         Given mysqldb.accounts 删除用户 username: "<username>"
-        When 请求 /register, username: "<username>", phone: "<phone>", email: "<email>", password: "<password>"
+        When 请求 /signup, username: "<username>", phone: "<phone>", email: "<email>", password: "<password>"
         Then 检查状态码 res.status_code: <status>
         Then 检查注册返回包体 res.body, success: <success>
         Then 检查 mysqldb.accounts，存在记录 username: "<username>", phone: "<phone>", email: "<email>", password: "<password>"
@@ -15,12 +15,12 @@ Feature: register 注册测试
     Scenario: 重复注册
         Given mysqldb.accounts 删除用户 username: "hatlonely1"
         Given mysqldb.accounts 创建用户 username: "hatlonely1", phone: "13145678901", email: "hatlonely1@foxmail.com", password: "e010597fcf126d58fdfa36e636f8fc9e"
-        When 请求 /register, username: "hatlonely1", phone: "13145678901", email: "hatlonely1@foxmail.com", password: "e010597fcf126d58fdfa36e636f8fc9e"
+        When 请求 /signup, username: "hatlonely1", phone: "13145678901", email: "hatlonely1@foxmail.com", password: "e010597fcf126d58fdfa36e636f8fc9e"
         Then 检查状态码 res.status_code: 500
         Then 检查返回包体 res.body，包含字符串 "username [hatlonely1] is already exists"
 
     Scenario Outline: 异常注册
-        When 请求 /register, username: "<username>", phone: "<phone>", email: "<email>", password: "<password>"
+        When 请求 /signup, username: "<username>", phone: "<phone>", email: "<email>", password: "<password>"
         Then 检查状态码 res.status_code: <status>
         Then 检查返回包体 res.body，包含字符串 "<body>"
         Examples:
