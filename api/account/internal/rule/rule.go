@@ -51,7 +51,7 @@ func AtLeast8Characters(v string) error {
 }
 
 func AtMost64Characters(v string) error {
-	if len(v) >= 64 {
+	if len(v) > 64 {
 		return fmt.Errorf("至多64个字符")
 	}
 
