@@ -38,15 +38,15 @@
                       v-model="dateFormatted"
                       label="生日"
                       :rules="[rules.required]"
-                      @blur="date = parseDate(dateFormatted)"
                       v-on="on"
                       outlined
                       filled
                       readonly
+                      :value="dateFormatted = formatDate(birthday)"
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="date"
+                    v-model="birthday"
                     no-title
                     ref="picker"
                     locale="zh-cn"
@@ -59,7 +59,14 @@
                 </v-menu>
               </v-flex>
               <v-flex xs12>
-                <v-select v-model="gender" :items="genderChoice" label="性别" outlined filled></v-select>
+                <v-select
+                  v-model="gender"
+                  :items="genderChoice"
+                  label="性别"
+                  :rules="[rules.required]"
+                  outlined
+                  filled
+                ></v-select>
               </v-flex>
             </v-layout>
           </v-form>
@@ -119,11 +126,6 @@ export default {
       this.$refs.birthdayMenu.save(date);
     }
   },
-  // computed: {
-  //   computedDateFormatted() {
-  //     return this.formatDate(this.date);
-  //   }
-  // },
   computed: {
     birthday: {
       get() {
@@ -144,8 +146,8 @@ export default {
   },
 
   watch: {
-    date(val) {
-      this.dateFormatted = this.formatDate(this.date);
+    birthday(val) {
+      this.dateFormatted = this.formatDate(this.birthday);
     },
     birthdayMenu(val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
@@ -154,7 +156,6 @@ export default {
   data(vm) {
     return {
       valid: true,
-      date: "1992-01-01",
       dateFormatted: null,
       birthdayMenu: false,
       genderChoice: ["男", "女", "保密"],
