@@ -26,7 +26,7 @@ type SignUpResBody struct {
 	Success bool `json:"success,omitempty"`
 }
 
-func (s *Service) Register(c *gin.Context) {
+func (s *Service) SignUp(c *gin.Context) {
 	rid := c.DefaultQuery("rid", NewToken())
 	req := &SignUpReqBody{}
 	var res *SignUpResBody
@@ -64,7 +64,7 @@ func (s *Service) Register(c *gin.Context) {
 		return
 	}
 
-	if err = s.checkRegisterReqBody(req); err != nil {
+	if err = s.checkSignUpReqBody(req); err != nil {
 		err = fmt.Errorf("check request body failed. body: [%v], err: [%v]", string(buf), err)
 		WarnLog.WithField("@rid", rid).WithField("err", err).Warn()
 		status = http.StatusBadRequest
@@ -72,9 +72,9 @@ func (s *Service) Register(c *gin.Context) {
 		return
 	}
 
-	res, err = s.register(req)
+	res, err = s.signUp(req)
 	if err != nil {
-		err = fmt.Errorf("register failed. err: [%v]", err)
+		err = fmt.Errorf("signUp failed. err: [%v]", err)
 		WarnLog.WithField("@rid", rid).WithField("err", err).Warn()
 		status = http.StatusInternalServerError
 		c.String(status, err.Error())
@@ -85,7 +85,7 @@ func (s *Service) Register(c *gin.Context) {
 	c.JSON(status, res)
 }
 
-func (s *Service) checkRegisterReqBody(req *SignUpReqBody) error {
+func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 	if err := rule.Check(req.Username, []rule.Rule{rule.Required, rule.AtMost64Characters}); err != nil {
 		return fmt.Errorf("username[%v] %v", req.Username, err)
 	}
@@ -102,7 +102,7 @@ func (s *Service) checkRegisterReqBody(req *SignUpReqBody) error {
 	return nil
 }
 
-func (s *Service) register(req *SignUpReqBody) (*SignUpResBody, error) {
+func (s *Service) signUp(req *SignUpReqBody) (*SignUpResBody, error) {
 	ok, err := s.db.InsertAccount(&mysqldb.Account{
 		Username: req.Username,
 		Phone:    req.Phone,

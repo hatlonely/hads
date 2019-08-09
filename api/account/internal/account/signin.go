@@ -19,7 +19,7 @@ type SignInResBody struct {
 	Token string `json:"token"`
 }
 
-func (s *Service) Login(c *gin.Context) {
+func (s *Service) SignIn(c *gin.Context) {
 	rid := c.DefaultQuery("rid", NewToken())
 	req := &SignInReqBody{}
 	var res *SignInResBody
@@ -57,7 +57,7 @@ func (s *Service) Login(c *gin.Context) {
 		return
 	}
 
-	if err = s.checkLoginReqBody(req); err != nil {
+	if err = s.checkSignInReqBody(req); err != nil {
 		err = fmt.Errorf("check request body failed. body: [%v], err: [%v]", string(buf), err)
 		WarnLog.WithField("@rid", rid).WithField("err", err).Warn()
 		status = http.StatusBadRequest
@@ -65,9 +65,9 @@ func (s *Service) Login(c *gin.Context) {
 		return
 	}
 
-	res, err = s.login(req)
+	res, err = s.signIn(req)
 	if err != nil {
-		WarnLog.WithField("@rid", rid).WithField("err", err).Warn("login failed")
+		WarnLog.WithField("@rid", rid).WithField("err", err).Warn("signIn failed")
 		status = http.StatusInternalServerError
 		c.String(status, err.Error())
 		return
@@ -81,14 +81,14 @@ func (s *Service) Login(c *gin.Context) {
 	c.JSON(status, res)
 }
 
-func (s *Service) checkLoginReqBody(req *SignInReqBody) error {
+func (s *Service) checkSignInReqBody(req *SignInReqBody) error {
 	if req.Username == "" || req.Password == "" {
 		return fmt.Errorf("username or password is null")
 	}
 	return nil
 }
 
-func (s *Service) login(req *SignInReqBody) (*SignInResBody, error) {
+func (s *Service) signIn(req *SignInReqBody) (*SignInResBody, error) {
 	account, err := s.db.SelectAccountByUsernameOrPhoneOrEmail(req.Username)
 	if err != nil {
 		return nil, err
