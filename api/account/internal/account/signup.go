@@ -11,7 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type RegisterReqBody struct {
+type SignUpReqBody struct {
 	Username   string `json:"username,omitempty"`
 	FirstName  string `json:"firstName,omitempty"`
 	SecondName string `json:"secondName,omitempty"`
@@ -22,14 +22,14 @@ type RegisterReqBody struct {
 	Gender     string `json:"gender,omitempty"`
 }
 
-type RegisterResBody struct {
+type SignUpResBody struct {
 	Success bool `json:"success,omitempty"`
 }
 
 func (s *Service) Register(c *gin.Context) {
 	rid := c.DefaultQuery("rid", NewToken())
-	req := &RegisterReqBody{}
-	var res *RegisterResBody
+	req := &SignUpReqBody{}
+	var res *SignUpResBody
 	var err error
 	var buf []byte
 	status := http.StatusOK
@@ -85,7 +85,7 @@ func (s *Service) Register(c *gin.Context) {
 	c.JSON(status, res)
 }
 
-func (s *Service) checkRegisterReqBody(req *RegisterReqBody) error {
+func (s *Service) checkRegisterReqBody(req *SignUpReqBody) error {
 	if err := rule.Check(req.Username, []rule.Rule{rule.Required, rule.AtMost64Characters}); err != nil {
 		return fmt.Errorf("username[%v] %v", req.Username, err)
 	}
@@ -102,7 +102,7 @@ func (s *Service) checkRegisterReqBody(req *RegisterReqBody) error {
 	return nil
 }
 
-func (s *Service) register(req *RegisterReqBody) (*RegisterResBody, error) {
+func (s *Service) register(req *SignUpReqBody) (*SignUpResBody, error) {
 	ok, err := s.db.InsertAccount(&mysqldb.Account{
 		Username: req.Username,
 		Phone:    req.Phone,
@@ -110,5 +110,5 @@ func (s *Service) register(req *RegisterReqBody) (*RegisterResBody, error) {
 		Password: req.Password,
 	})
 
-	return &RegisterResBody{Success: ok}, err
+	return &SignUpResBody{Success: ok}, err
 }
