@@ -61,16 +61,13 @@
 </template>
 
 <script>
+import rules from "../../assets/js/rules";
+
 export default {
   data() {
     return {
       show: false,
-      rules: {
-        required: v => !!v || "必要字段",
-        min: v => (!!v && v.length >= 8) || "至少8个字符",
-        verifycode: v => (!!v && v.match(/^[0-9]{6}$/)) || "请输入正确的验证码",
-        phone: v => v.match(/^1[345789][0-9]{9}$/) || "请输入正确的电话号码哦"
-      }
+      rules
     };
   }
 };

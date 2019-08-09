@@ -62,6 +62,7 @@
 
 <script>
 import { mapState } from "vuex";
+import rules from "../../assets/js/rules";
 
 export default {
   methods: {
@@ -84,12 +85,7 @@ export default {
   data() {
     return {
       valid: true,
-      rules: {
-        required: v => !!v || "必要字段",
-        min: v => (!!v && v.length >= 8) || "至少8个字符",
-        phone: v =>
-          (!!v && !!v.match(/^1[345789][0-9]{9}$/)) || "请输入正确的电话号码哦"
-      }
+      rules
     };
   }
 };

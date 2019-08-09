@@ -32,7 +32,13 @@
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field v-model="email" label="邮箱" :rules="[rules.required]" outlined filled></v-text-field>
+                <v-text-field
+                  v-model="email"
+                  label="邮箱"
+                  :rules="[rules.required, rules.email]"
+                  outlined
+                  filled
+                ></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-text-field
@@ -80,6 +86,8 @@
 </template>
 
 <script>
+import rules from "../../assets/js/rules";
+
 export default {
   methods: {
     validate() {
@@ -126,10 +134,7 @@ export default {
     return {
       valid: true,
       show: false,
-      rules: {
-        required: v => !!v || "必要字段",
-        min: v => (!!v && v.length >= 8) || "至少8个字符"
-      }
+      rules
     };
   }
 };
