@@ -64,7 +64,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import rules from "../../assets/js/rules";
 
 export default {

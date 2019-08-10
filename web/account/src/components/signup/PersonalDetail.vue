@@ -147,13 +147,13 @@ export default {
 
   watch: {
     birthday(val) {
-      this.dateFormatted = this.formatDate(this.birthday);
+      this.dateFormatted = this.formatDate(val);
     },
     birthdayMenu(val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   },
-  data(vm) {
+  data() {
     return {
       valid: true,
       dateFormatted: null,
