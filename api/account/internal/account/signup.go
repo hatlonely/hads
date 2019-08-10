@@ -86,19 +86,14 @@ func (s *Service) SignUp(c *gin.Context) {
 }
 
 func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
-	if err := rule.Check(req.Username, []rule.Rule{rule.Required, rule.AtMost64Characters}); err != nil {
-		return fmt.Errorf("username[%v] %v", req.Username, err)
+	if err := rule.Check(map[string][]rule.Rule{
+		req.Username: {rule.Required, rule.AtMost64Characters},
+		req.Phone:    {rule.Required, rule.ValidPhone},
+		req.Email:    {rule.Required, rule.ValidEmail},
+	}); err != nil {
+		return err
 	}
 
-	if req.Phone == "" && req.Email == "" {
-		return fmt.Errorf("email and phone should not be empty together")
-	}
-	if req.Phone != "" && !ValidatePhone(req.Phone) {
-		return fmt.Errorf("invalid phone [%v]", req.Phone)
-	}
-	if req.Email != "" && !ValidateEmail(req.Email) {
-		return fmt.Errorf("invalid email [%v]", req.Email)
-	}
 	return nil
 }
 

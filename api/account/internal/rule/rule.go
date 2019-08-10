@@ -24,10 +24,12 @@ func init() {
 
 type Rule func(string) error
 
-func Check(v string, rules []Rule) error {
-	for _, r := range rules {
-		if err := r(v); err != nil {
-			return err
+func Check(vrules map[string][]Rule) error {
+	for val, rules := range vrules {
+		for _, r := range rules {
+			if err := r(val); err != nil {
+				return fmt.Errorf("[%v] %v", val, err)
+			}
 		}
 	}
 
