@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/hatlonely/account/internal/mysqldb"
@@ -12,14 +13,13 @@ import (
 )
 
 type SignUpReqBody struct {
-	Username   string `json:"username,omitempty"`
 	FirstName  string `json:"firstName,omitempty"`
 	SecondName string `json:"secondName,omitempty"`
 	Phone      string `json:"phone,omitempty"`
 	Email      string `json:"email,omitempty"`
 	Password   string `json:"password,omitempty"`
 	Birthday   string `json:"birthday,omitempty"`
-	Gender     string `json:"gender,omitempty"`
+	Gender     int    `json:"gender,omitempty"`
 }
 
 type SignUpResBody struct {
@@ -87,9 +87,8 @@ func (s *Service) SignUp(c *gin.Context) {
 
 func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 	if err := rule.Check(map[string][]rule.Rule{
-		req.Username: {rule.Required, rule.AtMost64Characters},
-		req.Phone:    {rule.Required, rule.ValidPhone},
-		req.Email:    {rule.Required, rule.ValidEmail},
+		req.Phone: {rule.Required, rule.ValidPhone},
+		req.Email: {rule.Required, rule.ValidEmail},
 	}); err != nil {
 		return err
 	}
@@ -98,11 +97,15 @@ func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 }
 
 func (s *Service) signUp(req *SignUpReqBody) (*SignUpResBody, error) {
+	birthday, err := time.Parse("2006-01-02", req.Birthday)
 	ok, err := s.db.InsertAccount(&mysqldb.Account{
-		Username: req.Username,
-		Phone:    req.Phone,
-		Email:    req.Email,
-		Password: req.Password,
+		Phone:      req.Phone,
+		Email:      req.Email,
+		Password:   req.Password,
+		FirstName:  req.FirstName,
+		SecondName: req.SecondName,
+		Birthday:   birthday,
+		Gender:     req.Gender,
 	})
 
 	return &SignUpResBody{Success: ok}, err

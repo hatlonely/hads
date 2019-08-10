@@ -89,7 +89,7 @@ func (s *Service) checkSignInReqBody(req *SignInReqBody) error {
 }
 
 func (s *Service) signIn(req *SignInReqBody) (*SignInResBody, error) {
-	account, err := s.db.SelectAccountByUsernameOrPhoneOrEmail(req.Username)
+	account, err := s.db.SelectAccountByPhoneOrEmail(req.Username)
 	if err != nil {
 		return nil, err
 	}

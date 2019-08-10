@@ -43,11 +43,3 @@ func NewToken() string {
 	hex.Encode(buf, uid.Bytes())
 	return string(buf)
 }
-
-func ValidatePhone(telephone string) bool {
-	return TelephoneRegex.MatchString(telephone)
-}
-
-func ValidateEmail(email string) bool {
-	return EmailRegex.MatchString(email)
-}

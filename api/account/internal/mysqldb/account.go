@@ -3,25 +3,30 @@ package mysqldb
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/jinzhu/gorm"
 )
 
 type Account struct {
-	ID       int    `gorm:"type:bigint(20) auto_increment;primary_key" json:"id"`
-	Username string `gorm:"type:varchar(64);not null;unique_index:username_idx" json:"username"`
-	Phone    string `gorm:"type:varchar(64) default '';not null;index:phone_idx" json:"phone"`
-	Email    string `gorm:"type:varchar(64) default '';not null;index:email_idx" json:"email"`
-	Password string `gorm:"type:varchar(32) default '';not null" json:"password"`
-	Role     int    `gorm:"type:bigint(20) default 0;not null" json:"role"`
+	ID int `gorm:"type:bigint(20) auto_increment;primary_key" json:"id"`
+	// Username   string `gorm:"type:varchar(64);not null;unique_index:username_idx" json:"username"`
+	Email      string    `gorm:"type:varchar(64);not null;unique_index:email_idx" json:"email"`
+	Phone      string    `gorm:"type:varchar(64);not null;unique_index:phone_idx" json:"phone"`
+	FirstName  string    `gorm:"type:varchar(32);not null" json:"firstName"`
+	SecondName string    `gorm:"type:varchar(32);not null" json:"secondName"`
+	Password   string    `gorm:"type:varchar(32);not null" json:"password"`
+	Birthday   time.Time `gorm:"type:timestamp;not null" json:"birthday"`
+	Gender     int       `gorm:"type:int(1);not null" json:"gender"`
+	Role       int       `gorm:"type:bigint(20) default 0;not null" json:"role"`
 }
 
-func (m *MysqlDB) SelectAccountByUsernameOrPhoneOrEmail(key string) (*Account, error) {
+func (m *MysqlDB) SelectAccountByPhoneOrEmail(key string) (*Account, error) {
 	account := &Account{}
 	if key == "" {
 		return nil, fmt.Errorf("account key is null")
 	}
-	if err := m.db.Where("username=?", key).Or("phone=?", key).Or("email=?", key).First(account).Error; err != nil {
+	if err := m.db.Where("phone=?", key).Or("email=?", key).First(account).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, nil
 		}
@@ -32,20 +37,14 @@ func (m *MysqlDB) SelectAccountByUsernameOrPhoneOrEmail(key string) (*Account, e
 }
 
 func (m *MysqlDB) InsertAccount(account *Account) (bool, error) {
-	if account.Username == "" {
-		return false, fmt.Errorf("username is null, account [%#v]", account)
-	}
-	if account.Email == "" && account.Phone == "" {
-		return false, fmt.Errorf("email and phone are both null, account [%#v]", account)
+	if account.Email == "" || account.Phone == "" {
+		return false, fmt.Errorf("email or phone are is null, account [%#v]", account)
 	}
 
 	accountDB := &Account{}
 	var conditions []string
 	if account.ID != 0 {
 		conditions = append(conditions, fmt.Sprintf("id=%v", account.ID))
-	}
-	if account.Username != "" {
-		conditions = append(conditions, fmt.Sprintf("username='%v'", account.Username))
 	}
 	if account.Phone != "" {
 		conditions = append(conditions, fmt.Sprintf("phone='%v'", account.Phone))
@@ -61,10 +60,6 @@ func (m *MysqlDB) InsertAccount(account *Account) (bool, error) {
 	if err != gorm.ErrRecordNotFound {
 		if accountDB.ID == account.ID {
 			return false, fmt.Errorf("accountID [%v] is already exists", accountDB.ID)
-		}
-		if accountDB.Username == account.Username {
-
-			return false, fmt.Errorf("username [%v] is already exists", accountDB.Username)
 		}
 		if accountDB.Phone == account.Phone {
 			return false, fmt.Errorf("phone [%v] is already exists", accountDB.Phone)
