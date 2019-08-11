@@ -3,7 +3,7 @@
     <v-img :src="require('../../assets/img/logo.png')" max-width="70" tile></v-img>
     <v-toolbar-title>
       &nbsp;
-      <span class="body-2">账户</span>
+      <span class="body-2">账号</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-text-field
