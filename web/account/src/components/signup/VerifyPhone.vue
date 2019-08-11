@@ -23,7 +23,7 @@
             <v-layout mx-0 row wrap>
               <v-flex xs12>
                 <v-text-field
-                  v-model="telephone"
+                  v-model="phone"
                   label="电话号码"
                   :rules="[rules.required, rules.validphone]"
                   outlined
@@ -75,12 +75,12 @@ export default {
     }
   },
   computed: {
-    telephone: {
+    phone: {
       get() {
-        return this.$store.state.telephone;
+        return this.$store.state.phone;
       },
-      set(telephone) {
-        this.$store.state.telephone = telephone;
+      set(phone) {
+        this.$store.state.phone = phone;
       }
     }
   },

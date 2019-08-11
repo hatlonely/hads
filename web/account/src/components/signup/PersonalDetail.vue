@@ -62,6 +62,8 @@
                 <v-select
                   v-model="gender"
                   :items="genderChoice"
+                  item-text="val"
+                  item-value="idx"
                   label="性别"
                   :rules="[rules.required]"
                   outlined
@@ -158,7 +160,11 @@ export default {
       valid: true,
       dateFormatted: null,
       birthdayMenu: false,
-      genderChoice: ["男", "女", "保密"],
+      genderChoice: [
+        { idx: 1, val: "男" },
+        { idx: 2, val: "女" },
+        { idx: 0, val: "保密" }
+      ],
       rules
     };
   }

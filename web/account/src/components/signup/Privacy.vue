@@ -55,7 +55,7 @@
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
-              <v-btn color="primary" depressed to="/signup/verifycode">我同意</v-btn>
+              <v-btn color="primary" depressed @click="signup">我同意</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -78,7 +78,32 @@
 </template>
 
 <script>
+const axios = require("axios");
+
 export default {
+  methods: {
+    signup() {
+      axios
+        .post("http://127.0.0.1:6061" + "/signup", {
+          email: this.$store.state.email,
+          phone: this.$store.state.phone,
+          password: this.$store.state.password,
+          birthday: this.$store.state.birthday,
+          gender: this.$store.state.gender,
+          firstName: this.$store.state.firstName,
+          lastName: this.$store.state.lastName
+        })
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+        .finally(function() {
+          console.log("hello world");
+        });
+    }
+  },
   data() {
     return {
       show: false,

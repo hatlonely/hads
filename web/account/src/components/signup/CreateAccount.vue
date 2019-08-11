@@ -15,7 +15,7 @@
             <v-layout mx-0 row wrap>
               <v-flex xs6 pr-4>
                 <v-text-field
-                  v-model="firstName"
+                  v-model="lastName"
                   label="姓氏"
                   :rules="[rules.required]"
                   outlined
@@ -25,7 +25,7 @@
               </v-flex>
               <v-flex xs6 pl-4>
                 <v-text-field
-                  v-model="lastName"
+                  v-model="firstName"
                   label="名字"
                   :rules="[rules.required]"
                   outlined

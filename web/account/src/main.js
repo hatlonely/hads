@@ -33,10 +33,10 @@ Vue.use(VueConfig, config);
 const store = new Vuex.Store({
   state: {
     firstName: "",
-    secondName: "",
+    lastName: "",
     email: "",
     password: "",
-    telephone: "",
+    phone: "",
     code: "",
     birthday: "",
     gender: "",
