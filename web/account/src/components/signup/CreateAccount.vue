@@ -38,6 +38,7 @@
                   v-model="email"
                   label="邮箱"
                   :rules="[rules.required, rules.validemail]"
+                  :error-messages="errors"
                   outlined
                   filled
                   validate-on-blur
@@ -90,6 +91,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import rules from "../../assets/js/rules";
 
 export default {
@@ -98,6 +100,21 @@ export default {
       if (this.$refs.form.validate()) {
         this.$router.push("/signup/verifyphone");
       }
+    }
+  },
+  watch: {
+    email(val) {
+      axios
+        .post("http://127.0.0.1:6061" + "/vertify", {
+          field: "email",
+          value: val
+        })
+        .then(res => {
+          this.errors = res.data.ok ? [] : [res.data.tip];
+        })
+        .catch(function(error) {
+          this.errors = error;
+        });
     }
   },
   computed: {
@@ -138,6 +155,7 @@ export default {
     return {
       valid: true,
       show: false,
+      errors: [],
       rules
     };
   }

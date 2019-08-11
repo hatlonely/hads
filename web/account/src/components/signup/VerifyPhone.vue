@@ -26,6 +26,7 @@
                   v-model="phone"
                   label="电话号码"
                   :rules="[rules.required, rules.validphone]"
+                  :error-messages="errors"
                   outlined
                   filled
                   validate-on-blur
@@ -64,6 +65,7 @@
 </template>
 
 <script>
+const axios = require("axios");
 import rules from "../../assets/js/rules";
 
 export default {
@@ -72,6 +74,21 @@ export default {
       if (this.$refs.form.validate()) {
         this.$router.push("/signup/verifycode");
       }
+    }
+  },
+  watch: {
+    phone(val) {
+      axios
+        .post("http://127.0.0.1:6061" + "/vertify", {
+          field: "phone",
+          value: val
+        })
+        .then(res => {
+          this.errors = res.data.ok ? [] : [res.data.tip];
+        })
+        .catch(function(error) {
+          this.errors = error;
+        });
     }
   },
   computed: {
@@ -87,6 +104,7 @@ export default {
   data() {
     return {
       valid: true,
+      errors: [],
       rules
     };
   }
