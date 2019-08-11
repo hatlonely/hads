@@ -9,16 +9,15 @@ import (
 )
 
 type Account struct {
-	ID int `gorm:"type:bigint(20) auto_increment;primary_key" json:"id"`
-	// Username   string `gorm:"type:varchar(64);not null;unique_index:username_idx" json:"username"`
-	Email      string    `gorm:"type:varchar(64);not null;unique_index:email_idx" json:"email"`
-	Phone      string    `gorm:"type:varchar(64);not null;unique_index:phone_idx" json:"phone"`
-	FirstName  string    `gorm:"type:varchar(32);not null" json:"firstName"`
-	SecondName string    `gorm:"type:varchar(32);not null" json:"secondName"`
-	Password   string    `gorm:"type:varchar(32);not null" json:"password"`
-	Birthday   time.Time `gorm:"type:timestamp;not null" json:"birthday"`
-	Gender     int       `gorm:"type:int(1);not null" json:"gender"`
-	Role       int       `gorm:"type:bigint(20) default 0;not null" json:"role"`
+	ID        int       `gorm:"type:bigint(20) auto_increment;primary_key" json:"id"`
+	Email     string    `gorm:"type:varchar(64);not null;unique_index:email_idx" json:"email"`
+	Phone     string    `gorm:"type:varchar(64);not null;unique_index:phone_idx" json:"phone"`
+	FirstName string    `gorm:"type:varchar(32);not null" json:"firstName"`
+	LastName  string    `gorm:"type:varchar(32);not null" json:"lastName"`
+	Password  string    `gorm:"type:varchar(32);not null" json:"password"`
+	Birthday  time.Time `gorm:"type:timestamp;not null" json:"birthday"`
+	Gender    int       `gorm:"type:int(1);not null" json:"gender"`
+	Role      int       `gorm:"type:bigint(20) default 0;not null" json:"role"`
 }
 
 func (m *MysqlDB) SelectAccountByPhoneOrEmail(key string) (*Account, error) {

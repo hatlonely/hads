@@ -6,14 +6,14 @@ import requests
 import json
 
 
-@when('请求 /signup, phone: "{phone:str}", email: "{email:str}", password: "{password:str}", firstname: "{firstname:str}", secondname: "{secondname:str}", birthday: "{birthday:str}", gender: {gender:int}')
-def step_impl(context, phone, email, password, firstname, secondname, birthday, gender):
+@when('请求 /signup, phone: "{phone:str}", email: "{email:str}", password: "{password:str}", firstname: "{firstname:str}", lastname: "{lastname:str}", birthday: "{birthday:str}", gender: {gender:int}')
+def step_impl(context, phone, email, password, firstname, lastname, birthday, gender):
     print("hello world")
     context.phone = phone
     context.email = email
     context.password = password
     context.firstname = firstname
-    context.secondname = secondname
+    context.lastname = lastname
     context.birthday = birthday
     context.gender = gender
     res = requests.post("{}/signup".format(context.config["url"]), json={
@@ -21,7 +21,7 @@ def step_impl(context, phone, email, password, firstname, secondname, birthday, 
         "email": email,
         "password": password,
         "firstName": firstname,
-        "secondName": secondname,
+        "lastName": lastname,
         "birthday": birthday,
         "gender": gender
     })

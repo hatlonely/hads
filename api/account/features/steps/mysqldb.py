@@ -4,8 +4,8 @@ from behave import *
 from hamcrest import *
 
 
-@given('mysqldb.accounts 创建用户, phone: "{phone:str}", email: "{email:str}", password: "{password:str}", firstname: "{firstname:str}", secondname: "{secondname:str}", birthday: "{birthday:str}", gender: {gender:int}')
-def step_impl(context, phone, email, password, firstname, secondname, birthday, gender):
+@given('mysqldb.accounts 创建用户, phone: "{phone:str}", email: "{email:str}", password: "{password:str}", firstname: "{firstname:str}", lastname: "{lastname:str}", birthday: "{birthday:str}", gender: {gender:int}')
+def step_impl(context, phone, email, password, firstname, lastname, birthday, gender):
     context.cleanup = {
         "sql": "DELETE FROM accounts WHERE phone='{}' OR email='{}'".format(
             phone, email
@@ -15,15 +15,15 @@ def step_impl(context, phone, email, password, firstname, secondname, birthday, 
     context.email = email
     context.password = password
     context.firstname = firstname
-    context.secondname = secondname
+    context.lastname = lastname
     context.birthday = birthday
     context.gender = gender
     print("gender", gender, type(gender))
     with context.mysql_conn.cursor() as cursor:
         cursor.execute(context.cleanup["sql"])
         cursor.execute(
-            "INSERT INTO accounts (phone, email, password, first_name, second_name, birthday, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-            (phone, email, password, firstname, secondname, birthday, gender)
+            "INSERT INTO accounts (phone, email, password, first_name, last_name, birthday, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            (phone, email, password, firstname, lastname, birthday, gender)
         )
     context.mysql_conn.commit()
 
@@ -40,8 +40,8 @@ def step_impl(context, email):
     context.mysql_conn.commit()
 
 
-@then('检查 mysqldb.accounts, 存在记录 phone: "{phone:str}", email: "{email:str}", password: "{password:str}", firstname: "{firstname:str}", secondname: "{secondname:str}", birthday: "{birthday:str}", gender: {gender:int}')
-def step_impl(context, phone, email, password, firstname, secondname, birthday, gender):
+@then('检查 mysqldb.accounts, 存在记录 phone: "{phone:str}", email: "{email:str}", password: "{password:str}", firstname: "{firstname:str}", lastname: "{lastname:str}", birthday: "{birthday:str}", gender: {gender:int}')
+def step_impl(context, phone, email, password, firstname, lastname, birthday, gender):
     with context.mysql_conn.cursor() as cursor:
         cursor.execute(
             "SELECT * FROM accounts WHERE email='{}'".format(email)
@@ -54,7 +54,7 @@ def step_impl(context, phone, email, password, firstname, secondname, birthday, 
         assert_that(email, equal_to(account["email"]))
         assert_that(password, equal_to(account["password"]))
         assert_that(firstname, equal_to(account["first_name"]))
-        assert_that(secondname, equal_to(account["second_name"]))
+        assert_that(lastname, equal_to(account["last_name"]))
         print(account["birthday"].strftime("%Y-%m-%d"))
         assert_that(birthday, equal_to(
             account["birthday"].strftime("%Y-%m-%d")))

@@ -19,13 +19,13 @@ func TestMysqlDB_InsertAccount(t *testing.T) {
 		Convey("insert account", func() {
 			birthday, _ := time.Parse("2006-01-02", "1992-01-01")
 			ok, err := m.InsertAccount(&Account{
-				Email:      "hatlonely1@foxmail.com",
-				Phone:      "13112345678",
-				Password:   "123456",
-				FirstName:  "孙",
-				SecondName: "悟空",
-				Birthday:   birthday,
-				Gender:     1,
+				Email:     "hatlonely1@foxmail.com",
+				Phone:     "13112345678",
+				Password:  "123456",
+				FirstName: "孙",
+				LastName:  "悟空",
+				Birthday:  birthday,
+				Gender:    1,
 			})
 			So(err, ShouldBeNil)
 			So(ok, ShouldBeTrue)
@@ -36,19 +36,19 @@ func TestMysqlDB_InsertAccount(t *testing.T) {
 			So(account.Phone, ShouldEqual, "13112345678")
 			So(account.Password, ShouldEqual, "123456")
 			So(account.FirstName, ShouldEqual, "孙")
-			So(account.SecondName, ShouldEqual, "悟空")
+			So(account.LastName, ShouldEqual, "悟空")
 			So(account.Birthday, ShouldEqual, birthday)
 			So(account.Gender, ShouldEqual, 1)
 
 			Convey("insert dup email", func() {
 				ok, err := m.InsertAccount(&Account{
-					Email:      "hatlonely1@foxmail.com",
-					Phone:      "13812345678",
-					Password:   "123456",
-					FirstName:  "孙",
-					SecondName: "悟空",
-					Birthday:   birthday,
-					Gender:     1,
+					Email:     "hatlonely1@foxmail.com",
+					Phone:     "13812345678",
+					Password:  "123456",
+					FirstName: "孙",
+					LastName:  "悟空",
+					Birthday:  birthday,
+					Gender:    1,
 				})
 				So(err, ShouldNotBeNil)
 				So(ok, ShouldBeFalse)
@@ -56,13 +56,13 @@ func TestMysqlDB_InsertAccount(t *testing.T) {
 
 			Convey("insert dup phone", func() {
 				ok, err := m.InsertAccount(&Account{
-					Email:      "hatlonely2@foxmail.com",
-					Phone:      "13112345678",
-					Password:   "123456",
-					FirstName:  "孙",
-					SecondName: "悟空",
-					Birthday:   birthday,
-					Gender:     1,
+					Email:     "hatlonely2@foxmail.com",
+					Phone:     "13112345678",
+					Password:  "123456",
+					FirstName: "孙",
+					LastName:  "悟空",
+					Birthday:  birthday,
+					Gender:    1,
 				})
 				So(err, ShouldNotBeNil)
 				So(ok, ShouldBeFalse)
@@ -94,13 +94,13 @@ func TestMysqlDB_SelectAccountByUsernameOrTelephoneOrEmail(t *testing.T) {
 
 		birthday, _ := time.Parse("2006-01-02", "1992-01-01")
 		ok, err := m.InsertAccount(&Account{
-			Email:      "hatlonely1@foxmail.com",
-			Phone:      "13112345678",
-			Password:   "123456",
-			FirstName:  "孙",
-			SecondName: "悟空",
-			Birthday:   birthday,
-			Gender:     1,
+			Email:     "hatlonely1@foxmail.com",
+			Phone:     "13112345678",
+			Password:  "123456",
+			FirstName: "孙",
+			LastName:  "悟空",
+			Birthday:  birthday,
+			Gender:    1,
 		})
 		So(err, ShouldBeNil)
 		So(ok, ShouldBeTrue)
@@ -112,7 +112,7 @@ func TestMysqlDB_SelectAccountByUsernameOrTelephoneOrEmail(t *testing.T) {
 			So(account.Phone, ShouldEqual, "13112345678")
 			So(account.Password, ShouldEqual, "123456")
 			So(account.FirstName, ShouldEqual, "孙")
-			So(account.SecondName, ShouldEqual, "悟空")
+			So(account.LastName, ShouldEqual, "悟空")
 			So(account.Birthday, ShouldEqual, birthday)
 			So(account.Gender, ShouldEqual, 1)
 		})
@@ -124,7 +124,7 @@ func TestMysqlDB_SelectAccountByUsernameOrTelephoneOrEmail(t *testing.T) {
 			So(account.Phone, ShouldEqual, "13112345678")
 			So(account.Password, ShouldEqual, "123456")
 			So(account.FirstName, ShouldEqual, "孙")
-			So(account.SecondName, ShouldEqual, "悟空")
+			So(account.LastName, ShouldEqual, "悟空")
 			So(account.Birthday, ShouldEqual, birthday)
 			So(account.Gender, ShouldEqual, 1)
 		})

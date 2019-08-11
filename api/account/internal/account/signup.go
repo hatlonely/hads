@@ -13,13 +13,13 @@ import (
 )
 
 type SignUpReqBody struct {
-	FirstName  string `json:"firstName,omitempty"`
-	SecondName string `json:"secondName,omitempty"`
-	Phone      string `json:"phone,omitempty"`
-	Email      string `json:"email,omitempty"`
-	Password   string `json:"password,omitempty"`
-	Birthday   string `json:"birthday,omitempty"`
-	Gender     int    `json:"gender,omitempty"`
+	FirstName string `json:"firstName,omitempty"`
+	LastName  string `json:"lastName,omitempty"`
+	Phone     string `json:"phone,omitempty"`
+	Email     string `json:"email,omitempty"`
+	Password  string `json:"password,omitempty"`
+	Birthday  string `json:"birthday,omitempty"`
+	Gender    int    `json:"gender,omitempty"`
 }
 
 type SignUpResBody struct {
@@ -99,13 +99,13 @@ func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 func (s *Service) signUp(req *SignUpReqBody) (*SignUpResBody, error) {
 	birthday, err := time.Parse("2006-01-02", req.Birthday)
 	ok, err := s.db.InsertAccount(&mysqldb.Account{
-		Phone:      req.Phone,
-		Email:      req.Email,
-		Password:   req.Password,
-		FirstName:  req.FirstName,
-		SecondName: req.SecondName,
-		Birthday:   birthday,
-		Gender:     req.Gender,
+		Phone:     req.Phone,
+		Email:     req.Email,
+		Password:  req.Password,
+		FirstName: req.FirstName,
+		LastName:  req.LastName,
+		Birthday:  birthday,
+		Gender:    req.Gender,
 	})
 
 	return &SignUpResBody{Success: ok}, err
