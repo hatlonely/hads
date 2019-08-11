@@ -18,7 +18,6 @@ def step_impl(context, phone, email, password, firstname, lastname, birthday, ge
     context.lastname = lastname
     context.birthday = birthday
     context.gender = gender
-    print("gender", gender, type(gender))
     with context.mysql_conn.cursor() as cursor:
         cursor.execute(context.cleanup["sql"])
         cursor.execute(
@@ -49,13 +48,11 @@ def step_impl(context, phone, email, password, firstname, lastname, birthday, ge
         res = cursor.fetchall()
         assert_that(len(res), equal_to(1))
         account = res[0]
-        print(account)
         assert_that(phone, equal_to(account["phone"]))
         assert_that(email, equal_to(account["email"]))
         assert_that(password, equal_to(account["password"]))
         assert_that(firstname, equal_to(account["first_name"]))
         assert_that(lastname, equal_to(account["last_name"]))
-        print(account["birthday"].strftime("%Y-%m-%d"))
         assert_that(birthday, equal_to(
             account["birthday"].strftime("%Y-%m-%d")))
         assert_that(gender, equal_to(account["gender"]))

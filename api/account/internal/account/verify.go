@@ -81,6 +81,7 @@ func (s *Service) Vertify(c *gin.Context) {
 func (s *Service) checkVertifyReqBody(req *VertifyReqBody) error {
 	if err := rule.Check(map[interface{}][]rule.Rule{
 		req.Field: {rule.Required, rule.In(map[interface{}]struct{}{"phone": {}, "email": {}})},
+		req.Value: {rule.Required},
 	}); err != nil {
 		return err
 	}
