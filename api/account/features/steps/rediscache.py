@@ -9,7 +9,6 @@ import json
 def step_impl(context):
     res = context.redis_client.get(context.res["token"])
     account = json.loads(res)
-    assert_that(context.username, equal_to(account["username"]))
     assert_that(context.phone, equal_to(account["phone"]))
     assert_that(context.email, equal_to(account["email"]))
     assert_that(context.password, equal_to(account["password"]))
