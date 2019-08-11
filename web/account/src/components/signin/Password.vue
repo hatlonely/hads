@@ -21,6 +21,7 @@
     <v-flex my-10 mx-12>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
+          v-model="password"
           label="输入您的密码"
           :append-icon="show ? 'visibility' : 'visibility_off'"
           :type="show ? 'text' : 'password'"
@@ -28,6 +29,7 @@
           :rules="[rules.required, rules.atleast8characters]"
           outlined
           filled
+          :error-messages="errors"
         ></v-text-field>
       </v-form>
     </v-flex>
@@ -41,7 +43,7 @@
         </v-flex>
         <v-flex xs6></v-flex>
         <v-flex xs3>
-          <v-btn color="primary" depressed @click="validate" :disabled="!valid">下一步</v-btn>
+          <v-btn color="primary" depressed @click="signin">下一步</v-btn>
         </v-flex>
       </v-layout>
     </v-flex>
@@ -58,13 +60,37 @@
 </style>
 
 <script>
+const axios = require("axios");
 import rules from "../../assets/js/rules";
 
 export default {
   methods: {
-    validate() {
+    async signin() {
       if (this.$refs.form.validate()) {
-        this.$router.push("/");
+        try {
+          const response = await axios.post(this.$config.api + "/signin", {
+            username: this.$store.state.signin.username,
+            password: this.$store.state.signin.password
+          });
+          console.log(response.data);
+          if (response.data.valid) {
+            this.$router.push("/");
+          } else {
+            this.errors = ["密码错误"];
+          }
+        } catch (error) {
+          this.$router.push("/signin/sorry");
+        }
+      }
+    }
+  },
+  computed: {
+    password: {
+      get() {
+        return this.$store.state.signin.password;
+      },
+      set(password) {
+        this.$store.state.signin.password = password;
       }
     }
   },
@@ -72,6 +98,7 @@ export default {
     return {
       show: false,
       valid: true,
+      errors: [],
       rules
     };
   }

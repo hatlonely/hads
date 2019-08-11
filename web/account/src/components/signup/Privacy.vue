@@ -84,7 +84,7 @@ export default {
   methods: {
     async signup() {
       try {
-        const respnse = await axios.post(this.$config.org + "/signup", {
+        const response = await axios.post(this.$config.api + "/signup", {
           email: this.$store.state.email,
           phone: this.$store.state.phone,
           password: this.$store.state.password,
@@ -93,6 +93,7 @@ export default {
           firstName: this.$store.state.firstName,
           lastName: this.$store.state.lastName
         });
+        console.log(response.data);
         this.$router.push("/");
       } catch (error) {
         this.$router.push("/signup/sorry");
