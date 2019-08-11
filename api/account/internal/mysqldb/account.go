@@ -2,6 +2,7 @@ package mysqldb
 
 import (
 	"fmt"
+	"github.com/hatlonely/account/internal/rule"
 	"strings"
 	"time"
 
@@ -21,11 +22,31 @@ type Account struct {
 }
 
 func (m *MysqlDB) SelectAccountByPhoneOrEmail(key string) (*Account, error) {
-	account := &Account{}
-	if key == "" {
-		return nil, fmt.Errorf("account key is null")
+	if err := rule.ValidPhone(key); err == nil {
+		return m.SelectAccountByPhone(key)
 	}
-	if err := m.db.Where("phone=?", key).Or("email=?", key).First(account).Error; err != nil {
+	if err := rule.ValidEmail(key); err == nil {
+		return m.SelectAccountByEmail(key)
+	}
+
+	return nil, fmt.Errorf("key [%v] is not a valid phone or email", key)
+}
+
+func (m *MysqlDB) SelectAccountByPhone(phone string) (*Account, error) {
+	account := &Account{}
+	if err := m.db.Where("phone=?", phone).First(account).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return account, nil
+}
+
+func (m *MysqlDB) SelectAccountByEmail(email string) (*Account, error) {
+	account := &Account{}
+	if err := m.db.Where("email=?", email).First(account).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, nil
 		}

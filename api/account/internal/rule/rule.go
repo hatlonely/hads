@@ -5,13 +5,6 @@ import (
 	"regexp"
 )
 
-// required: v => !!v || "必要字段",
-// atleast8characters: v => (!!v && v.length >= 8) || "至少8个字符",
-// validemail: v => (!!v && /.+@.+\..+/.test(v)) || "请输入一个有效的 email",
-// validphone: v =>
-// 	(!!v && !!/^1[345789][0-9]{9}$/.test(v)) || "请输入正确的电话号码哦",
-// validcode: v => (!!v && /^[0-9]{6}$/.test(v)) || "请输入正确的验证码",
-
 var EmailRegex *regexp.Regexp
 var PhoneRegex *regexp.Regexp
 var CodeRegex *regexp.Regexp
@@ -22,9 +15,9 @@ func init() {
 	CodeRegex = regexp.MustCompile(`^[0-9]{6}$`)
 }
 
-type Rule func(string) error
+type Rule func(interface{}) error
 
-func Check(vrules map[string][]Rule) error {
+func Check(vrules map[interface{}][]Rule) error {
 	for val, rules := range vrules {
 		for _, r := range rules {
 			if err := r(val); err != nil {
@@ -36,48 +29,57 @@ func Check(vrules map[string][]Rule) error {
 	return nil
 }
 
-func Required(v string) error {
-	if len(v) == 0 {
+func In(sets map[interface{}]struct{}) Rule {
+	return func(v interface{}) error {
+		if _, ok := sets[v]; !ok {
+			return fmt.Errorf("%v 必须在 %v 中", v, sets)
+		}
+		return nil
+	}
+}
+
+func Required(v interface{}) error {
+	if len(v.(string)) == 0 {
 		return fmt.Errorf("必要字段")
 	}
 
 	return nil
 }
 
-func AtLeast8Characters(v string) error {
-	if len(v) < 8 {
+func AtLeast8Characters(v interface{}) error {
+	if len(v.(string)) < 8 {
 		return fmt.Errorf("至少8个字符")
 	}
 
 	return nil
 }
 
-func AtMost64Characters(v string) error {
-	if len(v) > 64 {
+func AtMost64Characters(v interface{}) error {
+	if len(v.(string)) > 64 {
 		return fmt.Errorf("至多64个字符")
 	}
 
 	return nil
 }
 
-func ValidEmail(v string) error {
-	if !EmailRegex.MatchString(v) {
+func ValidEmail(v interface{}) error {
+	if !EmailRegex.MatchString(v.(string)) {
 		return fmt.Errorf("无效的邮箱")
 	}
 
 	return nil
 }
 
-func ValidPhone(v string) error {
-	if !PhoneRegex.MatchString(v) {
+func ValidPhone(v interface{}) error {
+	if !PhoneRegex.MatchString(v.(string)) {
 		return fmt.Errorf("无效的电话号码")
 	}
 
 	return nil
 }
 
-func ValidCode(v string) error {
-	if !CodeRegex.MatchString(v) {
+func ValidCode(v interface{}) error {
+	if !CodeRegex.MatchString(v.(string)) {
 		return fmt.Errorf("无效的验证码")
 	}
 

@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/hatlonely/account/internal/rule"
 	"github.com/sirupsen/logrus"
 )
 
@@ -82,9 +83,13 @@ func (s *Service) SignIn(c *gin.Context) {
 }
 
 func (s *Service) checkSignInReqBody(req *SignInReqBody) error {
-	if req.Username == "" || req.Password == "" {
-		return fmt.Errorf("username or password is null")
+	if err := rule.Check(map[interface{}][]rule.Rule{
+		req.Username: {rule.Required},
+		req.Password: {rule.Required, rule.AtLeast8Characters},
+	}); err != nil {
+		return err
 	}
+
 	return nil
 }
 

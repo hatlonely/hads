@@ -86,10 +86,10 @@ func TestMysqlDB_SelectAccountByUsernameOrTelephoneOrEmail(t *testing.T) {
 			So(err, ShouldNotBeNil)
 		})
 
-		Convey("select account use nonexists key", func() {
+		Convey("select account not phone or email", func() {
 			account, err := m.SelectAccountByPhoneOrEmail("hatlonely1")
 			So(account, ShouldBeNil)
-			So(err, ShouldBeNil)
+			So(err, ShouldNotBeNil)
 		})
 
 		birthday, _ := time.Parse("2006-01-02", "1992-01-01")

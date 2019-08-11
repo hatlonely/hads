@@ -3,33 +3,27 @@ package account
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/hatlonely/account/internal/rule"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/hatlonely/account/internal/mysqldb"
-	"github.com/hatlonely/account/internal/rule"
 	"github.com/sirupsen/logrus"
 )
 
-type SignUpReqBody struct {
-	FirstName string `json:"firstName,omitempty"`
-	LastName  string `json:"lastName,omitempty"`
-	Phone     string `json:"phone,omitempty"`
-	Email     string `json:"email,omitempty"`
-	Password  string `json:"password,omitempty"`
-	Birthday  string `json:"birthday,omitempty"`
-	Gender    int    `json:"gender,omitempty"`
+type VertifyReqBody struct {
+	Field string `json:"field,omitempty"`
+	Value string `json:"value,omitempty"`
 }
 
-type SignUpResBody struct {
-	Success bool `json:"success,omitempty"`
+type VertifyResBody struct {
+	OK  bool   `json:"ok"`
+	Tip string `json:"tip"`
 }
 
-func (s *Service) SignUp(c *gin.Context) {
+func (s *Service) Vertify(c *gin.Context) {
 	rid := c.DefaultQuery("rid", NewToken())
-	req := &SignUpReqBody{}
-	var res *SignUpResBody
+	req := &VertifyReqBody{}
+	var res *VertifyResBody
 	var err error
 	var buf []byte
 	status := http.StatusOK
@@ -64,7 +58,7 @@ func (s *Service) SignUp(c *gin.Context) {
 		return
 	}
 
-	if err = s.checkSignUpReqBody(req); err != nil {
+	if err = s.checkVertifyReqBody(req); err != nil {
 		err = fmt.Errorf("check request body failed. body: [%v], err: [%v]", string(buf), err)
 		WarnLog.WithField("@rid", rid).WithField("err", err).Warn()
 		status = http.StatusBadRequest
@@ -72,10 +66,9 @@ func (s *Service) SignUp(c *gin.Context) {
 		return
 	}
 
-	res, err = s.signUp(req)
+	res, err = s.vertify(req)
 	if err != nil {
-		err = fmt.Errorf("signUp failed. err: [%v]", err)
-		WarnLog.WithField("@rid", rid).WithField("err", err).Warn()
+		WarnLog.WithField("@rid", rid).WithField("err", err).Warn("vertify failed")
 		status = http.StatusInternalServerError
 		c.String(status, err.Error())
 		return
@@ -85,12 +78,9 @@ func (s *Service) SignUp(c *gin.Context) {
 	c.JSON(status, res)
 }
 
-func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
+func (s *Service) checkVertifyReqBody(req *VertifyReqBody) error {
 	if err := rule.Check(map[interface{}][]rule.Rule{
-		req.Phone:    {rule.Required, rule.ValidPhone},
-		req.Email:    {rule.Required, rule.ValidEmail, rule.AtMost64Characters},
-		req.Password: {rule.Required, rule.AtLeast8Characters},
-		req.Birthday: {rule.Required},
+		req.Field: {rule.Required, rule.In(map[interface{}]struct{}{"phone": {}, "email": {}})},
 	}); err != nil {
 		return err
 	}
@@ -98,17 +88,28 @@ func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 	return nil
 }
 
-func (s *Service) signUp(req *SignUpReqBody) (*SignUpResBody, error) {
-	birthday, err := time.Parse("2006-01-02", req.Birthday)
-	ok, err := s.db.InsertAccount(&mysqldb.Account{
-		Phone:     req.Phone,
-		Email:     req.Email,
-		Password:  req.Password,
-		FirstName: req.FirstName,
-		LastName:  req.LastName,
-		Birthday:  birthday,
-		Gender:    req.Gender,
-	})
+func (s *Service) vertify(req *VertifyReqBody) (*VertifyResBody, error) {
+	if req.Field == "phone" {
+		account, err := s.db.SelectAccountByPhone(req.Value)
+		if err != nil {
+			return nil, err
+		}
+		if account == nil {
+			return &VertifyResBody{OK: true}, nil
+		}
+		return &VertifyResBody{OK: false, Tip: "电话号码已存在"}, nil
+	}
 
-	return &SignUpResBody{Success: ok}, err
+	if req.Field == "email" {
+		account, err := s.db.SelectAccountByEmail(req.Value)
+		if err != nil {
+			return nil, err
+		}
+		if account == nil {
+			return &VertifyResBody{OK: true}, nil
+		}
+		return &VertifyResBody{OK: false, Tip: "邮箱已存在"}, nil
+	}
+
+	return &VertifyResBody{OK: false, Tip: fmt.Sprintf("未知字段 [%v]", req.Field)}, nil
 }
