@@ -6,20 +6,28 @@ import requests
 import json
 
 
-@when('请求 /signup, username: "{username:str}", phone: "{phone:str}", email: "{email:str}", password: "{password:str}"')
-def step_impl(context, username, phone, email, password):
-    context.username = username
+@when('请求 /signup, phone: "{phone:str}", email: "{email:str}", password: "{password:str}", firstname: "{firstname:str}", secondname: "{secondname:str}", birthday: "{birthday:str}", gender: {gender:int}')
+def step_impl(context, phone, email, password, firstname, secondname, birthday, gender):
+    print("hello world")
     context.phone = phone
     context.email = email
     context.password = password
+    context.firstname = firstname
+    context.secondname = secondname
+    context.birthday = birthday
+    context.gender = gender
     res = requests.post("{}/signup".format(context.config["url"]), json={
-        "username": username,
         "phone": phone,
         "email": email,
         "password": password,
+        "firstName": firstname,
+        "secondName": secondname,
+        "birthday": birthday,
+        "gender": gender
     })
     context.status = res.status_code
     context.body = res.text
+    print(res)
     if context.status == 200:
         context.res = json.loads(res.text)
     print({

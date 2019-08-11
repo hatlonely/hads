@@ -1,32 +1,35 @@
 Feature: signup 注册测试
 
     Scenario Outline: 注册成功
-        Given mysqldb.accounts 删除用户 username: "<username>"
-        When 请求 /signup, username: "<username>", phone: "<phone>", email: "<email>", password: "<password>"
+        Given mysqldb.accounts 删除用户, email: "<email>"
+        When 请求 /signup, phone: "<phone>", email: "<email>", password: "<password>", firstname: "<firstname>", secondname: "<secondname>", birthday: "<birthday>", gender: <gender>
         Then 检查状态码 res.status_code: <status>
         Then 检查注册返回包体 res.body, success: <success>
-        Then 检查 mysqldb.accounts，存在记录 username: "<username>", phone: "<phone>", email: "<email>", password: "<password>"
+        Then 检查 mysqldb.accounts, 存在记录 phone: "<phone>", email: "<email>", password: "<password>", firstname: "<firstname>", secondname: "<secondname>", birthday: "<birthday>", gender: <gender>
         Examples:
-            | username   | phone       | email                  | password                         | status | success |
-            | hatlonely1 | 13145678901 | hatlonely1@foxmail.com | e010597fcf126d58fdfa36e636f8fc9e | 200    | true    |
+            | phone       | email                  | password | firstname | secondname | birthday   | gender | status | success |
+            | 13145678901 | hatlonely1@foxmail.com | 123456   | 贺        | 乐         | 1992-01-01 | 1      | 200    | true    |
 
-    Scenario: 重复注册
-        Given mysqldb.accounts 删除用户 username: "hatlonely1"
-        Given mysqldb.accounts 创建用户 username: "hatlonely1", phone: "13145678901", email: "hatlonely1@foxmail.com", password: "e010597fcf126d58fdfa36e636f8fc9e"
-        When 请求 /signup, username: "hatlonely1", phone: "13145678901", email: "hatlonely1@foxmail.com", password: "e010597fcf126d58fdfa36e636f8fc9e"
+    Scenario Outline: 重复注册
+        Given mysqldb.accounts 删除用户, email: "<email>"
+        Given mysqldb.accounts 创建用户, phone: "<phone>", email: "<email>", password: "<password>", firstname: "<firstname>", secondname: "<secondname>", birthday: "<birthday>", gender: <gender>
+        When 请求 /signup, phone: "<phone>", email: "<email>", password: "<password>", firstname: "<firstname>", secondname: "<secondname>", birthday: "<birthday>", gender: <gender>
         Then 检查状态码 res.status_code: 500
-        Then 检查返回包体 res.body，包含字符串 "username [hatlonely1] is already exists"
+        Then 检查返回包体 res.body，包含字符串 "phone [13145678901] is already exists"
+        Examples:
+            | phone       | email                  | password | firstname | secondname | birthday   | gender | status | success |
+            | 13145678901 | hatlonely1@foxmail.com | 123456   | 贺        | 乐         | 1992-01-01 | 1      | 200    | true    |
+
 
     Scenario Outline: 异常注册
-        When 请求 /signup, username: "<username>", phone: "<phone>", email: "<email>", password: "<password>"
+        When 请求 /signup, phone: "<phone>", email: "<email>", password: "<password>", firstname: "<firstname>", secondname: "<secondname>", birthday: "<birthday>", gender: <gender>
         Then 检查状态码 res.status_code: <status>
         Then 检查返回包体 res.body，包含字符串 "<body>"
         Examples:
-            | username                                                          | phone        | email                  | password                         | status | body           |
-            | hatlonely1                                                        | 131-45678901 | hatlonely1@foxmail.com | e010597fcf126d58fdfa36e636f8fc9e | 400    | 无效的电话号码 |
-            | hatlonely1                                                        | 13145678901  | hatlonely1             | 0fe808594e47df1a336bafd8ab32f326 | 400    | 无效的邮箱     |
-            | hatlonely1                                                        | N/A          | N/A                    | de9baf2c5dde96f0a8b371117e936d4b | 400    | 必要字段       |
-            | N/A                                                               | 13145678901  | hatlonely1@foxmail.com | de9baf2c5dde96f0a8b371117e936d4b | 400    | 必要字段       |
-            | veryveryveryveryveryveryveryveryveryveryveryveryveryveryvlongname | 13145678901  | hatlonely1@foxmail.com | de9baf2c5dde96f0a8b371117e936d4b | 400    | 至多64个字符   |
-            | hatlonely2                                                        | N/A          | hatlonely2@foxmail.com | 0fe808594e47df1a336bafd8ab32f326 | 400    | 必要字段       |
-            | hatlonely3                                                        | 13145678903  | N/A                    | de9baf2c5dde96f0a8b371117e936d4b | 400    | 必要字段       |
+            | phone        | email                                                             | password | firstname | secondname | birthday   | gender | status | body           |
+            | 131-45678901 | hatlonely1@foxmail.com                                            | 123456   | 孙        | 悟空       | 1992-01-01 | 1      | 400    | 无效的电话号码 |
+            | 13145678901  | hatlonely1                                                        | 123456   | 孙        | 悟空       | 1992-01-01 | 1      | 400    | 无效的邮箱     |
+            | N/A          | N/A                                                               | 123456   | 孙        | 悟空       | 1992-01-01 | 1      | 400    | 必要字段       |
+            | 13145678901  | veryveryveryveryveryveryveryveryveryveryveryvlongname@foxmail.com | 123456   | 孙        | 悟空       | 1992-01-01 | 1      | 400    | 至多64个字符   |
+            | N/A          | hatlonely2@foxmail.com                                            | 123456   | 孙        | 悟空       | 1992-01-01 | 1      | 400    | 必要字段       |
+            | 13145678903  | N/A                                                               | 123456   | 孙        | 悟空       | 1992-01-01 | 1      | 400    | 必要字段       |
