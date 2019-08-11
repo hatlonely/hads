@@ -9,10 +9,18 @@
       <h2>登陆</h2>
     </v-flex>
     <v-flex my-4 xs12 lg12>
-      <div class="body-1">使用您的 hads 账号</div>
+      <div class="body-1">使用您的 {{this.$config.org}} 账号</div>
     </v-flex>
     <v-flex my-10 mx-12>
-      <v-text-field label="电子邮件或者电话号码" outlined filled></v-text-field>
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="username"
+          label="电子邮件或者电话号码"
+          :rules="[rules.required, rules.validPhoneOrEmail]"
+          outlined
+          filled
+        ></v-text-field>
+      </v-form>
       <div class="body-2 text-left">
         <a>
           <strong>忘记了电子邮件地址？</strong>
@@ -37,9 +45,57 @@
         </v-flex>
         <v-flex xs6></v-flex>
         <v-flex xs3>
-          <v-btn color="primary" depressed to="/signin/password">下一步</v-btn>
+          <v-btn color="primary" depressed @click="validate" :disabled="!valid">下一步</v-btn>
         </v-flex>
       </v-layout>
     </v-flex>
   </v-card>
 </template>
+
+<script>
+const axios = require("axios");
+import rules from "../../assets/js/rules";
+
+export default {
+  methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.$router.push("/signin/password");
+      }
+    }
+  },
+  // watch: {
+  //   username(val) {
+  //     axios
+  //       .post(this.$config.org + "/vertify", {
+  //         field: "phone",
+  //         value: val
+  //       })
+  //       .then(res => {
+  //         this.errors = res.data.ok ? [] : [res.data.tip];
+  //       })
+  //       .catch(function(error) {
+  //         this.errors = error;
+  //       });
+  //   }
+  // },
+  computed: {
+    username: {
+      get() {
+        return this.$store.state.signin.username;
+      },
+      set(username) {
+        this.$store.state.signin.username = username;
+      }
+    }
+  },
+  data() {
+    return {
+      valid: true,
+      errors: [],
+      rules
+    };
+  }
+};
+</script>
+

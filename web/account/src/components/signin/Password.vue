@@ -19,15 +19,17 @@
       </v-layout>
     </v-flex>
     <v-flex my-10 mx-12>
-      <v-text-field
-        label="输入您的密码"
-        :append-icon="show ? 'visibility' : 'visibility_off'"
-        :type="show ? 'text' : 'password'"
-        @click:append="show = !show"
-        :rules="[rules.required, rules.min]"
-        outlined
-        filled
-      ></v-text-field>
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          label="输入您的密码"
+          :append-icon="show ? 'visibility' : 'visibility_off'"
+          :type="show ? 'text' : 'password'"
+          @click:append="show = !show"
+          :rules="[rules.required, rules.atleast8characters]"
+          outlined
+          filled
+        ></v-text-field>
+      </v-form>
     </v-flex>
 
     <v-flex my-12 mx-12>
@@ -39,7 +41,7 @@
         </v-flex>
         <v-flex xs6></v-flex>
         <v-flex xs3>
-          <v-btn color="primary" depressed to="/signin">下一步</v-btn>
+          <v-btn color="primary" depressed @click="validate" :disabled="!valid">下一步</v-btn>
         </v-flex>
       </v-layout>
     </v-flex>
@@ -56,14 +58,21 @@
 </style>
 
 <script>
+import rules from "../../assets/js/rules";
+
 export default {
+  methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.$router.push("/");
+      }
+    }
+  },
   data() {
     return {
       show: false,
-      rules: {
-        required: v => !!v || "必要字段",
-        min: v => (!!v && v.length >= 8) || "至少8个字符"
-      }
+      valid: true,
+      rules
     };
   }
 };
