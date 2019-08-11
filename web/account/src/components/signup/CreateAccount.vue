@@ -105,7 +105,7 @@ export default {
   watch: {
     email(val) {
       axios
-        .post("http://127.0.0.1:6061" + "/vertify", {
+        .post(this.$config.api + "/vertify", {
           field: "email",
           value: val
         })

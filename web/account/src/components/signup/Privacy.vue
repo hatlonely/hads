@@ -84,7 +84,7 @@ export default {
   methods: {
     async signup() {
       try {
-        const respnse = await axios.post("http://127.0.0.1:6061" + "/signup", {
+        const respnse = await axios.post(this.$config.org + "/signup", {
           email: this.$store.state.email,
           phone: this.$store.state.phone,
           password: this.$store.state.password,

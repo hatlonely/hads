@@ -79,7 +79,7 @@ export default {
   watch: {
     phone(val) {
       axios
-        .post("http://127.0.0.1:6061" + "/vertify", {
+        .post(this.$config.org + "/vertify", {
           field: "phone",
           value: val
         })
