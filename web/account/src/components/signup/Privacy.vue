@@ -82,9 +82,9 @@ const axios = require("axios");
 
 export default {
   methods: {
-    signup() {
-      axios
-        .post("http://127.0.0.1:6061" + "/signup", {
+    async signup() {
+      try {
+        const respnse = await axios.post("http://127.0.0.1:6061" + "/signup", {
           email: this.$store.state.email,
           phone: this.$store.state.phone,
           password: this.$store.state.password,
@@ -92,27 +92,12 @@ export default {
           gender: this.$store.state.gender,
           firstName: this.$store.state.firstName,
           lastName: this.$store.state.lastName
-        })
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        })
-        .finally(function() {
-          console.log("hello world");
         });
-    }
-  },
-  data() {
-    return {
-      show: false,
-      rules: {
-        required: v => !!v || "必要字段",
-        min: v => (!!v && v.length >= 8) || "至少8个字符",
-        phone: v => v.match(/^1[345789][0-9]{9}$/) || "请输入正确的电话号码哦"
+        this.$router.push("/");
+      } catch (error) {
+        this.$router.push("/signup/sorry");
       }
-    };
+    }
   }
 };
 </script>

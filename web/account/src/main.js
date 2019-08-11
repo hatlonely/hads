@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp';
 import Username from './components/signin/Username';
 import Password from './components/signin/Password';
 import Sorry from './components/signin/Sorry';
+import SignUpSorry from './components/signup/Sorry';
 import CreateAccount from './components/signup/CreateAccount';
 import VerifyPhone from './components/signup/VerifyPhone';
 import VerifyCode from './components/signup/VerifyCode';
@@ -70,6 +71,7 @@ const router = new VueRouter({
         { path: 'verifycode', component: VerifyCode },
         { path: 'personaldetail', component: PersonalDetail },
         { path: 'privacy', component: Privacy },
+        { path: 'sorry', component: SignUpSorry },
       ]
     },
   ]
