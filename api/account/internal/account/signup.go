@@ -87,8 +87,10 @@ func (s *Service) SignUp(c *gin.Context) {
 
 func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 	if err := rule.Check(map[string][]rule.Rule{
-		req.Phone: {rule.Required, rule.ValidPhone},
-		req.Email: {rule.Required, rule.ValidEmail, rule.AtMost64Characters},
+		req.Phone:    {rule.Required, rule.ValidPhone},
+		req.Email:    {rule.Required, rule.ValidEmail, rule.AtMost64Characters},
+		req.Password: {rule.Required, rule.AtLeast8Characters},
+		req.Birthday: {rule.Required},
 	}); err != nil {
 		return err
 	}
