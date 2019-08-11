@@ -4,7 +4,7 @@
     <h-sider />
 
     <v-content>
-      <v-flex xs12 sm12 md12 lg12 xl10 px-10>
+      <v-flex xs12 sm12 md12 lg10 xl10 px-10>
         <v-layout align-center justify-center text-center row wrap>
           <v-card flat max-width="900" color="#fafafa">
             <transition name="slide-x-transition" mode="out-in">
