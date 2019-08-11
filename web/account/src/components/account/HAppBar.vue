@@ -9,7 +9,7 @@
     <v-text-field
       v-model="search"
       prepend-inner-icon="search"
-      label="搜索 hads 账户"
+      :label="'搜索 ' + $config.org + ' 账户'"
       single-line
       rounded
       clearable
@@ -22,7 +22,7 @@
     <v-btn text icon>
       <v-icon>apps</v-icon>
     </v-btn>
-    <v-btn href="/signin" color="primary" depressed>登录</v-btn>
+    <v-btn to="/signin" color="primary" depressed>登录</v-btn>
   </v-app-bar>
 </template>
 
