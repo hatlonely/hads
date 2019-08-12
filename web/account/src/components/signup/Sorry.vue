@@ -53,15 +53,16 @@ export default {
   methods: {
     async signup() {
       try {
-        const respnse = await axios.post("http://127.0.0.1:6061" + "/signup", {
-          email: this.$store.state.email,
-          phone: this.$store.state.phone,
-          password: this.$store.state.password,
-          birthday: this.$store.state.birthday,
-          gender: this.$store.state.gender,
-          firstName: this.$store.state.firstName,
-          lastName: this.$store.state.lastName
+        const response = await axios.post(this.$config.api + "/signup", {
+          email: this.$store.state.signup.email,
+          phone: this.$store.state.signup.phone,
+          password: this.$store.state.signup.password,
+          birthday: this.$store.state.signup.birthday,
+          gender: this.$store.state.signup.gender,
+          firstName: this.$store.state.signup.firstName,
+          lastName: this.$store.state.signup.lastName
         });
+        console.log(response.data);
         this.$router.push("/");
       } catch (error) {
         this.$router.push("/signup/sorry");

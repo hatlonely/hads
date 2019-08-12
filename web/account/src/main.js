@@ -48,7 +48,16 @@ const store = new Vuex.Store({
     signin: {
       username: "",
       password: ""
-    }
+    },
+    account: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      phone: "",
+      birthday: "",
+      gender: "",
+    },
   },
 });
 
