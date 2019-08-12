@@ -17,6 +17,7 @@
           v-model="username"
           label="电子邮件或者电话号码"
           :rules="[rules.required, rules.validPhoneOrEmail]"
+          :error-messages="errors"
           outlined
           filled
         ></v-text-field>
@@ -64,21 +65,26 @@ export default {
       }
     }
   },
-  // watch: {
-  //   username(val) {
-  //     axios
-  //       .post(this.$config.org + "/vertify", {
-  //         field: "phone",
-  //         value: val
-  //       })
-  //       .then(res => {
-  //         this.errors = res.data.ok ? [] : [res.data.tip];
-  //       })
-  //       .catch(function(error) {
-  //         this.errors = error;
-  //       });
-  //   }
-  // },
+  watch: {
+    username(val) {
+      if (
+        /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(val) ||
+        /^1[345789][0-9]{9}$/.test(val)
+      ) {
+        axios
+          .post(this.$config.api + "/vertify", {
+            field: "username",
+            value: val
+          })
+          .then(res => {
+            this.errors = res.data.ok ? [] : [res.data.tip];
+          })
+          .catch(function(error) {
+            this.errors = error;
+          });
+      }
+    }
+  },
   computed: {
     username: {
       get() {

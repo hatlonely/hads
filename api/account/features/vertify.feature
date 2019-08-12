@@ -6,9 +6,11 @@ Feature: vertify 校验测试
         Then 检查状态码 res.status_code: <status>
         Then 检查 vertify 返回包体 res.body, ok: <ok>, tip: "<tip>"
         Examples:
-            | field | value                  | status | ok    | tip            |
-            | phone | 13112345678            | 200    | false | 电话号码已存在 |
-            | email | hatlonely1@foxmail.com | 200    | false | 邮箱已存在     |
+            | field    | value                  | status | ok    | tip            |
+            | phone    | 13112345678            | 200    | false | 电话号码已存在 |
+            | email    | hatlonely1@foxmail.com | 200    | false | 邮箱已存在     |
+            | username | hatlonely2@foxmail.com | 200    | false | 账号不存在     |
+            | username | 13811111111            | 200    | false | 账号不存在     |
 
 
     Scenario Outline: 异常校验

@@ -80,7 +80,7 @@ func (s *Service) Vertify(c *gin.Context) {
 
 func (s *Service) checkVertifyReqBody(req *VertifyReqBody) error {
 	if err := rule.Check(map[interface{}][]rule.Rule{
-		req.Field: {rule.Required, rule.In(map[interface{}]struct{}{"phone": {}, "email": {}})},
+		req.Field: {rule.Required, rule.In(map[interface{}]struct{}{"phone": {}, "email": {}, "username": {}})},
 		req.Value: {rule.Required},
 	}); err != nil {
 		return err
@@ -110,6 +110,17 @@ func (s *Service) vertify(req *VertifyReqBody) (*VertifyResBody, error) {
 			return &VertifyResBody{OK: true}, nil
 		}
 		return &VertifyResBody{OK: false, Tip: "邮箱已存在"}, nil
+	}
+
+	if req.Field == "username" {
+		account, err := s.db.SelectAccountByPhoneOrEmail(req.Value)
+		if err != nil {
+			return nil, err
+		}
+		if account == nil {
+			return &VertifyResBody{OK: false, Tip: "账号不存在"}, nil
+		}
+		return &VertifyResBody{OK: true}, nil
 	}
 
 	return &VertifyResBody{OK: false, Tip: fmt.Sprintf("未知字段 [%v]", req.Field)}, nil
