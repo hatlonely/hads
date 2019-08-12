@@ -1,5 +1,5 @@
 <template>
-  <v-card width="748" height="511" flat outlined>
+  <v-card :loading="loading" width="748" height="511" flat outlined>
     <v-layout row wrap mx-0 text-left px-8>
       <v-flex xs8 pr-8>
         <v-flex mt-8 mb-5 xs12 lg12>
@@ -96,29 +96,27 @@ import rules from "../../assets/js/rules";
 
 export default {
   methods: {
-    validate() {
+    async validate() {
       if (this.$refs.form.validate()) {
-        this.$router.push("/signup/verifyphone");
-      }
-    }
-  },
-  watch: {
-    email(val) {
-      if (/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(val)) {
-        axios
-          .get(this.$config.api + "/vertify", {
+        this.loading = true;
+        try {
+          const res = await axios.get(this.$config.api + "/vertify", {
             params: {
               field: "email",
-              value: val
+              value: this.email
             },
             withCredentials: true
-          })
-          .then(res => {
-            this.errors = res.data.ok ? [] : [res.data.tip];
-          })
-          .catch(function(error) {
-            this.errors = error;
           });
+          if (res.data.ok) {
+            this.$router.push("/signup/verifyphone");
+          } else {
+            this.errors = [res.data.tip];
+          }
+        } catch (error) {
+          this.errors = [error];
+        } finally {
+          this.loading = false;
+        }
       }
     }
   },
@@ -161,6 +159,7 @@ export default {
       valid: true,
       show: false,
       errors: [],
+      loading: false,
       rules
     };
   }
