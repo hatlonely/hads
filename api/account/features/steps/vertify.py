@@ -8,7 +8,7 @@ import json
 
 @when('请求 /vertify, field: "{field:str}", value: "{value:str}"')
 def step_impl(context, field, value):
-    res = requests.post("{}/vertify".format(context.config["url"]), json={
+    res = requests.get("{}/vertify".format(context.config["url"]), params={
         "field": field,
         "value": value,
     })

@@ -1,7 +1,6 @@
 package account
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/hatlonely/account/internal/rule"
 	"net/http"
@@ -22,7 +21,10 @@ type VertifyResBody struct {
 
 func (s *Service) Vertify(c *gin.Context) {
 	rid := c.DefaultQuery("rid", NewToken())
-	req := &VertifyReqBody{}
+	req := &VertifyReqBody{
+		Field: c.DefaultQuery("field", ""),
+		Value: c.DefaultQuery("value", ""),
+	}
 	var res *VertifyResBody
 	var err error
 	var buf []byte
@@ -40,23 +42,6 @@ func (s *Service) Vertify(c *gin.Context) {
 			"status": status,
 		}).Info()
 	}()
-
-	buf, err = c.GetRawData()
-	if err != nil {
-		err = fmt.Errorf("get raw data failed, err: [%v]", err)
-		WarnLog.WithField("@rid", rid).WithField("err", err).Warn()
-		status = http.StatusBadRequest
-		c.String(status, err.Error())
-		return
-	}
-
-	if err = json.Unmarshal(buf, req); err != nil {
-		err = fmt.Errorf("json unmarshal body failed. body: [%v], err: [%v]", string(buf), err)
-		WarnLog.WithField("@rid", rid).WithField("err", err).Warn()
-		status = http.StatusBadRequest
-		c.String(status, err.Error())
-		return
-	}
 
 	if err = s.checkVertifyReqBody(req); err != nil {
 		err = fmt.Errorf("check request body failed. body: [%v], err: [%v]", string(buf), err)

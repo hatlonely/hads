@@ -72,9 +72,12 @@ export default {
         /^1[345789][0-9]{9}$/.test(val)
       ) {
         axios
-          .post(this.$config.api + "/vertify", {
-            field: "username",
-            value: val
+          .get(this.$config.api + "/vertify", {
+            params: {
+              field: "username",
+              value: val
+            },
+            withCredentials: true
           })
           .then(res => {
             this.errors = res.data.ok ? [] : [res.data.tip];

@@ -78,17 +78,22 @@ export default {
   },
   watch: {
     phone(val) {
-      axios
-        .post(this.$config.api + "/vertify", {
-          field: "phone",
-          value: val
-        })
-        .then(res => {
-          this.errors = res.data.ok ? [] : [res.data.tip];
-        })
-        .catch(function(error) {
-          this.errors = error;
-        });
+      if (/^1[345789][0-9]{9}$/.test(val)) {
+        axios
+          .get(this.$config.api + "/vertify", {
+            params: {
+              field: "phone",
+              value: val
+            },
+            withCredentials: true
+          })
+          .then(res => {
+            this.errors = res.data.ok ? [] : [res.data.tip];
+          })
+          .catch(function(error) {
+            this.errors = error;
+          });
+      }
     }
   },
   computed: {

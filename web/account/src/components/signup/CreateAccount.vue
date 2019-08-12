@@ -104,17 +104,22 @@ export default {
   },
   watch: {
     email(val) {
-      axios
-        .post(this.$config.api + "/vertify", {
-          field: "email",
-          value: val
-        })
-        .then(res => {
-          this.errors = res.data.ok ? [] : [res.data.tip];
-        })
-        .catch(function(error) {
-          this.errors = error;
-        });
+      if (/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(val)) {
+        axios
+          .get(this.$config.api + "/vertify", {
+            params: {
+              field: "email",
+              value: val
+            },
+            withCredentials: true
+          })
+          .then(res => {
+            this.errors = res.data.ok ? [] : [res.data.tip];
+          })
+          .catch(function(error) {
+            this.errors = error;
+          });
+      }
     }
   },
   computed: {

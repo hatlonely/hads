@@ -97,7 +97,7 @@ func main() {
 	r.GET("/ping", func(ctx *gin.Context) {
 		ctx.String(200, "ok")
 	})
-	r.POST("/vertify", service.Vertify)
+	r.GET("/vertify", service.Vertify)
 	r.POST("/signin", service.SignIn)
 	r.POST("/signup", service.SignUp)
 
