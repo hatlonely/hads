@@ -98,6 +98,7 @@ func main() {
 		ctx.String(200, "ok")
 	})
 	r.GET("/vertify", service.Vertify)
+	r.GET("/getaccount", service.GetAccount)
 	r.POST("/signin", service.SignIn)
 	r.POST("/signup", service.SignUp)
 
