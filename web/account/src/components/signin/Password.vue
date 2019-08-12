@@ -68,11 +68,16 @@ export default {
     async signin() {
       if (this.$refs.form.validate()) {
         try {
-          const response = await axios.post(this.$config.api + "/signin", {
-            username: this.$store.state.signin.username,
-            password: this.$store.state.signin.password
-          });
-          console.log(response.data);
+          const response = await axios.post(
+            this.$config.api + "/signin",
+            {
+              username: this.$store.state.signin.username,
+              password: this.$store.state.signin.password
+            },
+            {
+              withCredentials: true
+            }
+          );
           if (response.data.valid) {
             this.$router.push("/");
           } else {
