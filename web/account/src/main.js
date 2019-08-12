@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import VueConfig from 'vue-config';
+import VueCookies from 'vue-cookies'
 
 import vuetify from './plugins/vuetify';
 import config from "./assets/js/config"
@@ -29,6 +30,7 @@ import 'font-awesome/css/font-awesome.min.css';
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(Vuex);
+Vue.use(VueCookies);
 Vue.use(VueConfig, config);
 
 const store = new Vuex.Store({
