@@ -125,34 +125,34 @@ export default {
   computed: {
     email: {
       get() {
-        return this.$store.state.email;
+        return this.$store.state.signup.email;
       },
       set(email) {
-        this.$store.state.email = email;
+        this.$store.state.signup.email = email;
       }
     },
     firstName: {
       get() {
-        return this.$store.state.firstName;
+        return this.$store.state.signup.firstName;
       },
       set(firstName) {
-        this.$store.state.firstName = firstName;
+        this.$store.state.signup.firstName = firstName;
       }
     },
     lastName: {
       get() {
-        return this.$store.state.lastName;
+        return this.$store.state.signup.lastName;
       },
       set(lastName) {
-        this.$store.state.lastName = lastName;
+        this.$store.state.signup.lastName = lastName;
       }
     },
     password: {
       get() {
-        return this.$store.state.password;
+        return this.$store.state.signup.password;
       },
       set(password) {
-        this.$store.state.password = password;
+        this.$store.state.signup.password = password;
       }
     }
   },

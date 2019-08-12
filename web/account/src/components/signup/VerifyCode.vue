@@ -80,10 +80,10 @@ export default {
   computed: {
     code: {
       get() {
-        return this.$store.state.code;
+        return this.$store.state.signup.code;
       },
       set(code) {
-        this.$store.state.code = code;
+        this.$store.state.signup.code = code;
       }
     }
   },

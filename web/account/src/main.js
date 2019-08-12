@@ -35,14 +35,16 @@ Vue.use(VueConfig, config);
 
 const store = new Vuex.Store({
   state: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    phone: "",
-    code: "",
-    birthday: "",
-    gender: "",
+    signup: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      phone: "",
+      code: "",
+      birthday: "",
+      gender: "",
+    },
     signin: {
       username: "",
       password: ""

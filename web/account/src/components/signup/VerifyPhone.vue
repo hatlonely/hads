@@ -99,10 +99,10 @@ export default {
   computed: {
     phone: {
       get() {
-        return this.$store.state.phone;
+        return this.$store.state.signup.phone;
       },
       set(phone) {
-        this.$store.state.phone = phone;
+        this.$store.state.signup.phone = phone;
       }
     }
   },

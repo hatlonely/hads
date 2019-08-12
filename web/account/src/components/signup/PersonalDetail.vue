@@ -131,18 +131,18 @@ export default {
   computed: {
     birthday: {
       get() {
-        return this.$store.state.birthday;
+        return this.$store.state.signup.birthday;
       },
       set(birthday) {
-        this.$store.state.birthday = birthday;
+        this.$store.state.signup.birthday = birthday;
       }
     },
     gender: {
       get() {
-        return this.$store.state.gender;
+        return this.$store.state.signup.gender;
       },
       set(gender) {
-        this.$store.state.gender = gender;
+        this.$store.state.signup.gender = gender;
       }
     }
   },
