@@ -28,3 +28,10 @@ def step_impl(context, phone, email, firstname, lastname, birthday, gender):
     assert_that(account["lastName"], equal_to(lastname))
     assert_that(account["birthday"], equal_to(birthday))
     assert_that(account["gender"], equal_to(gender))
+
+
+@then('检查 rediscache.token, 不存在记录 token: "{token:str}"')
+def step_impl(context, token):
+    res = context.redis_client.get(token)
+    print(res)
+    assert_that(res, equal_to(None))
