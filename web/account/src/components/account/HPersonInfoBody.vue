@@ -76,7 +76,7 @@
               <v-flex xs3>
                 <div class="overline">邮箱</div>
               </v-flex>
-              <v-list-item-title>hatlonely@foxmail.com</v-list-item-title>
+              <v-list-item-title>{{this.$store.state.account.email}}</v-list-item-title>
               <v-icon small>arrow_forward_ios</v-icon>
             </v-list-item>
             <v-divider class="ml-4"></v-divider>
@@ -84,7 +84,7 @@
               <v-flex xs3>
                 <div class="overline">电话</div>
               </v-flex>
-              <v-list-item-title>13812345678</v-list-item-title>
+              <v-list-item-title>{{this.$store.state.account.phone}}</v-list-item-title>
               <v-icon small>arrow_forward_ios</v-icon>
             </v-list-item>
           </v-list-item-group>

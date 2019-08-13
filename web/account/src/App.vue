@@ -57,6 +57,10 @@ export default {
           const account = res.data.account;
           this.$store.state.account.firstName = account.firstName;
           this.$store.state.account.lastName = account.lastName;
+          this.$store.state.account.email = account.email;
+          this.$store.state.account.phone = account.phone;
+          this.$store.state.account.birthday = account.birthday;
+          this.$store.state.account.gender = account.gender;
         } else {
           this.$router.push("/introduction");
         }
