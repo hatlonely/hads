@@ -94,7 +94,7 @@ export default {
           lastName: this.$store.state.signup.lastName
         });
         console.log(response.data);
-        this.$router.push("/");
+        this.$router.push("/account");
       } catch (error) {
         this.$router.push("/signup/sorry");
       }
