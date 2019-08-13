@@ -42,6 +42,7 @@ const store = new Vuex.Store({
       phone: "",
       birthday: "",
       gender: "",
+      isSignedIn: false
     },
   },
 });

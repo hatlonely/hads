@@ -80,7 +80,7 @@ export default {
             }
           );
           if (response.data.valid) {
-            this.$router.push("/");
+            this.$router.push("/account");
           } else {
             this.errors = ["密码错误"];
           }

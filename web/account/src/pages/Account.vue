@@ -7,7 +7,8 @@
       <v-flex xs12 sm12 md12 lg10 xl10 px-10>
         <v-layout align-center justify-center text-center row wrap>
           <transition name="slide-x-transition" mode="out-in">
-            <router-view></router-view>
+            <router-view v-if="this.$store.state.account.isSignedIn"></router-view>
+            <h-introduction v-else />
           </transition>
         </v-layout>
       </v-flex>
@@ -19,12 +20,14 @@
 const axios = require("axios");
 import HAppBar from "../components/account/HAppBar";
 import HSider from "../components/account/HSider";
+import HIntroduction from "../components/account/HIntroduction";
 
 export default {
   name: "Account",
   components: {
     HAppBar,
-    HSider
+    HSider,
+    HIntroduction
   },
   async created() {
     this.loading = true;
@@ -44,15 +47,11 @@ export default {
           this.$store.state.account.phone = account.phone;
           this.$store.state.account.birthday = account.birthday;
           this.$store.state.account.gender = account.gender;
-        } else {
-          this.$router.push("/introduction");
+          this.$store.state.account.isSignedIn = true;
         }
       } catch (error) {
         console.log(error);
-        this.$router.push("/introduction");
       }
-    } else {
-      this.$router.push("/introduction");
     }
     this.loading = false;
   }
