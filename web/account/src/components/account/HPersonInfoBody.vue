@@ -30,7 +30,6 @@
 
         <v-list class="text-lg-left">
           <v-list-item-group>
-            <!-- <v-divider class="ml-4"></v-divider> -->
             <v-list-item>
               <v-flex xs3>
                 <div class="overline">姓名</div>
