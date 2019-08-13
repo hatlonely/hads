@@ -7,6 +7,7 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-text-field
+      v-if="this.$store.state.account.isSignedIn"
       v-model="search"
       prepend-inner-icon="search"
       :label="'搜索 ' + $config.org + ' 账户'"
