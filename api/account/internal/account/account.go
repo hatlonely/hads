@@ -2,8 +2,6 @@ package account
 
 import (
 	"encoding/hex"
-	"regexp"
-
 	"github.com/hatlonely/account/internal/mysqldb"
 	"github.com/hatlonely/account/internal/rediscache"
 	uuid "github.com/satori/go.uuid"
@@ -13,16 +11,11 @@ import (
 var InfoLog *logrus.Logger
 var WarnLog *logrus.Logger
 var AccessLog *logrus.Logger
-var EmailRegex *regexp.Regexp
-var TelephoneRegex *regexp.Regexp
 
 func init() {
 	InfoLog = logrus.New()
 	WarnLog = logrus.New()
 	AccessLog = logrus.New()
-
-	TelephoneRegex = regexp.MustCompile(`^1[345789][0-9]{9}$`)
-	EmailRegex = regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
 }
 
 type Service struct {
