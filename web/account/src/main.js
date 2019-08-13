@@ -8,21 +8,6 @@ import vuetify from './plugins/vuetify';
 import config from "./assets/js/config"
 
 import App from './App'
-import Account from './pages/Account';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Username from './components/signin/Username';
-import Password from './components/signin/Password';
-import Sorry from './components/signin/Sorry';
-import SignUpSorry from './components/signup/Sorry';
-import CreateAccount from './components/signup/CreateAccount';
-import VerifyPhone from './components/signup/VerifyPhone';
-import VerifyCode from './components/signup/VerifyCode';
-import PersonalDetail from './components/signup/PersonalDetail';
-import Privacy from "./components/signup/Privacy";
-import HHomeBody from "./components/account/HHomeBody";
-import HPersonInfoBody from "./components/account/HPersonInfoBody";
-import HIntroduction from "./components/account/HIntroduction";
 
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -66,29 +51,31 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     {
-      path: '/account', component: Account,
+      path: '/account', component: () => import("./pages/Account"),
       children: [
-        { path: '', component: HHomeBody },
-        { path: 'introduction', component: HIntroduction },
-        { path: 'home', component: HHomeBody },
-        { path: 'personinfo', component: HPersonInfoBody }
+        { path: '', component: () => import("./components/account/HHomeBody") },
+        { path: 'introduction', component: () => import("./components/account/HIntroduction") },
+        { path: 'home', component: () => import("./components/account/HHomeBody") },
+        { path: 'personinfo', component: () => import("./components/account/HPersonInfoBody") }
       ]
     },
     {
-      path: '/signin', component: SignIn, children: [
-        { path: '', component: Username },
-        { path: 'password', component: Password },
-        { path: 'sorry', component: Sorry },
+      path: '/signin', component: () => import("./pages/SignIn"),
+      children: [
+        { path: '', component: () => import("./components/signin/Username") },
+        { path: 'password', component: () => import("./components/signin/Password") },
+        { path: 'sorry', component: () => import("./components/signin/Sorry") },
       ]
     },
     {
-      path: '/signup', component: SignUp, children: [
-        { path: '', component: CreateAccount },
-        { path: 'verifyphone', component: VerifyPhone },
-        { path: 'verifycode', component: VerifyCode },
-        { path: 'personaldetail', component: PersonalDetail },
-        { path: 'privacy', component: Privacy },
-        { path: 'sorry', component: SignUpSorry },
+      path: '/signup', component: () => import("./pages/SignUp"),
+      children: [
+        { path: '', component: () => import("./components/signup/CreateAccount") },
+        { path: 'verifyphone', component: () => import("./components/signup/VerifyPhone") },
+        { path: 'verifycode', component: () => import("./components/signup/VerifyCode") },
+        { path: 'personaldetail', component: () => import("./components/signup/PersonalDetail") },
+        { path: 'privacy', component: () => import("./components/signup/Privacy") },
+        { path: 'sorry', component: () => import("./components/signup/Sorry") },
       ]
     },
   ]
