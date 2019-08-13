@@ -23,14 +23,14 @@
           </v-flex>
           <v-flex xs3 mt-6>
             <v-avatar size="50">
-              <img :src="require('../../assets/img/hatlonely.png')" alt="avatar" />
+              <div v-html="identicon"></div>
             </v-avatar>
           </v-flex>
         </v-layout>
 
         <v-list class="text-lg-left">
           <v-list-item-group>
-            <v-divider class="ml-4"></v-divider>
+            <!-- <v-divider class="ml-4"></v-divider> -->
             <v-list-item>
               <v-flex xs3>
                 <div class="overline">姓名</div>
@@ -95,6 +95,8 @@
 </template>
 
 <script>
+const jdenticon = require("jdenticon");
+
 export default {
   methods: {
     formatBirthday(birthday) {
@@ -109,6 +111,11 @@ export default {
         1: "男",
         2: "女"
       }[gender];
+    }
+  },
+  computed: {
+    identicon: function() {
+      return jdenticon.toSvg(this.$store.state.account.email, 50);
     }
   },
   data: () => ({})

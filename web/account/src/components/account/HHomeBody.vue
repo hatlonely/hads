@@ -3,7 +3,9 @@
     <v-layout mt-5 text-center wrap>
       <v-flex mb-5 xs12 lg12>
         <v-avatar size="100">
-          <img :src="require('../../assets/img/hatlonely.png')" alt="avatar" />
+          <!-- <img :src="require('../../assets/img/hatlonely.png')" alt="avatar" />-->
+          <!-- <svg width="100" height="100" :data-jdenticon-value="this.$store.state.account.email" /> -->
+          <div v-html="identicon"></div>
         </v-avatar>
       </v-flex>
 
@@ -63,11 +65,17 @@
 
 <script>
 const axios = require("axios");
+const jdenticon = require("jdenticon");
 import HCard from "./HCard.vue";
 
 export default {
   components: {
     HCard
+  },
+  computed: {
+    identicon() {
+      return jdenticon.toSvg(this.$store.state.account.email, 100);
+    }
   },
   data: () => ({
     loading: false

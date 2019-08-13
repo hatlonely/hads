@@ -22,13 +22,23 @@
     <v-btn text icon>
       <v-icon>apps</v-icon>
     </v-btn>
-    <v-btn to="/signin" color="primary" depressed>登录</v-btn>
+    <v-btn v-if="this.$store.state.account.email == ''" to="/signin" color="primary" depressed>登录</v-btn>
+    <v-btn v-else to="/signin" color="#fafafa" depressed>
+      <div v-html="identicon"></div>
+    </v-btn>
   </v-app-bar>
 </template>
 
 <script>
+const jdenticon = require("jdenticon");
+
 export default {
   name: "HAppBar",
+  computed: {
+    identicon: function() {
+      return jdenticon.toSvg(this.$store.state.account.email, 30);
+    }
+  },
   data: () => ({
     search: ""
   })
