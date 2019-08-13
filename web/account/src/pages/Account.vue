@@ -31,7 +31,7 @@ export default {
   },
   async created() {
     this.loading = true;
-    if (!!this.$cookies.get("token")) {
+    if (this.$cookies.get("token")) {
       try {
         const res = await axios.get(this.$config.api + "/getaccount", {
           params: {
