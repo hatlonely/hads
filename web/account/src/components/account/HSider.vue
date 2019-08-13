@@ -43,11 +43,11 @@ export default {
     return {
       idx: 1,
       items: [
-        { title: "首页", icon: "account_circle", to: "/home" },
+        { title: "首页", icon: "account_circle", to: "/account/home" },
         {
           title: "个人信息",
           icon: "assignment_ind",
-          to: "/person-info"
+          to: "/account/personinfo"
         },
         { title: "数据和个性化", icon: "toggle_on", to: "/" },
         { title: "安全性", icon: "lock", to: "/" },

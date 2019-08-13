@@ -66,12 +66,12 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     {
-      path: '/', component: Account,
+      path: '/account', component: Account,
       children: [
         { path: '', component: HHomeBody },
         { path: 'introduction', component: HIntroduction },
         { path: 'home', component: HHomeBody },
-        { path: 'person-info', component: HPersonInfoBody }
+        { path: 'personinfo', component: HPersonInfoBody }
       ]
     },
     {

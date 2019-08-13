@@ -26,7 +26,7 @@ export default {
     HAppBar,
     HSider
   },
-  async mounted() {
+  async created() {
     this.loading = true;
     if (!!this.$cookies.get("token")) {
       try {
