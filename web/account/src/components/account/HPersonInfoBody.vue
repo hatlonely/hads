@@ -43,7 +43,7 @@
               <v-flex xs3>
                 <div class="overline">生日</div>
               </v-flex>
-              <v-list-item-title>May 15, 1992</v-list-item-title>
+              <v-list-item-title>{{formatBirthday(this.$store.state.account.birthday)}}</v-list-item-title>
               <v-icon small>arrow_forward_ios</v-icon>
             </v-list-item>
             <v-divider class="ml-4"></v-divider>
@@ -51,7 +51,7 @@
               <v-flex xs3>
                 <div class="overline">性别</div>
               </v-flex>
-              <v-list-item-title>Male</v-list-item-title>
+              <v-list-item-title>{{formatGender(this.$store.state.account.gender)}}</v-list-item-title>
               <v-icon small>arrow_forward_ios</v-icon>
             </v-list-item>
             <v-divider class="ml-4"></v-divider>
@@ -96,6 +96,21 @@
 
 <script>
 export default {
+  methods: {
+    formatBirthday(birthday) {
+      if (!birthday) return null;
+      const [year, month, day] = birthday.split("-");
+      return `${year} 年 ${month} 月 ${day} 日`;
+    },
+    formatGender(gender) {
+      if (!gender) return null;
+      return {
+        0: "保密",
+        1: "男",
+        2: "女"
+      }[gender];
+    }
+  },
   data: () => ({})
 };
 </script>

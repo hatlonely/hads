@@ -42,7 +42,7 @@
                       outlined
                       filled
                       readonly
-                      :value="dateFormatted = formatDate(birthday)"
+                      :value="dateFormatted = formatBirthday(birthday)"
                     ></v-text-field>
                   </template>
                   <v-date-picker
@@ -112,17 +112,10 @@ export default {
         this.$router.push("/signup/privacy");
       }
     },
-    formatDate(date) {
-      if (!date) return null;
-
-      const [year, month, day] = date.split("-");
-      return `${month}/${day}/${year}`;
-    },
-    parseDate(date) {
-      if (!date) return null;
-
-      const [month, day, year] = date.split("/");
-      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    formatBirthday(birthday) {
+      if (!birthday) return null;
+      const [year, month, day] = birthday.split("-");
+      return `${year} 年 ${month} 月 ${day} 日`;
     },
     save(date) {
       this.$refs.birthdayMenu.save(date);
@@ -149,7 +142,7 @@ export default {
 
   watch: {
     birthday(val) {
-      this.dateFormatted = this.formatDate(val);
+      this.dateFormatted = this.formatBirthday(val);
     },
     birthdayMenu(val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
