@@ -12,7 +12,7 @@
       <v-layout align-center justify-center>
         <v-card class="h-round-card px-2 py-1" outlined flat>
           <v-avatar size="20" class="mr-2" tile>
-            <img :src="require('../../assets/img/hatlonely.png')" alt="avatar" />
+            <div v-html="identicon"></div>
           </v-avatar>
           <span class="body-1">hatlonely@gmail.com</span>
         </v-card>
@@ -62,6 +62,7 @@
 
 <script>
 const axios = require("axios");
+const jdenticon = require("jdenticon");
 import rules from "../../assets/js/rules";
 
 export default {
@@ -98,6 +99,9 @@ export default {
       set(password) {
         this.$store.state.signin.password = password;
       }
+    },
+    identicon() {
+      return jdenticon.toSvg(this.$store.state.account.email, 20);
     }
   },
   data() {
