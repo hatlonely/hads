@@ -20,6 +20,7 @@
           :error-messages="errors"
           outlined
           filled
+          validate-on-blur
         ></v-text-field>
       </v-form>
       <div class="body-2 text-left">

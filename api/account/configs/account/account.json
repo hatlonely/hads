@@ -12,7 +12,7 @@
         "poolSize": 4,
         "password": "",
         "db": 0,
-        "expiration": "60s"
+        "expiration": "3h"
     },
     "logger": {
         "infoLog": {

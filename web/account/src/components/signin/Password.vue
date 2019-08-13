@@ -25,11 +25,12 @@
           label="输入您的密码"
           :append-icon="show ? 'visibility' : 'visibility_off'"
           :type="show ? 'text' : 'password'"
-          @click:append="show = !show"
           :rules="[rules.required, rules.atleast8characters]"
+          :error-messages="errors"
+          @click:append="show = !show"
           outlined
           filled
-          :error-messages="errors"
+          validate-on-blur
         ></v-text-field>
       </v-form>
     </v-flex>
