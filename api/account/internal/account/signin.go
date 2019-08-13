@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/hatlonely/account/internal/rediscache"
 	"github.com/hatlonely/account/internal/rule"
 	"github.com/sirupsen/logrus"
 )
@@ -109,7 +110,7 @@ func (s *Service) signIn(req *SignInReqBody) (*SignInResBody, error) {
 	}
 
 	token := NewToken()
-	if err := s.cache.SetAccount(token, account); err != nil {
+	if err := s.cache.SetAccount(token, rediscache.NewAccount(account)); err != nil {
 		return nil, err
 	}
 

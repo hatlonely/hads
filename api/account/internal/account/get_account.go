@@ -2,9 +2,10 @@ package account
 
 import (
 	"fmt"
-	"github.com/hatlonely/account/internal/mysqldb"
-	"github.com/hatlonely/account/internal/rule"
 	"net/http"
+
+	"github.com/hatlonely/account/internal/rediscache"
+	"github.com/hatlonely/account/internal/rule"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -15,8 +16,8 @@ type GetAccountReqBody struct {
 }
 
 type GetAccountResBody struct {
-	OK      bool             `json:"ok"`
-	Account *mysqldb.Account `json:"account"`
+	OK      bool                `json:"ok"`
+	Account *rediscache.Account `json:"account"`
 }
 
 func (s *Service) GetAccount(c *gin.Context) {

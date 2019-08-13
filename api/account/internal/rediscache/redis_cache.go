@@ -2,9 +2,10 @@ package rediscache
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/go-redis/redis"
 	"github.com/hatlonely/account/internal/mysqldb"
-	"time"
 )
 
 type Option struct {
@@ -22,7 +23,26 @@ type RedisCache struct {
 	option *Option
 }
 
-//func NewRedisCache(addr string, timeout time.Duration, retries int, poolSize int, password string, db int) (*RedisCache, error) {
+type Account struct {
+	Email     string `json:"email,omitempty"`
+	Phone     string `json:"phone,omitempty"`
+	FirstName string `json:"firstName,omitempty"`
+	LastName  string `json:"lastName,omitempty"`
+	Birthday  string `json:"birthday,omitempty"`
+	Gender    int    `json:"gender,omitempty"`
+}
+
+func NewAccount(account *mysqldb.Account) *Account {
+	return &Account{
+		Email:     account.Email,
+		Phone:     account.Phone,
+		FirstName: account.FirstName,
+		LastName:  account.LastName,
+		Birthday:  account.Birthday.Format("2006-01-02"),
+		Gender:    account.Gender,
+	}
+}
+
 func NewRedisCache(option *Option) (*RedisCache, error) {
 	client := redis.NewClient(&redis.Options{
 		Addr:         option.Address,
@@ -45,7 +65,7 @@ func NewRedisCache(option *Option) (*RedisCache, error) {
 	}, nil
 }
 
-func (rc *RedisCache) SetAccount(token string, account *mysqldb.Account) error {
+func (rc *RedisCache) SetAccount(token string, account *Account) error {
 	buf, err := json.Marshal(account)
 	if err != nil {
 		return err
@@ -58,7 +78,7 @@ func (rc *RedisCache) DelAccount(token string) error {
 	return rc.client.Del(token).Err()
 }
 
-func (rc *RedisCache) GetAccount(token string) (*mysqldb.Account, error) {
+func (rc *RedisCache) GetAccount(token string) (*Account, error) {
 	buf, err := rc.client.Get(token).Result()
 	if err == redis.Nil {
 		return nil, nil
@@ -67,7 +87,7 @@ func (rc *RedisCache) GetAccount(token string) (*mysqldb.Account, error) {
 		return nil, err
 	}
 
-	account := &mysqldb.Account{}
+	account := &Account{}
 	if err := json.Unmarshal([]byte(buf), account); err != nil {
 		return nil, err
 	}

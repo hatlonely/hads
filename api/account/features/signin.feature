@@ -6,7 +6,7 @@ Feature: signin 登陆测试
         Then 检查状态码 res.status_code: <status>
         Then 检查登陆返回 cookie
         Then 检查登陆返回包体 res.body, valid: <valid>, tokenlen: <tokenlen>
-        Then 检查 rediscache.token, 存在记录 phone: "<phone>", email: "<email>", password: "<password>", firstname: "<firstname>", lastname: "<lastname>", birthday: "<birthday>", gender: <gender>
+        Then 检查 rediscache.token, 存在记录 phone: "<phone>", email: "<email>", firstname: "<firstname>", lastname: "<lastname>", birthday: "<birthday>", gender: <gender>
         Examples:
             | username               | password | status | valid | tokenlen | phone       | email                  | password | firstname | lastname | birthday   | gender |
             | 13112345678            | 12345678 | 200    | true  | 32       | 13112345678 | hatlonely1@foxmail.com | 12345678 | 悟空      | 孙       | 1992-01-01 | 1      |
