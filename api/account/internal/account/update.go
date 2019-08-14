@@ -143,17 +143,23 @@ func (s *Service) update(req *UpdateReqBody) (*UpdateResBody, error) {
 	switch req.Field {
 	case "phone":
 		ok, err = s.db.UpdateAccountPhone(account.ID, req.Phone)
+		account.Phone = req.Phone
 	case "email":
 		ok, err = s.db.UpdateAccountEmail(account.ID, req.Email)
+		account.Email = req.Email
 	case "password":
 		ok, err = s.db.UpdateAccountPassword(account.ID, req.Password)
 	case "gender":
 		ok, err = s.db.UpdateAccountGender(account.ID, req.Gender)
+		account.Gender = req.Gender
 	case "name":
 		ok, err = s.db.UpdateAccountName(account.ID, req.FirstName, req.LastName)
+		account.FirstName = req.FirstName
+		account.LastName = req.LastName
 	case "birthday":
 		birthday, _ := time.Parse("2006-01-02", req.Birthday)
 		ok, err = s.db.UpdateAccountBirthday(account.ID, birthday)
+		account.Birthday = req.Birthday
 	default:
 		return &UpdateResBody{OK: false, Err: fmt.Sprintf("未知字段 [%v]", req.Field)}, nil
 	}
@@ -161,5 +167,10 @@ func (s *Service) update(req *UpdateReqBody) (*UpdateResBody, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	if err := s.cache.SetAccount(req.Token, account); err != nil {
+		return nil, err
+	}
+
 	return &UpdateResBody{OK: ok}, nil
 }

@@ -18,7 +18,7 @@ type Account struct {
 	LastName  string    `gorm:"type:varchar(32);not null" json:"lastName"`
 	Password  string    `gorm:"type:varchar(32);not null" json:"password"`
 	Birthday  time.Time `gorm:"type:timestamp;not null" json:"birthday"`
-	Gender    int       `gorm:"type:int(1);not null" json:"gender"`
+	Gender    c.Gender  `gorm:"type:int(1);not null" json:"gender"`
 	Role      int       `gorm:"type:bigint(20) default 0;not null" json:"role"`
 }
 

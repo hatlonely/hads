@@ -113,7 +113,7 @@ func (s *Service) signUp(req *SignUpReqBody) (*SignUpResBody, error) {
 		FirstName: req.FirstName,
 		LastName:  req.LastName,
 		Birthday:  birthday,
-		Gender:    int(req.Gender),
+		Gender:    req.Gender,
 	})
 
 	fmt.Println("abc", err)

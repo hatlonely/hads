@@ -2,6 +2,7 @@ package rediscache
 
 import (
 	"encoding/json"
+	"github.com/hatlonely/account/internal/c"
 	"time"
 
 	"github.com/go-redis/redis"
@@ -24,13 +25,13 @@ type RedisCache struct {
 }
 
 type Account struct {
-	ID        int    `json:"id,omitempty"`
-	Email     string `json:"email,omitempty"`
-	Phone     string `json:"phone,omitempty"`
-	FirstName string `json:"firstName,omitempty"`
-	LastName  string `json:"lastName,omitempty"`
-	Birthday  string `json:"birthday,omitempty"`
-	Gender    int    `json:"gender,omitempty"`
+	ID        int      `json:"id,omitempty"`
+	Email     string   `json:"email,omitempty"`
+	Phone     string   `json:"phone,omitempty"`
+	FirstName string   `json:"firstName,omitempty"`
+	LastName  string   `json:"lastName,omitempty"`
+	Birthday  string   `json:"birthday,omitempty"`
+	Gender    c.Gender `json:"gender,omitempty"`
 }
 
 func NewAccount(account *mysqldb.Account) *Account {
