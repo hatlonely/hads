@@ -95,8 +95,8 @@ func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 		req.Gender: {rule.In(map[interface{}]struct{}{
 			c.GenderUnknown: {}, c.Male: {}, c.Famale: {},
 		})},
-		req.FirstName: {rule.Required},
-		req.LastName:  {rule.Required},
+		req.FirstName: {rule.Required, rule.AtMost32Characters},
+		req.LastName:  {rule.Required, rule.AtMost32Characters},
 	}); err != nil {
 		return err
 	}
@@ -115,8 +115,6 @@ func (s *Service) signUp(req *SignUpReqBody) (*SignUpResBody, error) {
 		Birthday:  birthday,
 		Gender:    req.Gender,
 	})
-
-	fmt.Println("abc", err)
 
 	return &SignUpResBody{Success: ok}, err
 }

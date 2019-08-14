@@ -107,8 +107,8 @@ func (s *Service) checkUpdateReqBody(req *UpdateReqBody) error {
 		})
 	case "name":
 		return rule.Check(map[interface{}][]rule.Rule{
-			req.FirstName: {rule.Required},
-			req.LastName:  {rule.Required},
+			req.FirstName: {rule.Required, rule.AtMost32Characters},
+			req.LastName:  {rule.Required, rule.AtMost32Characters},
 		})
 	case "birthday":
 		return rule.Check(map[interface{}][]rule.Rule{
@@ -116,13 +116,13 @@ func (s *Service) checkUpdateReqBody(req *UpdateReqBody) error {
 		})
 	case "gender":
 		return rule.Check(map[interface{}][]rule.Rule{
-			req.Gender: {rule.Required, rule.In(map[interface{}]struct{}{
+			req.Gender: {rule.In(map[interface{}]struct{}{
 				c.GenderUnknown: {}, c.Male: {}, c.Famale: {},
 			})},
 		})
 	case "password":
 		return rule.Check(map[interface{}][]rule.Rule{
-			req.Birthday: {rule.Required, rule.AtLeast8Characters},
+			req.Password: {rule.Required, rule.AtLeast8Characters},
 		})
 	}
 

@@ -20,7 +20,7 @@ def step_impl(context, token, phone, email, firstname, lastname, birthday, gende
 
 @then('检查 rediscache.token, 存在记录 phone: "{phone:str}", email: "{email:str}", firstname: "{firstname:str}", lastname: "{lastname:str}", birthday: "{birthday:str}", gender: {gender:int}')
 def step_impl(context, phone, email, firstname, lastname, birthday, gender):
-    res = context.redis_client.get(context.res["token"])
+    res = context.redis_client.get(context.token)
     account = json.loads(res)
     assert_that(account["phone"], equal_to(phone))
     assert_that(account["email"], equal_to(email))

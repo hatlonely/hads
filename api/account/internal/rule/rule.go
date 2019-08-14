@@ -63,6 +63,14 @@ func AtMost64Characters(v interface{}) error {
 	return nil
 }
 
+func AtMost32Characters(v interface{}) error {
+	if len(v.(string)) > 32 {
+		return fmt.Errorf("至多32个字符")
+	}
+
+	return nil
+}
+
 func ValidEmail(v interface{}) error {
 	if !EmailRegex.MatchString(v.(string)) {
 		return fmt.Errorf("无效的邮箱")

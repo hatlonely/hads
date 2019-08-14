@@ -17,6 +17,7 @@ def step_impl(context, username, password):
     context.cookies = res.cookies
     if context.status == 200:
         context.res = json.loads(res.text)
+        context.token = context.res["token"]
     print({
         "status": context.status,
         "body": context.body,

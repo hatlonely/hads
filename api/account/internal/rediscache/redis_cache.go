@@ -31,7 +31,7 @@ type Account struct {
 	FirstName string   `json:"firstName,omitempty"`
 	LastName  string   `json:"lastName,omitempty"`
 	Birthday  string   `json:"birthday,omitempty"`
-	Gender    c.Gender `json:"gender,omitempty"`
+	Gender    c.Gender `json:"gender"`
 }
 
 func NewAccount(account *mysqldb.Account) *Account {
