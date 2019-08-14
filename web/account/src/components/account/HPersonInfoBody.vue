@@ -55,7 +55,7 @@
                 <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
               <v-divider class="ml-4"></v-divider>
-              <v-list-item>
+              <v-list-item to="update/password">
                 <v-flex xs3>
                   <div class="overline">密码</div>
                 </v-flex>

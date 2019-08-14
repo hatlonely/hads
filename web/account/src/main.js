@@ -60,6 +60,7 @@ const router = new VueRouter({
         { path: 'personinfo', component: () => import('./components/account/HPersonInfoBody') },
         { path: 'update/name', component: () => import('./components/account/update/Name') },
         { path: 'update/birthday', component: () => import('./components/account/update/Birthday') },
+        { path: 'update/password', component: () => import('./components/account/update/Password') },
         { path: 'update/sorry', component: () => import('./components/account/update/Sorry') },
         { path: 'update/gender', component: () => import('./components/account/update/Gender') },
         { path: 'update/phone', component: () => import('./components/account/update/Phone') },
