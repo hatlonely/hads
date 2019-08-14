@@ -10,13 +10,14 @@ import (
 )
 
 type Option struct {
-	Address    string
-	Timeout    time.Duration
-	Retries    int
-	PoolSize   int
-	Password   string
-	DB         int
-	Expiration time.Duration
+	Address            string
+	Timeout            time.Duration
+	Retries            int
+	PoolSize           int
+	Password           string
+	DB                 int
+	TokenExpiration    time.Duration
+	AuthCodeExpiration time.Duration
 }
 
 type RedisCache struct {
@@ -70,13 +71,33 @@ func NewRedisCache(option *Option) (*RedisCache, error) {
 	}, nil
 }
 
+func (rc *RedisCache) SetAuthCode(key string, code string) error {
+	return rc.client.Set("ac_"+key, code, rc.option.AuthCodeExpiration).Err()
+}
+
+func (rc *RedisCache) DelAuthCode(key string) error {
+	return rc.client.Del("ac_" + key).Err()
+}
+
+func (rc *RedisCache) GetAuthCode(key string) (string, error) {
+	buf, err := rc.client.Get("ac_" + key).Result()
+	if err == redis.Nil {
+		return "", nil
+	}
+	if err != nil {
+		return "", err
+	}
+
+	return string(buf), nil
+}
+
 func (rc *RedisCache) SetAccount(token string, account *Account) error {
 	buf, err := json.Marshal(account)
 	if err != nil {
 		return err
 	}
 
-	return rc.client.Set(token, buf, rc.option.Expiration).Err()
+	return rc.client.Set(token, buf, rc.option.TokenExpiration).Err()
 }
 
 func (rc *RedisCache) DelAccount(token string) error {

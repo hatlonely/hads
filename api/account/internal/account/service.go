@@ -2,10 +2,12 @@ package account
 
 import (
 	"encoding/hex"
+	"fmt"
 	"github.com/hatlonely/account/internal/mysqldb"
 	"github.com/hatlonely/account/internal/rediscache"
-	uuid "github.com/satori/go.uuid"
 	"github.com/sirupsen/logrus"
+	"math/rand"
+	"time"
 )
 
 var InfoLog *logrus.Logger
@@ -31,8 +33,13 @@ func NewService(db *mysqldb.MysqlDB, cache *rediscache.RedisCache) *Service {
 }
 
 func NewToken() string {
-	uid := uuid.NewV4()
 	buf := make([]byte, 32)
-	hex.Encode(buf, uid.Bytes())
+	token := make([]byte, 16)
+	rand.New(rand.NewSource(time.Now().UnixNano())).Read(token)
+	hex.Encode(buf, token)
 	return string(buf)
+}
+
+func NewCode() string {
+	return fmt.Sprintf("%06d", int(rand.NewSource(time.Now().UnixNano()).(rand.Source64).Uint64()%1000000))
 }

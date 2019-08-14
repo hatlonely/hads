@@ -126,6 +126,8 @@ func (s *Service) checkUpdateReqBody(req *UpdateReqBody) error {
 			req.Password:    {rule.Required, rule.AtLeast8Characters},
 			req.OldPassword: {rule.Required, rule.AtLeast8Characters},
 		})
+	default:
+		return fmt.Errorf("未知字段 [%v]", req.Field)
 	}
 
 	return nil

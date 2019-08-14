@@ -12,7 +12,8 @@
         "poolSize": 4,
         "password": "",
         "db": 0,
-        "expiration": "3h"
+        "tokenExpiration": "3h",
+        "authCodeExpiration": "2m"
     },
     "logger": {
         "infoLog": {
