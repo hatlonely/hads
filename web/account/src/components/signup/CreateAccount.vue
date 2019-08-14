@@ -17,7 +17,7 @@
                 <v-text-field
                   v-model="lastName"
                   label="姓氏"
-                  :rules="[rules.required]"
+                  :rules="[rules.required, rules.atmost32characters]"
                   outlined
                   filled
                   validate-on-blur
@@ -27,7 +27,7 @@
                 <v-text-field
                   v-model="firstName"
                   label="名字"
-                  :rules="[rules.required]"
+                  :rules="[rules.required, rules.atmost32characters]"
                   outlined
                   filled
                   validate-on-blur
@@ -37,7 +37,7 @@
                 <v-text-field
                   v-model="email"
                   label="邮箱"
-                  :rules="[rules.required, rules.validemail]"
+                  :rules="[rules.required, rules.validemail, rules.atmost64characters]"
                   :error-messages="errors"
                   outlined
                   filled

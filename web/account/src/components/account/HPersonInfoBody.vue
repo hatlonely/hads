@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading" flat max-width="900" color="#fafafa">
+  <v-card flat max-width="900" color="#fafafa">
     <v-layout mt-5 text-center wrap>
       <v-flex mb-5 xs12 lg12>
         <div class="headline">个人信息</div>
