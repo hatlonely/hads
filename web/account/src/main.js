@@ -61,6 +61,7 @@ const router = new VueRouter({
         { path: 'update/name', component: () => import('./components/account/update/Name') },
         { path: 'update/birthday', component: () => import('./components/account/update/Birthday') },
         { path: 'update/sorry', component: () => import('./components/account/update/Sorry') },
+        { path: 'update/gender', component: () => import('./components/account/update/Gender') },
       ]
     },
     {

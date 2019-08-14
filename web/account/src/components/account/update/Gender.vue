@@ -14,25 +14,17 @@
     <v-flex my-10 mx-12>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-layout mx-0 row wrap>
-          <v-flex xs6>
-            <v-text-field
-              v-model="lastName"
-              label="姓氏"
-              :rules="[rules.required, rules.atmost32characters]"
+          <v-flex xs12>
+            <v-select
+              v-model="gender"
+              :items="genderChoice"
+              item-text="val"
+              item-value="idx"
+              label="性别"
+              :rules="[]"
               outlined
               filled
-              validate-on-blur
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs6>
-            <v-text-field
-              v-model="firstName"
-              label="名字"
-              :rules="[rules.required, rules.atmost32characters]"
-              outlined
-              filled
-              validate-on-blur
-            ></v-text-field>
+            ></v-select>
           </v-flex>
         </v-layout>
       </v-form>
@@ -65,17 +57,15 @@ export default {
             this.$config.api + "/update",
             {
               token: this.$cookies.get("token"),
-              field: "name",
-              firstName: this.firstName,
-              lastName: this.lastName
+              field: "gender",
+              gender: this.gender
             },
             {
               withCredentials: true
             }
           );
           if (res.data.ok) {
-            this.$store.state.account.firstName = this.firstName;
-            this.$store.state.account.lastName = this.lastName;
+            this.$store.state.account.gender = this.gender;
             this.$router.go(-1);
           } else {
             this.$router.push("sorry");
@@ -93,10 +83,13 @@ export default {
       valid: true,
       loading: false,
       rules,
-      firstName: this.$store.state.account.firstName,
-      lastName: this.$store.state.account.lastName
+      genderChoice: [
+        { idx: 1, val: "男" },
+        { idx: 2, val: "女" },
+        { idx: 0, val: "保密" }
+      ],
+      gender: this.$store.state.account.gender
     };
   }
 };
 </script>
-

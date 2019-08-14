@@ -47,7 +47,7 @@
                 <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
               <v-divider class="ml-4"></v-divider>
-              <v-list-item>
+              <v-list-item to="update/gender">
                 <v-flex xs3>
                   <div class="overline">性别</div>
                 </v-flex>
@@ -105,7 +105,6 @@ export default {
       return `${year} 年 ${month} 月 ${day} 日`;
     },
     formatGender(gender) {
-      if (!gender) return null;
       return {
         0: "保密",
         1: "男",
