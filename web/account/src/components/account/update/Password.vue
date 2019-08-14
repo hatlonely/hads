@@ -16,13 +16,28 @@
         <v-layout mx-0 row wrap>
           <v-flex xs12>
             <v-text-field
-              v-model="password"
-              label="输入您的密码"
-              :append-icon="show ? 'visibility' : 'visibility_off'"
-              :type="show ? 'text' : 'password'"
-              @click:append="show = !show"
-              :rules="[rules.required, rules.atleast8characters]"
+              v-model="oldPassword"
+              label="老密码"
               hint="使用8个或更多字符(字母、数字和符号的组合)"
+              :append-icon="show1 ? 'visibility' : 'visibility_off'"
+              :type="show1 ? 'text' : 'password'"
+              :rules="[rules.required, rules.atleast8characters]"
+              :error-messages="errors"
+              @click:append="show1 = !show1"
+              outlined
+              filled
+              validate-on-blur
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field
+              v-model="password"
+              label="新密码"
+              hint="使用8个或更多字符(字母、数字和符号的组合)"
+              :append-icon="show2 ? 'visibility' : 'visibility_off'"
+              :type="show2 ? 'text' : 'password'"
+              :rules="[rules.required, rules.atleast8characters]"
+              @click:append="show2 = !show2"
               outlined
               filled
               validate-on-blur
@@ -53,48 +68,24 @@ export default {
   methods: {
     async validate() {
       if (this.$refs.form.validate()) {
-        if (this.password == this.$store.state.account.password) {
-          this.$router.go(-1);
-          return;
-        }
-
         this.loading = true;
-        try {
-          const res = await axios.get(this.$config.api + "/vertify", {
-            params: {
-              field: "password",
-              value: this.password
-            },
-            withCredentials: true
-          });
-          if (!res.data.ok) {
-            this.errors = [res.data.tip];
-            return;
-          }
-        } catch (error) {
-          this.errors = [error];
-          return;
-        } finally {
-          this.loading = false;
-        }
-
         try {
           const res = await axios.post(
             this.$config.api + "/update",
             {
               token: this.$cookies.get("token"),
               field: "password",
-              password: this.password
+              password: this.password,
+              oldPassword: this.oldPassword
             },
             {
               withCredentials: true
             }
           );
           if (res.data.ok) {
-            this.$store.state.account.password = this.password;
             this.$router.go(-1);
           } else {
-            this.$router.push("sorry");
+            this.errors = [res.data.err];
           }
         } catch (error) {
           this.$router.push("sorry");
@@ -108,9 +99,12 @@ export default {
     return {
       valid: true,
       loading: false,
+      show1: false,
+      show2: false,
       errors: [],
       rules,
-      password: this.$store.state.account.password
+      password: "",
+      oldPassword: ""
     };
   }
 };

@@ -86,7 +86,7 @@ export default {
             this.$store.state.account.lastName = this.lastName;
             this.$router.go(-1);
           } else {
-            this.$router.push("sorry");
+            this.errors = [res.data.err];
           }
         } catch (error) {
           this.$router.push("sorry");

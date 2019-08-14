@@ -91,7 +91,7 @@ export default {
             this.$store.state.account.phone = this.phone;
             this.$router.go(-1);
           } else {
-            this.$router.push("sorry");
+            this.errors = [res.data.err];
           }
         } catch (error) {
           this.$router.push("sorry");
