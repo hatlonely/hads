@@ -14,7 +14,7 @@
           <v-avatar size="20" class="mr-2" tile>
             <div v-html="identicon"></div>
           </v-avatar>
-          <span class="body-1">hatlonely@gmail.com</span>
+          <span class="body-1">{{this.$store.state.signin.username}}</span>
         </v-card>
       </v-layout>
     </v-flex>
@@ -101,7 +101,7 @@ export default {
       }
     },
     identicon() {
-      return jdenticon.toSvg(this.$store.state.account.email, 20);
+      return jdenticon.toSvg(this.$store.state.signin.username, 20);
     }
   },
   data() {

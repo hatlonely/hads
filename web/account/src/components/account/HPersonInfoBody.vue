@@ -36,7 +36,7 @@
                   <div class="overline">姓名</div>
                 </v-flex>
                 <v-list-item-title>{{this.$store.state.account.lastName}} {{this.$store.state.account.firstName}}</v-list-item-title>
-                <!-- <v-icon small>arrow_forward_ios</v-icon> -->
+                <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
               <v-divider class="ml-4"></v-divider>
               <v-list-item>
@@ -44,7 +44,7 @@
                   <div class="overline">生日</div>
                 </v-flex>
                 <v-list-item-title>{{formatBirthday(this.$store.state.account.birthday)}}</v-list-item-title>
-                <!-- <v-icon small>arrow_forward_ios</v-icon> -->
+                <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
               <v-divider class="ml-4"></v-divider>
               <v-list-item>
@@ -52,7 +52,7 @@
                   <div class="overline">性别</div>
                 </v-flex>
                 <v-list-item-title>{{formatGender(this.$store.state.account.gender)}}</v-list-item-title>
-                <!-- <v-icon small>arrow_forward_ios</v-icon> -->
+                <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
               <v-divider class="ml-4"></v-divider>
               <v-list-item>
@@ -60,7 +60,7 @@
                   <div class="overline">密码</div>
                 </v-flex>
                 <v-list-item-title>********</v-list-item-title>
-                <!-- <v-icon small>arrow_forward_ios</v-icon> -->
+                <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -76,7 +76,7 @@
                   <div class="overline">邮箱</div>
                 </v-flex>
                 <v-list-item-title>{{this.$store.state.account.email}}</v-list-item-title>
-                <!-- <v-icon small>arrow_forward_ios</v-icon> -->
+                <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
               <v-divider class="ml-4"></v-divider>
               <v-list-item>
@@ -84,7 +84,7 @@
                   <div class="overline">电话</div>
                 </v-flex>
                 <v-list-item-title>{{this.$store.state.account.phone}}</v-list-item-title>
-                <!-- <v-icon small>arrow_forward_ios</v-icon> -->
+                <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
             </v-list-item-group>
           </v-list>
