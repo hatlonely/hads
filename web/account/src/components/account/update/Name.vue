@@ -59,6 +59,14 @@ export default {
   methods: {
     async validate() {
       if (this.$refs.form.validate()) {
+        if (
+          this.firstName == this.$store.state.account.firstName &&
+          this.lastName == this.$store.state.account.lastName
+        ) {
+          this.$router.go(-1);
+          return;
+        }
+
         this.loading = true;
         try {
           const res = await axios.post(

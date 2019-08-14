@@ -71,7 +71,7 @@
           <v-card-title>联系方式</v-card-title>
           <v-list class="text-lg-left">
             <v-list-item-group>
-              <v-list-item>
+              <v-list-item to="update/email">
                 <v-flex xs3>
                   <div class="overline">邮箱</div>
                 </v-flex>
@@ -79,7 +79,7 @@
                 <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
               <v-divider class="ml-4"></v-divider>
-              <v-list-item>
+              <v-list-item to="update/phone">
                 <v-flex xs3>
                   <div class="overline">电话</div>
                 </v-flex>

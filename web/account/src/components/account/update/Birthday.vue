@@ -75,6 +75,11 @@ export default {
   methods: {
     async validate() {
       if (this.$refs.form.validate()) {
+        if (this.birthday == this.$store.state.account.birthday) {
+          this.$router.go(-1);
+          return;
+        }
+
         this.loading = true;
         try {
           const res = await axios.post(
