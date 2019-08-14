@@ -14,25 +14,41 @@
     <v-flex my-10 mx-12>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-layout mx-0 row wrap>
-          <v-flex xs6>
-            <v-text-field
-              v-model="lastName"
-              label="姓氏"
-              :rules="[rules.required, rules.atmost32characters]"
-              outlined
-              filled
-              validate-on-blur
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs6 pl-4>
-            <v-text-field
-              v-model="firstName"
-              label="名字"
-              :rules="[rules.required, rules.atmost32characters]"
-              outlined
-              filled
-              validate-on-blur
-            ></v-text-field>
+          <v-flex xs12>
+            <v-menu
+              ref="birthdayMenu"
+              v-model="birthdayMenu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              full-width
+              max-width="290px"
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="dateFormatted"
+                  label="生日"
+                  :rules="[rules.required]"
+                  v-on="on"
+                  outlined
+                  filled
+                  readonly
+                  :value="dateFormatted = formatBirthday(birthday)"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="birthday"
+                no-title
+                ref="picker"
+                locale="zh-cn"
+                :max="new Date().toISOString().substr(0, 10)"
+                min="1950-01-01"
+                @change="save"
+                color="primary"
+                :day-format="date => date.split('-')[2]"
+              ></v-date-picker>
+            </v-menu>
           </v-flex>
         </v-layout>
       </v-form>
@@ -65,17 +81,15 @@ export default {
             this.$config.api + "/update",
             {
               token: this.$cookies.get("token"),
-              field: "name",
-              firstName: this.firstName,
-              lastName: this.lastName
+              field: "birthday",
+              birthday: this.birthday
             },
             {
               withCredentials: true
             }
           );
           if (res.data.ok) {
-            this.$store.state.account.firstName = this.firstName;
-            this.$store.state.account.lastName = this.lastName;
+            this.$store.state.account.birthday = this.birthday;
             this.$router.go(-1);
           } else {
             this.$router.push("sorry");
@@ -86,15 +100,32 @@ export default {
           this.loading = false;
         }
       }
+    },
+    formatBirthday(birthday) {
+      if (!birthday) return null;
+      const [year, month, day] = birthday.split("-");
+      return `${year} 年 ${month} 月 ${day} 日`;
+    },
+    save(date) {
+      this.$refs.birthdayMenu.save(date);
+    }
+  },
+  watch: {
+    birthday(val) {
+      this.dateFormatted = this.formatBirthday(val);
+    },
+    birthdayMenu(val) {
+      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   },
   data() {
     return {
       valid: true,
       loading: false,
+      dateFormatted: null,
+      birthdayMenu: false,
       rules,
-      firstName: this.$store.state.account.firstName,
-      lastName: this.$store.state.account.lastName
+      birthday: this.$store.state.account.birthday
     };
   }
 };

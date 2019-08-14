@@ -139,7 +139,6 @@ export default {
       }
     }
   },
-
   watch: {
     birthday(val) {
       this.dateFormatted = this.formatBirthday(val);

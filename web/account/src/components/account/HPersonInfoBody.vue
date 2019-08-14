@@ -39,7 +39,7 @@
                 <v-icon small>arrow_forward_ios</v-icon>
               </v-list-item>
               <v-divider class="ml-4"></v-divider>
-              <v-list-item>
+              <v-list-item to="update/birthday">
                 <v-flex xs3>
                   <div class="overline">生日</div>
                 </v-flex>
