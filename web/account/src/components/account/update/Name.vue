@@ -14,7 +14,7 @@
     <v-flex my-10 mx-12>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-layout mx-0 row wrap>
-          <v-flex xs6>
+          <v-flex xs6 pr-4>
             <v-text-field
               v-model="lastName"
               label="姓氏"
@@ -24,7 +24,7 @@
               validate-on-blur
             ></v-text-field>
           </v-flex>
-          <v-flex xs6>
+          <v-flex xs6 pl-4>
             <v-text-field
               v-model="firstName"
               label="名字"
