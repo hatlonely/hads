@@ -31,7 +31,7 @@
 
           <v-list class="text-lg-left">
             <v-list-item-group>
-              <v-list-item>
+              <v-list-item to="update/name">
                 <v-flex xs3>
                   <div class="overline">姓名</div>
                 </v-flex>

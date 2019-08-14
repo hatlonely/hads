@@ -3,6 +3,7 @@ package rule
 import (
 	"fmt"
 	"regexp"
+	"time"
 )
 
 var EmailRegex *regexp.Regexp
@@ -81,6 +82,21 @@ func ValidPhone(v interface{}) error {
 func ValidCode(v interface{}) error {
 	if !CodeRegex.MatchString(v.(string)) {
 		return fmt.Errorf("无效的验证码")
+	}
+
+	return nil
+}
+
+func ValidBirthday(v interface{}) error {
+	birthday, err := time.Parse("2006-01-02", v.(string))
+	if err != nil {
+		return fmt.Errorf("日期格式错误")
+	}
+	if birthday.After(time.Now()) {
+		return fmt.Errorf("日期超过范围")
+	}
+	if time.Now().Sub(birthday) > 100*365*24*time.Hour {
+		return fmt.Errorf("日期超过范围")
 	}
 
 	return nil

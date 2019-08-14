@@ -3,6 +3,7 @@ package account
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/hatlonely/account/internal/c"
 	"net/http"
 	"time"
 
@@ -13,13 +14,13 @@ import (
 )
 
 type SignUpReqBody struct {
-	FirstName string `json:"firstName,omitempty"`
-	LastName  string `json:"lastName,omitempty"`
-	Phone     string `json:"phone,omitempty"`
-	Email     string `json:"email,omitempty"`
-	Password  string `json:"password,omitempty"`
-	Birthday  string `json:"birthday,omitempty"`
-	Gender    int    `json:"gender,omitempty"`
+	FirstName string   `json:"firstName,omitempty"`
+	LastName  string   `json:"lastName,omitempty"`
+	Phone     string   `json:"phone,omitempty"`
+	Email     string   `json:"email,omitempty"`
+	Password  string   `json:"password,omitempty"`
+	Birthday  string   `json:"birthday,omitempty"`
+	Gender    c.Gender `json:"gender,omitempty"`
 }
 
 type SignUpResBody struct {
@@ -90,7 +91,12 @@ func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 		req.Phone:    {rule.Required, rule.ValidPhone},
 		req.Email:    {rule.Required, rule.ValidEmail, rule.AtMost64Characters},
 		req.Password: {rule.Required, rule.AtLeast8Characters},
-		req.Birthday: {rule.Required},
+		req.Birthday: {rule.Required, rule.ValidBirthday},
+		req.Gender: {rule.In(map[interface{}]struct{}{
+			c.GenderUnknown: {}, c.Male: {}, c.Famale: {},
+		})},
+		req.FirstName: {rule.Required},
+		req.LastName:  {rule.Required},
 	}); err != nil {
 		return err
 	}
@@ -99,7 +105,7 @@ func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 }
 
 func (s *Service) signUp(req *SignUpReqBody) (*SignUpResBody, error) {
-	birthday, err := time.Parse("2006-01-02", req.Birthday)
+	birthday, _ := time.Parse("2006-01-02", req.Birthday)
 	ok, err := s.db.InsertAccount(&mysqldb.Account{
 		Phone:     req.Phone,
 		Email:     req.Email,
@@ -107,8 +113,10 @@ func (s *Service) signUp(req *SignUpReqBody) (*SignUpResBody, error) {
 		FirstName: req.FirstName,
 		LastName:  req.LastName,
 		Birthday:  birthday,
-		Gender:    req.Gender,
+		Gender:    int(req.Gender),
 	})
+
+	fmt.Println("abc", err)
 
 	return &SignUpResBody{Success: ok}, err
 }

@@ -24,6 +24,7 @@ type RedisCache struct {
 }
 
 type Account struct {
+	ID        int    `json:"id,omitempty"`
 	Email     string `json:"email,omitempty"`
 	Phone     string `json:"phone,omitempty"`
 	FirstName string `json:"firstName,omitempty"`
@@ -34,6 +35,7 @@ type Account struct {
 
 func NewAccount(account *mysqldb.Account) *Account {
 	return &Account{
+		ID:        account.ID,
 		Email:     account.Email,
 		Phone:     account.Phone,
 		FirstName: account.FirstName,

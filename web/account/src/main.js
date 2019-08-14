@@ -57,7 +57,8 @@ const router = new VueRouter({
         { path: '', component: () => import('./components/account/HHomeBody') },
         { path: 'introduction', component: () => import('./components/account/HIntroduction') },
         { path: 'home', component: () => import('./components/account/HHomeBody') },
-        { path: 'personinfo', component: () => import('./components/account/HPersonInfoBody') }
+        { path: 'personinfo', component: () => import('./components/account/HPersonInfoBody') },
+        { path: 'update/name', component: () => import('./components/account/update/Name') },
       ]
     },
     {

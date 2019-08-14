@@ -8,6 +8,7 @@ Feature: signup 注册测试
         Then 检查 mysqldb.accounts, 存在记录 phone: "<phone>", email: "<email>", password: "<password>", firstname: "<firstname>", lastname: "<lastname>", birthday: "<birthday>", gender: <gender>
         Examples:
             | phone       | email                  | password | firstname | lastname | birthday   | gender | status | success |
+            | 13145678901 | hatlonely1@foxmail.com | 12345678 | 悟空      | 孙       | 1992-01-01 | 0      | 200    | true    |
             | 13145678901 | hatlonely1@foxmail.com | 12345678 | 悟空      | 孙       | 1992-01-01 | 1      | 200    | true    |
 
     Scenario Outline: 重复注册

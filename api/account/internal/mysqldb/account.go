@@ -2,6 +2,7 @@ package mysqldb
 
 import (
 	"fmt"
+	"github.com/hatlonely/account/internal/c"
 	"github.com/hatlonely/account/internal/rule"
 	"strings"
 	"time"
@@ -54,6 +55,69 @@ func (m *MysqlDB) SelectAccountByEmail(email string) (*Account, error) {
 	}
 
 	return account, nil
+}
+
+func (m *MysqlDB) UpdateAccountName(id int, firstName string, lastName string) (bool, error) {
+	account := &Account{
+		ID:        id,
+		FirstName: firstName,
+		LastName:  lastName,
+	}
+	if err := m.db.Model(account).Where("id=?", account.ID).Update(account).Error; err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
+func (m *MysqlDB) UpdateAccountEmail(id int, email string) (bool, error) {
+	account := &Account{
+		ID:    id,
+		Email: email,
+	}
+	if err := m.db.Model(account).Where("id=?", account.ID).Update(account).Error; err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
+func (m *MysqlDB) UpdateAccountPhone(id int, phone string) (bool, error) {
+	account := &Account{
+		ID:    id,
+		Phone: phone,
+	}
+	if err := m.db.Model(account).Where("id=?", account.ID).Update(account).Error; err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
+func (m *MysqlDB) UpdateAccountBirthday(id int, birthday time.Time) (bool, error) {
+	account := &Account{
+		ID:       id,
+		Birthday: birthday,
+	}
+	if err := m.db.Model(account).Where("id=?", account.ID).Update(account).Error; err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
+func (m *MysqlDB) UpdateAccountPassword(id int, password string) (bool, error) {
+	account := &Account{
+		ID:       id,
+		Password: password,
+	}
+	if err := m.db.Model(account).Where("id=?", account.ID).Update(account).Error; err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
+func (m *MysqlDB) UpdateAccountGender(id int, gender c.Gender) (bool, error) {
+	if err := m.db.Model(&Account{}).Where("id=?", id).Update("gender", gender).Error; err != nil {
+		return false, err
+	}
+	return true, nil
 }
 
 func (m *MysqlDB) InsertAccount(account *Account) (bool, error) {
