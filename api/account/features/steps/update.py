@@ -102,12 +102,13 @@ def step_impl(context, gender):
     })
 
 
-@when('请求 /update, password: "{password:str}"')
-def step_impl(context, password):
+@when('请求 /update, password: "{password:str}", oldpassword: "{oldpassword:str}"')
+def step_impl(context, password, oldpassword):
     res = requests.post("{}/update".format(context.config["url"]), json={
         "token": context.token,
         "field": "password",
         "password": password,
+        "oldPassword": oldpassword,
     })
     context.status = res.status_code
     context.body = res.text

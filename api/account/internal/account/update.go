@@ -12,15 +12,16 @@ import (
 )
 
 type UpdateReqBody struct {
-	Token     string   `json:"token"`
-	Field     string   `json:"field,omitempty"`
-	Email     string   `json:"email,omitempty"`
-	Phone     string   `json:"phone,omitempty"`
-	FirstName string   `json:"firstName,omitempty"`
-	LastName  string   `json:"lastName,omitempty"`
-	Birthday  string   `json:"birthday,omitempty"`
-	Password  string   `json:"password,omitempty"`
-	Gender    c.Gender `json:"gender,omitempty"`
+	Token       string   `json:"token"`
+	Field       string   `json:"field,omitempty"`
+	Email       string   `json:"email,omitempty"`
+	Phone       string   `json:"phone,omitempty"`
+	FirstName   string   `json:"firstName,omitempty"`
+	LastName    string   `json:"lastName,omitempty"`
+	Birthday    string   `json:"birthday,omitempty"`
+	Password    string   `json:"password,omitempty"`
+	OldPassword string   `json:"oldPassword,omitempty"`
+	Gender      c.Gender `json:"gender,omitempty"`
 }
 
 type UpdateResBody struct {
@@ -122,7 +123,8 @@ func (s *Service) checkUpdateReqBody(req *UpdateReqBody) error {
 		})
 	case "password":
 		return rule.Check(map[interface{}][]rule.Rule{
-			req.Password: {rule.Required, rule.AtLeast8Characters},
+			req.Password:    {rule.Required, rule.AtLeast8Characters},
+			req.OldPassword: {rule.Required, rule.AtLeast8Characters},
 		})
 	}
 
@@ -148,6 +150,9 @@ func (s *Service) update(req *UpdateReqBody) (*UpdateResBody, error) {
 		ok, err = s.db.UpdateAccountEmail(account.ID, req.Email)
 		account.Email = req.Email
 	case "password":
+		if req.OldPassword != account.Password {
+			return &UpdateResBody{OK: false, Err: fmt.Sprintf("密码错误")}, nil
+		}
 		ok, err = s.db.UpdateAccountPassword(account.ID, req.Password)
 	case "gender":
 		ok, err = s.db.UpdateAccountGender(account.ID, req.Gender)

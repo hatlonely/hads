@@ -66,14 +66,16 @@ Feature: update 登陆测试
     Scenario Outline: update password
         Given mysqldb.accounts 创建用户, phone: "13112345678", email: "hatlonely1@foxmail.com", password: "12345678", firstname: "孙", lastname: "悟空", birthday: "1992-01-01", gender: 1
         When 请求 /signin, username: "13112345678", password: "12345678"
-        When 请求 /update, password: "<password>"
+        When 请求 /update, password: "<password>", oldpassword: "<oldpassword>"
         Then 检查状态码 res.status_code: <status>
         Then 检查 update 返回包体 res.body, ok: <ok>, err: "<err>"
         Then 检查 rediscache.token, 存在记录 phone: "13112345678", email: "hatlonely1@foxmail.com", firstname: "孙", lastname: "悟空", birthday: "1992-01-01", gender: 1
-        Then 检查 mysqldb.accounts, 存在记录 phone: "13112345678", email: "hatlonely1@foxmail.com", password: "<password>", firstname: "孙", lastname: "悟空", birthday: "1992-01-01", gender: 1
+        Then 检查 mysqldb.accounts, 存在记录 phone: "13112345678", email: "hatlonely1@foxmail.com", password: "<newpassword>", firstname: "孙", lastname: "悟空", birthday: "1992-01-01", gender: 1
         Examples:
-            | password | status | ok   | err |
-            | 11112222 | 200    | true | N/A |
+            | password | oldpassword | newpassword | status | ok    | err      |
+            | 11112222 | 12345678    | 11112222    | 200    | true  | N/A      |
+            | 11112222 | 12341234    | 12345678    | 200    | false | 密码错误 |
+
 
     Scenario Outline: update name 异常
         Given mysqldb.accounts 创建用户, phone: "13112345678", email: "hatlonely1@foxmail.com", password: "12345678", firstname: "孙", lastname: "悟空", birthday: "1992-01-01", gender: 1
@@ -128,10 +130,10 @@ Feature: update 登陆测试
     Scenario Outline: update password 异常
         Given mysqldb.accounts 创建用户, phone: "13112345678", email: "hatlonely1@foxmail.com", password: "12345678", firstname: "孙", lastname: "悟空", birthday: "1992-01-01", gender: 1
         When 请求 /signin, username: "13112345678", password: "12345678"
-        When 请求 /update, password: "<password>"
+        When 请求 /update, password: "<password>", oldpassword: "<oldpassword>"
         Then 检查状态码 res.status_code: <status>
         Then 检查返回包体 res.body，包含字符串 "<body>"
         Examples:
-            | password | status | body        |
-            | N/A      | 400    | 必要字段    |
-            | 123456   | 400    | 至少8个字符 |
+            | password | oldpassword | status | body        |
+            | N/A      | 12345678    | 400    | 必要字段    |
+            | 123456   | 12345678    | 400    | 至少8个字符 |

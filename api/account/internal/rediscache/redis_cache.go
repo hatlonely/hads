@@ -31,6 +31,7 @@ type Account struct {
 	FirstName string   `json:"firstName,omitempty"`
 	LastName  string   `json:"lastName,omitempty"`
 	Birthday  string   `json:"birthday,omitempty"`
+	Password  string   `json:"password,omitempty"`
 	Gender    c.Gender `json:"gender"`
 }
 
@@ -41,6 +42,7 @@ func NewAccount(account *mysqldb.Account) *Account {
 		Phone:     account.Phone,
 		FirstName: account.FirstName,
 		LastName:  account.LastName,
+		Password:  account.Password,
 		Birthday:  account.Birthday.Format("2006-01-02"),
 		Gender:    account.Gender,
 	}
