@@ -12,8 +12,8 @@ import (
 
 type Account struct {
 	ID        int       `gorm:"type:bigint(20) auto_increment;primary_key" json:"id"`
-	Email     string    `gorm:"type:varchar(64);not null;unique_index:email_idx" json:"email"`
-	Phone     string    `gorm:"type:varchar(64);not null;unique_index:phone_idx" json:"phone"`
+	Email     string    `gorm:"type:varchar(64);index:email_idx" json:"email"`
+	Phone     string    `gorm:"type:varchar(64);index:phone_idx" json:"phone"`
 	FirstName string    `gorm:"type:varchar(32);not null" json:"firstName"`
 	LastName  string    `gorm:"type:varchar(32);not null" json:"lastName"`
 	Password  string    `gorm:"type:varchar(32);not null" json:"password"`
@@ -74,6 +74,14 @@ func (m *MysqlDB) UpdateAccountEmail(id int, email string) (bool, error) {
 		ID:    id,
 		Email: email,
 	}
+	accountDB := &Account{}
+	err := m.db.Where("email=?", account.Email).First(accountDB).Error
+	if err == nil {
+		return false, fmt.Errorf("email [%v] is already exists", accountDB.Email)
+	}
+	if err != gorm.ErrRecordNotFound {
+		return false, err
+	}
 	if err := m.db.Model(account).Where("id=?", account.ID).Update(account).Error; err != nil {
 		return false, err
 	}
@@ -84,6 +92,14 @@ func (m *MysqlDB) UpdateAccountPhone(id int, phone string) (bool, error) {
 	account := &Account{
 		ID:    id,
 		Phone: phone,
+	}
+	accountDB := &Account{}
+	err := m.db.Where("phone=?", account.Phone).First(accountDB).Error
+	if err == nil {
+		return false, fmt.Errorf("phone [%v] is already exists", accountDB.Phone)
+	}
+	if err != gorm.ErrRecordNotFound {
+		return false, err
 	}
 	if err := m.db.Model(account).Where("id=?", account.ID).Update(account).Error; err != nil {
 		return false, err
@@ -121,7 +137,7 @@ func (m *MysqlDB) UpdateAccountGender(id int, gender c.Gender) (bool, error) {
 }
 
 func (m *MysqlDB) InsertAccount(account *Account) (bool, error) {
-	if account.Email == "" || account.Phone == "" {
+	if account.Email == "" && account.Phone == "" {
 		return false, fmt.Errorf("email or phone are is null, account [%#v]", account)
 	}
 
