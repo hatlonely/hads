@@ -6,9 +6,9 @@ import requests
 import json
 
 
-@when('请求 /vertify, field: "{field:str}", value: "{value:str}"')
+@when('请求 /verify, field: "{field:str}", value: "{value:str}"')
 def step_impl(context, field, value):
-    res = requests.get("{}/vertify".format(context.config["url"]), params={
+    res = requests.get("{}/verify".format(context.config["url"]), params={
         "field": field,
         "value": value,
     })
@@ -24,7 +24,7 @@ def step_impl(context, field, value):
     })
 
 
-@then('检查 vertify 返回包体 res.body, ok: {ok:bool}, tip: "{tip:str}"')
+@then('检查 verify 返回包体 res.body, ok: {ok:bool}, tip: "{tip:str}"')
 def step_impl(context, ok, tip):
     assert_that(context.res["ok"], equal_to(ok))
     assert_that(context.res["tip"], equal_to(tip))

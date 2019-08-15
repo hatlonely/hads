@@ -9,23 +9,23 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type VertifyReqBody struct {
+type VerifyReqBody struct {
 	Field string `json:"field,omitempty"`
 	Value string `json:"value,omitempty"`
 }
 
-type VertifyResBody struct {
+type VerifyResBody struct {
 	OK  bool   `json:"ok"`
 	Tip string `json:"tip"`
 }
 
-func (s *Service) Vertify(c *gin.Context) {
+func (s *Service) Verify(c *gin.Context) {
 	rid := c.DefaultQuery("rid", NewToken())
-	req := &VertifyReqBody{
+	req := &VerifyReqBody{
 		Field: c.DefaultQuery("field", ""),
 		Value: c.DefaultQuery("value", ""),
 	}
-	var res *VertifyResBody
+	var res *VerifyResBody
 	var err error
 	var buf []byte
 	status := http.StatusOK
@@ -43,7 +43,7 @@ func (s *Service) Vertify(c *gin.Context) {
 		}).Info()
 	}()
 
-	if err = s.checkVertifyReqBody(req); err != nil {
+	if err = s.checkVerifyReqBody(req); err != nil {
 		err = fmt.Errorf("check request body failed. body: [%v], err: [%v]", string(buf), err)
 		WarnLog.WithField("@rid", rid).WithField("err", err).Warn()
 		status = http.StatusBadRequest
@@ -51,9 +51,9 @@ func (s *Service) Vertify(c *gin.Context) {
 		return
 	}
 
-	res, err = s.vertify(req)
+	res, err = s.verify(req)
 	if err != nil {
-		WarnLog.WithField("@rid", rid).WithField("err", err).Warn("vertify failed")
+		WarnLog.WithField("@rid", rid).WithField("err", err).Warn("verify failed")
 		status = http.StatusInternalServerError
 		c.String(status, err.Error())
 		return
@@ -63,7 +63,7 @@ func (s *Service) Vertify(c *gin.Context) {
 	c.JSON(status, res)
 }
 
-func (s *Service) checkVertifyReqBody(req *VertifyReqBody) error {
+func (s *Service) checkVerifyReqBody(req *VerifyReqBody) error {
 	if err := rule.Check(map[interface{}][]rule.Rule{
 		req.Field: {rule.Required, rule.In(map[interface{}]struct{}{"phone": {}, "email": {}, "username": {}})},
 		req.Value: {rule.Required},
@@ -74,16 +74,16 @@ func (s *Service) checkVertifyReqBody(req *VertifyReqBody) error {
 	return nil
 }
 
-func (s *Service) vertify(req *VertifyReqBody) (*VertifyResBody, error) {
+func (s *Service) verify(req *VerifyReqBody) (*VerifyResBody, error) {
 	if req.Field == "phone" {
 		account, err := s.db.SelectAccountByPhone(req.Value)
 		if err != nil {
 			return nil, err
 		}
 		if account == nil {
-			return &VertifyResBody{OK: true}, nil
+			return &VerifyResBody{OK: true}, nil
 		}
-		return &VertifyResBody{OK: false, Tip: "电话号码已存在"}, nil
+		return &VerifyResBody{OK: false, Tip: "电话号码已存在"}, nil
 	}
 
 	if req.Field == "email" {
@@ -92,9 +92,9 @@ func (s *Service) vertify(req *VertifyReqBody) (*VertifyResBody, error) {
 			return nil, err
 		}
 		if account == nil {
-			return &VertifyResBody{OK: true}, nil
+			return &VerifyResBody{OK: true}, nil
 		}
-		return &VertifyResBody{OK: false, Tip: "邮箱已存在"}, nil
+		return &VerifyResBody{OK: false, Tip: "邮箱已存在"}, nil
 	}
 
 	if req.Field == "username" {
@@ -103,10 +103,10 @@ func (s *Service) vertify(req *VertifyReqBody) (*VertifyResBody, error) {
 			return nil, err
 		}
 		if account == nil {
-			return &VertifyResBody{OK: false, Tip: "账号不存在"}, nil
+			return &VerifyResBody{OK: false, Tip: "账号不存在"}, nil
 		}
-		return &VertifyResBody{OK: true}, nil
+		return &VerifyResBody{OK: true}, nil
 	}
 
-	return &VertifyResBody{OK: false, Tip: fmt.Sprintf("未知字段 [%v]", req.Field)}, nil
+	return &VerifyResBody{OK: false, Tip: fmt.Sprintf("未知字段 [%v]", req.Field)}, nil
 }

@@ -105,7 +105,7 @@ func main() {
 	r.GET("/ping", func(ctx *gin.Context) {
 		ctx.String(200, "ok")
 	})
-	r.GET("/vertify", service.Vertify)
+	r.GET("/verify", service.Verify)
 	r.GET("/getaccount", service.GetAccount)
 	r.GET("/signout", service.SignOut)
 	r.POST("/genauthcode", service.GenAuthCode)
