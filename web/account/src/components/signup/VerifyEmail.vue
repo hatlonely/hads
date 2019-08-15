@@ -29,6 +29,7 @@
                   v-model="code"
                   label="输入验证码"
                   :rules="[rules.required, rules.validcode]"
+                  :error-messages="errors"
                   outlined
                   filled
                   validate-on-blur
@@ -44,7 +45,7 @@
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
-              <v-btn color="primary" depressed @click="validate" :disabled="!valid">验证</v-btn>
+              <v-btn color="primary" depressed @click="validate">验证</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -67,13 +68,33 @@
 </template>
 
 <script>
+const axios = require("axios");
 import rules from "../../assets/js/rules";
 
 export default {
   methods: {
-    validate() {
+    async validate() {
       if (this.$refs.form.validate()) {
-        this.$router.push("/signup/personaldetail");
+        this.loading = true;
+        try {
+          const res = await axios.get(this.$config.api + "/verifyauthcode", {
+            params: {
+              type: "email",
+              email: this.$store.state.signup.email,
+              code: this.code
+            },
+            withCredentials: true
+          });
+          if (res.data.ok) {
+            this.$router.push("/signup/personaldetail");
+          } else {
+            this.errors = [res.data.tip];
+          }
+        } catch (error) {
+          this.errors = [error];
+        } finally {
+          this.loading = false;
+        }
       }
     }
   },
@@ -91,6 +112,7 @@ export default {
     return {
       show: false,
       valid: true,
+      errors: [],
       rules
     };
   }

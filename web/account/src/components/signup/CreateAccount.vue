@@ -107,16 +107,40 @@ export default {
             },
             withCredentials: true
           });
-          if (res.data.ok) {
-            this.$router.push("/signup/verifyemail");
-          } else {
+          if (!res.data.ok) {
             this.errors = [res.data.tip];
+            this.loading = false;
+            return;
           }
         } catch (error) {
           this.errors = [error];
-        } finally {
           this.loading = false;
+          return;
         }
+      }
+
+      try {
+        const res = await axios.post(
+          this.$config.api + "/genauthcode",
+          {
+            type: "email",
+            email: this.$store.state.signup.email,
+            firstName: this.$store.state.signup.firstName,
+            lastName: this.$store.state.signup.lastName
+          },
+          {
+            withCredentials: true
+          }
+        );
+        if (res.data.ok) {
+          this.$router.push("/signup/verifyemail");
+        } else {
+          this.errors = [res.data.tip];
+        }
+      } catch (error) {
+        this.errors = [error];
+      } finally {
+        this.loading = false;
       }
     }
   },
