@@ -108,6 +108,7 @@ func main() {
 	r.GET("/verify", service.Verify)
 	r.GET("/getaccount", service.GetAccount)
 	r.GET("/signout", service.SignOut)
+	r.GET("/verifyauthcode", service.VerifyAuthCode)
 	r.POST("/genauthcode", service.GenAuthCode)
 	r.POST("/update", service.Update)
 	r.POST("/signin", service.SignIn)
