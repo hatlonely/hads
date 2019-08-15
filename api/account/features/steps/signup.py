@@ -8,6 +8,11 @@ import json
 
 @when('请求 /signup, phone: "{phone:str}", email: "{email:str}", password: "{password:str}", firstname: "{firstname:str}", lastname: "{lastname:str}", birthday: "{birthday:str}", gender: {gender:int}')
 def step_impl(context, phone, email, password, firstname, lastname, birthday, gender):
+    context.cleanup = {
+        "sql": "DELETE FROM accounts WHERE phone='{}' OR email='{}'".format(
+            phone, email
+        )
+    }
     context.phone = phone
     context.email = email
     context.password = password

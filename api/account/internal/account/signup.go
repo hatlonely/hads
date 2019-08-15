@@ -88,8 +88,6 @@ func (s *Service) SignUp(c *gin.Context) {
 
 func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 	if err := rule.Check(map[interface{}][]rule.Rule{
-		req.Phone:    {rule.Required, rule.ValidPhone},
-		req.Email:    {rule.Required, rule.ValidEmail, rule.AtMost64Characters},
 		req.Password: {rule.Required, rule.AtLeast8Characters},
 		req.Birthday: {rule.Required, rule.ValidBirthday},
 		req.Gender: {rule.In(map[interface{}]struct{}{
@@ -99,6 +97,24 @@ func (s *Service) checkSignUpReqBody(req *SignUpReqBody) error {
 		req.LastName:  {rule.Required, rule.AtMost32Characters},
 	}); err != nil {
 		return err
+	}
+
+	if req.Phone == "" && req.Email == "" {
+		return fmt.Errorf("电话和邮箱不可同时为空")
+	}
+	if req.Phone != "" {
+		if err := rule.Check(map[interface{}][]rule.Rule{
+			req.Phone: {rule.Required, rule.ValidPhone},
+		}); err != nil {
+			return err
+		}
+	}
+	if req.Email != "" {
+		if err := rule.Check(map[interface{}][]rule.Rule{
+			req.Email: {rule.Required, rule.ValidEmail, rule.AtMost64Characters},
+		}); err != nil {
+			return err
+		}
 	}
 
 	return nil
