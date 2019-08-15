@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/hatlonely/account/internal/mail"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -72,8 +73,15 @@ func main() {
 	}
 	infoLog.Infof("init redis cache success. option [%#v]", option)
 
+	// init mail client
+	mc := &mail.MailClient{}
+	if err := config.Sub("mail").Unmarshal(mc); err != nil {
+		panic(err)
+	}
+	infoLog.Infof("init mail client success. mailclient [%#v]", mc)
+
 	// init services
-	service := account.NewService(db, cache)
+	service := account.NewService(db, cache, mc)
 
 	// init gin
 	gin.SetMode(gin.ReleaseMode)

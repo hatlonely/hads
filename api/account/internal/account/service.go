@@ -3,6 +3,7 @@ package account
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/hatlonely/account/internal/mail"
 	"github.com/hatlonely/account/internal/mysqldb"
 	"github.com/hatlonely/account/internal/rediscache"
 	"github.com/sirupsen/logrus"
@@ -23,12 +24,14 @@ func init() {
 type Service struct {
 	db    *mysqldb.MysqlDB
 	cache *rediscache.RedisCache
+	mc    *mail.MailClient
 }
 
-func NewService(db *mysqldb.MysqlDB, cache *rediscache.RedisCache) *Service {
+func NewService(db *mysqldb.MysqlDB, cache *rediscache.RedisCache, mc *mail.MailClient) *Service {
 	return &Service{
 		db:    db,
 		cache: cache,
+		mc:    mc,
 	}
 }
 

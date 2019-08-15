@@ -106,6 +106,9 @@ func (s *Service) genAuthCode(req *GenAuthCodeReqBody) (*GenAuthCodeResBody, err
 		if err := s.cache.SetAuthCode(req.Email, code); err != nil {
 			return nil, err
 		}
+		if err := s.mc.Send(req.Email, "hatlonely 账号验证", code); err != nil {
+			return nil, err
+		}
 	}
 
 	if req.Type == "phone" {

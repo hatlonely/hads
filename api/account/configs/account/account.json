@@ -15,6 +15,12 @@
         "tokenExpiration": "3h",
         "authCodeExpiration": "2m"
     },
+    "mail": {
+        "password": "iwvxfcvxljrxbfed",
+        "from": "hatlonely@foxmail.com",
+        "server": "smtp.qq.com",
+        "port": 25
+    },
     "logger": {
         "infoLog": {
             "filename": "log/account.info",
