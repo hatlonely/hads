@@ -1,5 +1,5 @@
 <template>
-  <v-card width="748" height="511" flat outlined>
+  <v-card :loading="loading" width="748" height="511" flat outlined>
     <v-layout row wrap mx-0 text-left px-8>
       <v-flex xs8 pr-8>
         <v-flex mt-8 mb-5 xs12 lg12>
@@ -19,16 +19,14 @@
           <p class="body-2">
             <i>需要按标准费率支付费用</i>
           </p>
-          <p class="body-2">
-            <strong>{{this.$store.state.telephone}}</strong>
-          </p>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-layout mx-0 row wrap>
               <v-flex xs12>
                 <v-text-field
-                  v-model="code"
-                  label="输入验证码"
-                  :rules="[rules.required, rules.validcode]"
+                  v-model="phone"
+                  label="电话号码"
+                  :rules="[rules.required, rules.validphone]"
+                  :error-messages="errors"
                   outlined
                   filled
                   validate-on-blur
@@ -44,7 +42,7 @@
             </v-flex>
             <v-flex xs6></v-flex>
             <v-flex xs3>
-              <v-btn color="primary" depressed @click="validate" :disabled="!valid">验证</v-btn>
+              <v-btn color="primary" depressed @click="validate" :disabled="!valid">下一步</v-btn>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -67,30 +65,50 @@
 </template>
 
 <script>
+const axios = require("axios");
 import rules from "../../assets/js/rules";
 
 export default {
   methods: {
-    validate() {
+    async validate() {
       if (this.$refs.form.validate()) {
-        this.$router.push("/signup/personaldetail");
+        this.loading = true;
+        try {
+          const res = await axios.get(this.$config.api + "/verify", {
+            params: {
+              field: "phone",
+              value: this.phone
+            },
+            withCredentials: true
+          });
+          if (res.data.ok) {
+            this.$router.push("verifyphone");
+          } else {
+            this.errors = [res.data.tip];
+          }
+        } catch (error) {
+          this.errors = [error];
+        } finally {
+          this.loading = false;
+        }
       }
     }
   },
   computed: {
-    code: {
+    phone: {
       get() {
-        return this.$store.state.signup.code;
+        return this.$store.state.signup.phone;
       },
-      set(code) {
-        this.$store.state.signup.code = code;
+      set(phone) {
+        this.$store.state.signup.phone = phone;
       }
     }
   },
   data() {
     return {
-      show: false,
       valid: true,
+      errors: [],
+      loading: false,
       rules
     };
   }

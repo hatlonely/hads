@@ -79,8 +79,8 @@ const router = new VueRouter({
       path: '/signup', component: () => import('./pages/SignUp'),
       children: [
         { path: '', component: () => import('./components/signup/CreateAccount') },
+        { path: 'phone', component: () => import('./components/signup/Phone') },
         { path: 'verifyphone', component: () => import('./components/signup/VerifyPhone') },
-        { path: 'verifycode', component: () => import('./components/signup/VerifyCode') },
         { path: 'personaldetail', component: () => import('./components/signup/PersonalDetail') },
         { path: 'privacy', component: () => import('./components/signup/Privacy') },
         { path: 'sorry', component: () => import('./components/signup/Sorry') },
