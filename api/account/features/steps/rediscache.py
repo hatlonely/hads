@@ -37,6 +37,11 @@ def step_impl(context, token):
     assert_that(res, equal_to(None))
 
 
+@given('rediscache.authcode 创建 key: "{key:str}", code: "{code:str}"')
+def step_impl(context, key, code):
+    context.redis_client.set("ac_"+key, code)
+
+
 @then('检查 rediscache.authcode, 存在记录 key: "{key:str}"')
 def step_impl(context, key):
     res = context.redis_client.get("ac_" + key)
