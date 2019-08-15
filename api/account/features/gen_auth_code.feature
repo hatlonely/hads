@@ -7,4 +7,4 @@ Feature: genautocode 生成验证码测试
         Then 检查 rediscache.authcode, 存在记录 key: "<email>"
         Examples:
             | email                 | firstname | lastname | status | ok   |
-            | hatlonely@foxmail.com | 志成      | 卢       | 200    | true |
+            | hatlonely@foxmail.com | 爽        | 郑       | 200    | true |
