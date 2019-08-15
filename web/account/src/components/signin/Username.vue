@@ -64,7 +64,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         try {
-          const res = await axios.get(this.$config.api + "/vertify", {
+          const res = await axios.get(this.$config.api + "/verify", {
             params: {
               field: "username",
               value: this.username
