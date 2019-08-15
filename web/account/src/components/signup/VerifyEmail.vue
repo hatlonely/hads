@@ -13,14 +13,14 @@
         <v-flex my-10>
           <p
             class="body-2"
-          >为了安全起见，{{this.$config.org}} 希望确定是您本人在登陆。{{this.$config.org}} 将通过短信向您发送一个 6 位数的验证码</p>
+          >为了安全起见，{{this.$config.org}} 希望确定是您本人在登录。{{this.$config.org}} 将通过邮件向您发送一个 6 位数的验证码</p>
         </v-flex>
         <v-flex mt-10 mb-4>
           <p class="body-2">
-            <i>需要按标准费率支付费用</i>
+            <i>请查收邮件并输入验证码</i>
           </p>
           <p class="body-2">
-            <strong>{{this.$store.state.telephone}}</strong>
+            <strong>{{this.$store.state.signup.email}}</strong>
           </p>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-layout mx-0 row wrap>

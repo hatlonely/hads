@@ -108,7 +108,7 @@ export default {
             withCredentials: true
           });
           if (res.data.ok) {
-            this.$router.push("/signup/phone");
+            this.$router.push("/signup/verifyemail");
           } else {
             this.errors = [res.data.tip];
           }

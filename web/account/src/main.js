@@ -81,6 +81,7 @@ const router = new VueRouter({
         { path: '', component: () => import('./components/signup/CreateAccount') },
         { path: 'phone', component: () => import('./components/signup/Phone') },
         { path: 'verifyphone', component: () => import('./components/signup/VerifyPhone') },
+        { path: 'verifyemail', component: () => import('./components/signup/VerifyEmail') },
         { path: 'personaldetail', component: () => import('./components/signup/PersonalDetail') },
         { path: 'privacy', component: () => import('./components/signup/Privacy') },
         { path: 'sorry', component: () => import('./components/signup/Sorry') },
