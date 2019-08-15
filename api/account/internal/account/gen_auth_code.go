@@ -4,15 +4,18 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/hatlonely/account/internal/mail"
 	"github.com/hatlonely/account/internal/rule"
 	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
 type GenAuthCodeReqBody struct {
-	Type  string `json:"type"`
-	Email string `json:"email,omitempty"`
-	Phone string `json:"phone,omitempty"`
+	Type      string `json:"type"`
+	FirstName string `json:"firstName,omitempty"`
+	LastName  string `json:"lastName,omitempty"`
+	Email     string `json:"email,omitempty"`
+	Phone     string `json:"phone,omitempty"`
 }
 
 type GenAuthCodeResBody struct {
@@ -82,6 +85,8 @@ func (s *Service) checkGenAuthCodeReqBody(req *GenAuthCodeReqBody) error {
 		req.Type: {rule.Required, rule.In(map[interface{}]struct{}{
 			"email": {}, "phone": {},
 		})},
+		req.FirstName: {rule.Required, rule.AtMost32Characters},
+		req.LastName:  {rule.Required, rule.AtMost32Characters},
 	}); err != nil {
 		return err
 	}
@@ -101,12 +106,18 @@ func (s *Service) checkGenAuthCodeReqBody(req *GenAuthCodeReqBody) error {
 }
 
 func (s *Service) genAuthCode(req *GenAuthCodeReqBody) (*GenAuthCodeResBody, error) {
-	code := NewCode()
+	code, err := s.cache.GetAuthCode(req.Email)
+	if err != nil {
+		return nil, err
+	}
+	if code == "" {
+		code = NewCode()
+	}
 	if req.Type == "email" {
 		if err := s.cache.SetAuthCode(req.Email, code); err != nil {
 			return nil, err
 		}
-		if err := s.mc.Send(req.Email, "hatlonely 账号验证", code); err != nil {
+		if err := s.mc.Send(req.Email, "hatlonely 账号验证", mail.NewAuthCodeTpl(req.FirstName, req.LastName, code)); err != nil {
 			return nil, err
 		}
 	}

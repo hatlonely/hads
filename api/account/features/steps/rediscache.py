@@ -35,3 +35,10 @@ def step_impl(context, token):
     res = context.redis_client.get(token)
     print(res)
     assert_that(res, equal_to(None))
+
+
+@then('检查 rediscache.authcode, 存在记录 key: "{key:str}"')
+def step_impl(context, key):
+    res = context.redis_client.get("ac_" + key)
+    print(res)
+    assert_that(len(res) == 6)
