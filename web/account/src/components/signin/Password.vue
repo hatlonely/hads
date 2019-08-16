@@ -69,24 +69,19 @@ export default {
   methods: {
     async signin() {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         try {
-          const response = await axios.post(
-            this.$config.api + "/signin",
-            {
-              username: this.$store.state.signin.username,
-              password: this.$store.state.signin.password
-            },
-            {
-              withCredentials: true
-            }
-          );
-          if (response.data.valid) {
-            this.$router.push("/account");
-          } else {
+          const res = await this.$store.dispatch("signin/signIn");
+          if (!res.valid) {
             this.errors = ["密码错误"];
+            return;
           }
+          this.$router.push("/account");
         } catch (error) {
+          console.log(error);
           this.$router.push("/signin/sorry");
+        } finally {
+          this.loading = false;
         }
       }
     }
@@ -97,7 +92,7 @@ export default {
         return this.$store.state.signin.password;
       },
       set(password) {
-        this.$store.state.signin.password = password;
+        this.$store.commit("signin/setPassword", password);
       }
     },
     identicon() {

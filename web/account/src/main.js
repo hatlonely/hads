@@ -6,6 +6,7 @@ import VueCookies from 'vue-cookies';
 
 import vuetify from './plugins/vuetify';
 import config from './assets/js/config';
+import store from './store/index.js';
 
 import App from './App';
 
@@ -18,34 +19,34 @@ Vue.use(Vuex);
 Vue.use(VueCookies);
 Vue.use(VueConfig, config);
 
-const store = new Vuex.Store({
-  state: {
-    signup: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      phone: '',
-      code: '',
-      birthday: '',
-      gender: '',
-    },
-    signin: {
-      username: '',
-      password: ''
-    },
-    account: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      phone: '',
-      birthday: '',
-      gender: '',
-      isSignedIn: false
-    },
-  },
-});
+// const store = new Vuex.Store({
+//   state: {
+//     signup: {
+//       firstName: '',
+//       lastName: '',
+//       email: '',
+//       password: '',
+//       phone: '',
+//       code: '',
+//       birthday: '',
+//       gender: '',
+//     },
+//     signin: {
+//       username: '',
+//       password: ''
+//     },
+//     account: {
+//       firstName: '',
+//       lastName: '',
+//       email: '',
+//       password: '',
+//       phone: '',
+//       birthday: '',
+//       gender: '',
+//       isSignedIn: false
+//     },
+//   },
+// });
 
 const router = new VueRouter({
   mode: 'history',

@@ -8,7 +8,7 @@
           </v-layout>
         </v-flex>
         <v-flex my-4 xs12 lg12>
-          <h2>验证您的手机号码</h2>
+          <h2>验证您的邮箱</h2>
         </v-flex>
         <v-flex my-10>
           <p
@@ -77,21 +77,19 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         try {
-          const res = await axios.get(this.$config.api + "/verifyauthcode", {
-            params: {
-              type: "email",
-              email: this.$store.state.signup.email,
-              code: this.code
-            },
-            withCredentials: true
-          });
-          if (res.data.ok) {
-            this.$router.push("/signup/personaldetail");
-          } else {
-            this.errors = [res.data.tip];
+          const okTips1 = await this.$store.dispatch(
+            "signup/verifyAuthCode",
+            "email"
+          );
+          console.log(okTips1);
+          if (!okTips1.ok) {
+            this.errors = [okTips1.tip];
+            return;
           }
+          this.$router.push("/signup/personaldetail");
         } catch (error) {
-          this.errors = [error];
+          console.log(error);
+          this.$router.push("/signup/sorry");
         } finally {
           this.loading = false;
         }
@@ -104,7 +102,7 @@ export default {
         return this.$store.state.signup.code;
       },
       set(code) {
-        this.$store.state.signup.code = code;
+        this.$store.commit("signup/setCode", code);
       }
     }
   },

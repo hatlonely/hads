@@ -100,47 +100,25 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         try {
-          const res = await axios.get(this.$config.api + "/verify", {
-            params: {
-              field: "email",
-              value: this.email
-            },
-            withCredentials: true
-          });
-          if (!res.data.ok) {
-            this.errors = [res.data.tip];
-            this.loading = false;
+          const okTips1 = await this.$store.dispatch("signup/verify", "email");
+          if (!okTips1.ok) {
+            this.errors = [okTips1.tip];
             return;
           }
-        } catch (error) {
-          this.errors = [error];
-          this.loading = false;
-          return;
-        }
-      }
-
-      try {
-        const res = await axios.post(
-          this.$config.api + "/genauthcode",
-          {
-            type: "email",
-            email: this.$store.state.signup.email,
-            firstName: this.$store.state.signup.firstName,
-            lastName: this.$store.state.signup.lastName
-          },
-          {
-            withCredentials: true
+          const okTips2 = await this.$store.dispatch(
+            "signup/genAuthCode",
+            "email"
+          );
+          if (!okTips2.ok) {
+            this.errors = [okTips2.tip];
+            return;
           }
-        );
-        if (res.data.ok) {
           this.$router.push("/signup/verifyemail");
-        } else {
-          this.errors = [res.data.tip];
+        } catch (error) {
+          this.$router.push("/signup/sorry");
+        } finally {
+          this.loading = false;
         }
-      } catch (error) {
-        this.errors = [error];
-      } finally {
-        this.loading = false;
       }
     }
   },
@@ -150,7 +128,7 @@ export default {
         return this.$store.state.signup.email;
       },
       set(email) {
-        this.$store.state.signup.email = email;
+        this.$store.commit("signup/setEmail", email);
       }
     },
     firstName: {
@@ -158,7 +136,7 @@ export default {
         return this.$store.state.signup.firstName;
       },
       set(firstName) {
-        this.$store.state.signup.firstName = firstName;
+        this.$store.commit("signup/setFirstName", firstName);
       }
     },
     lastName: {
@@ -166,7 +144,7 @@ export default {
         return this.$store.state.signup.lastName;
       },
       set(lastName) {
-        this.$store.state.signup.lastName = lastName;
+        this.$store.commit("signup/setLastName", lastName);
       }
     },
     password: {
@@ -174,7 +152,7 @@ export default {
         return this.$store.state.signup.password;
       },
       set(password) {
-        this.$store.state.signup.password = password;
+        this.$store.commit("signup/setPassword", password);
       }
     }
   },

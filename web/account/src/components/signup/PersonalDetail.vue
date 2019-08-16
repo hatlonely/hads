@@ -127,7 +127,7 @@ export default {
         return this.$store.state.signup.birthday;
       },
       set(birthday) {
-        this.$store.state.signup.birthday = birthday;
+        this.$store.commit("signup/setBirthday", birthday);
       }
     },
     gender: {
@@ -135,7 +135,7 @@ export default {
         return this.$store.state.signup.gender;
       },
       set(gender) {
-        this.$store.state.signup.gender = gender;
+        this.$store.commit("signup/setGender", gender);
       }
     }
   },

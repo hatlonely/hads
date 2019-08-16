@@ -64,20 +64,17 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         try {
-          const res = await axios.get(this.$config.api + "/verify", {
-            params: {
-              field: "username",
-              value: this.username
-            },
-            withCredentials: true
-          });
-          if (res.data.ok) {
-            this.$router.push("/signin/password");
-          } else {
-            this.errors = [res.data.tip];
+          const okTips1 = await this.$store.dispatch(
+            "signin/verify",
+            "username"
+          );
+          if (!okTips1.ok) {
+            this.errors = [okTips1.tip];
+            return;
           }
+          this.$router.push("/signin/password");
         } catch (error) {
-          this.errors = [error];
+          this.$router.push("/signin/sorry");
         } finally {
           this.loading = false;
         }
@@ -90,7 +87,7 @@ export default {
         return this.$store.state.signin.username;
       },
       set(username) {
-        this.$store.state.signin.username = username;
+        this.$store.commit("signin/setUsername", username);
       }
     }
   },
