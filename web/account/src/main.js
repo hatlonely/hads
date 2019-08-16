@@ -6,7 +6,7 @@ import VueCookies from 'vue-cookies';
 
 import vuetify from './plugins/vuetify';
 import config from './assets/js/config';
-import store from './store/index.js';
+import store from './store';
 
 import App from './App';
 
