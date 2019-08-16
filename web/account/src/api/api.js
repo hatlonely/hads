@@ -76,5 +76,12 @@ export default {
             withCredentials: true
         });
         return res.data
+    },
+    async update(token, obj) {
+        const res = await axios.post(config.api + "/update",
+            { ...obj, token },
+            { withCredentials: true }
+        );
+        return res.data
     }
 }

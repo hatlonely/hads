@@ -19,35 +19,6 @@ Vue.use(Vuex);
 Vue.use(VueCookies);
 Vue.use(VueConfig, config);
 
-// const store = new Vuex.Store({
-//   state: {
-//     signup: {
-//       firstName: '',
-//       lastName: '',
-//       email: '',
-//       password: '',
-//       phone: '',
-//       code: '',
-//       birthday: '',
-//       gender: '',
-//     },
-//     signin: {
-//       username: '',
-//       password: ''
-//     },
-//     account: {
-//       firstName: '',
-//       lastName: '',
-//       email: '',
-//       password: '',
-//       phone: '',
-//       birthday: '',
-//       gender: '',
-//       isSignedIn: false
-//     },
-//   },
-// });
-
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,
