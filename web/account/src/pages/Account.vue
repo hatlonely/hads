@@ -33,22 +33,10 @@ export default {
     this.loading = true;
     if (this.$cookies.get("token")) {
       try {
-        const res = await axios.get(this.$config.api + "/getaccount", {
-          params: {
-            token: this.$cookies.get("token")
-          },
-          withCredentials: true
-        });
-        if (res.data.ok) {
-          const account = res.data.account;
-          this.$store.state.account.firstName = account.firstName;
-          this.$store.state.account.lastName = account.lastName;
-          this.$store.state.account.email = account.email;
-          this.$store.state.account.phone = account.phone;
-          this.$store.state.account.birthday = account.birthday;
-          this.$store.state.account.gender = account.gender;
-          this.$store.state.account.isSignedIn = true;
-        }
+        await this.$store.dispatch(
+          "account/getAccount",
+          this.$cookies.get("token")
+        );
       } catch (error) {
         console.log(error);
       }

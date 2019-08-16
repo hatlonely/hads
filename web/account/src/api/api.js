@@ -69,5 +69,12 @@ export default {
             email, phone, password, firstName, lastName, birthday, gender, code
         });
         return res.data
+    },
+    async getAccount(token) {
+        const res = await axios.get(config.api + "/getaccount", {
+            params: { token },
+            withCredentials: true
+        });
+        return res.data
     }
 }
