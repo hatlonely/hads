@@ -68,27 +68,21 @@ export default {
   methods: {
     async validate() {
       if (this.$refs.form.validate()) {
-        this.loading = true;
         try {
-          const res = await axios.post(
-            this.$config.api + "/update",
-            {
-              token: this.$cookies.get("token"),
-              field: "password",
-              password: this.password,
-              oldPassword: this.oldPassword
-            },
-            {
-              withCredentials: true
-            }
-          );
-          if (res.data.ok) {
-            this.$router.go(-1);
-          } else {
-            this.errors = [res.data.err];
+          const res = await this.$store.dispatch("account/update", {
+            token: this.$cookies.get("token"),
+            field: "password",
+            password: this.password,
+            oldPassword: this.oldPassword
+          });
+          if (!res.ok) {
+            this.errors = [res.err];
+            return;
           }
+          this.$router.go(-1);
         } catch (error) {
-          this.$router.push("sorry");
+          console.log(error);
+          this.$router.push("/signin/sorry");
         } finally {
           this.loading = false;
         }

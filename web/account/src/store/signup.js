@@ -43,6 +43,9 @@ const actions = {
         if (type == "email") {
             return api.verify("email", state.email)
         }
+        if (type == "phone") {
+            return api.verify("phone", state.phone)
+        }
     },
     genAuthCode({ state }, type) {
         if (type == "email") {

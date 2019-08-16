@@ -57,44 +57,29 @@ export default {
 
         this.loading = true;
         try {
-          const res = await axios.get(this.$config.api + "/vertify", {
-            params: {
-              field: "phone",
-              value: this.phone
-            },
-            withCredentials: true
+          const okTips = await this.$store.dispatch("account/verify", {
+            field: "phone",
+            phone: this.phone
           });
-          if (!res.data.ok) {
-            this.errors = [res.data.tip];
+          if (!okTips.ok) {
+            this.errors = [okTips.tip];
             return;
           }
-        } catch (error) {
-          this.errors = [error];
-          return;
-        } finally {
-          this.loading = false;
-        }
 
-        try {
-          const res = await axios.post(
-            this.$config.api + "/update",
-            {
-              token: this.$cookies.get("token"),
-              field: "phone",
-              phone: this.phone
-            },
-            {
-              withCredentials: true
-            }
-          );
-          if (res.data.ok) {
-            this.$store.state.account.phone = this.phone;
-            this.$router.go(-1);
-          } else {
-            this.errors = [res.data.err];
+          const res = await this.$store.dispatch("account/update", {
+            token: this.$cookies.get("token"),
+            field: "phone",
+            phone: this.phone
+          });
+          console.log(res);
+          if (!res.ok) {
+            this.errors = [res.err];
+            return;
           }
+          this.$router.go(-1);
         } catch (error) {
-          this.$router.push("sorry");
+          console.log(error);
+          this.$router.push("/signin/sorry");
         } finally {
           this.loading = false;
         }
