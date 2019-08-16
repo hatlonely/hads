@@ -55,12 +55,19 @@ const actions = {
             commit("setIsSignedIn", true)
         }
     },
-    async update({ commit }, { token, field, firstName, lastName }) {
+    async update({ commit }, { token, field, firstName, lastName, birthday }) {
         if (field == "name") {
             const res = await api.update(token, { field, firstName, lastName })
             if (res.ok) {
                 commit("setFirstName", firstName)
                 commit("setLastName", lastName)
+            }
+            return res
+        }
+        if (field == "birthday") {
+            const res = await api.update(token, { field, birthday })
+            if (res.ok) {
+                commit("setBirthday", birthday)
             }
             return res
         }
