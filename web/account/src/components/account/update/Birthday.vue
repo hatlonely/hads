@@ -87,7 +87,6 @@ export default {
             field: "birthday",
             birthday: this.birthday
           });
-          console.log(res);
           if (!res.ok) {
             this.errors = [res.err];
             return;
