@@ -71,7 +71,6 @@ export default {
             field: "phone",
             phone: this.phone
           });
-          console.log(res);
           if (!res.ok) {
             this.errors = [res.err];
             return;
