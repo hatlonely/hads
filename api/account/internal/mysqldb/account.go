@@ -4,10 +4,9 @@ import (
 	"fmt"
 	"github.com/hatlonely/account/internal/c"
 	"github.com/hatlonely/account/internal/rule"
+	"github.com/jinzhu/gorm"
 	"strings"
 	"time"
-
-	"github.com/jinzhu/gorm"
 )
 
 type Account struct {
