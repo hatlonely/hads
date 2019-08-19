@@ -23,9 +23,18 @@
               </v-card-text>
             </v-flex>
             <v-flex xs3 mt-6>
-              <v-avatar size="50">
-                <div v-html="identicon"></div>
+              <v-avatar v-if="this.imageUrl" size="40" @click="pickFile">
+                <v-img :src="this.imageUrl" max-width="40" max-height="40"></v-img>
               </v-avatar>
+              <div v-else v-html="identicon" @click="pickFile"></div>
+
+              <input
+                type="file"
+                style="display: none"
+                ref="image"
+                accept="image/*"
+                @change="onFilePicked"
+              />
             </v-flex>
           </v-layout>
 
@@ -99,6 +108,34 @@ const jdenticon = require("jdenticon");
 
 export default {
   methods: {
+    pickFile() {
+      this.$refs.image.click();
+    },
+    onFilePicked(e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.imageName = files[0].name;
+        console.log(this.imageName);
+        if (this.imageName.lastIndexOf(".") <= 0) {
+          return;
+        }
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.imageUrl = fr.result;
+          this.imageFile = files[0]; // this is an image file that can be sent to server...
+          console.log(this.imageUrl);
+          console.log(this.imageFile);
+        });
+      } else {
+        this.imageName = "";
+        this.imageFile = "";
+        this.imageUrl = "";
+      }
+      console.log(this.imageName);
+      console.log(this.imageUrl);
+      console.log(this.imageFile);
+    },
     formatBirthday(birthday) {
       if (!birthday) return null;
       const [year, month, day] = birthday.split("-");
@@ -114,9 +151,13 @@ export default {
   },
   computed: {
     identicon: function() {
-      return jdenticon.toSvg(this.$store.state.account.email, 50);
+      return jdenticon.toSvg(this.$store.state.account.email, 40);
     }
   },
-  data: () => ({})
+  data: () => ({
+    imageName: "",
+    imageUrl: "",
+    imageFile: ""
+  })
 };
 </script>
